@@ -1,0 +1,7 @@
+<div>
+  <app-logo></app-logo>
+  <app-title></app-title>
+  <app-user-preview></app-user-preview>
+  <app-sign-out *ngIf="true; else signIn"></app-sign-out>
+  <ng-template #signIn><app-sign-in></app-sign-in></ng-template>
+</div>
