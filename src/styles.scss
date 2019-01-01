@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./styles/variables/color.scss";
+
+@font-face {
+  font-family: "Roboto", sans-serif;
+  src: url("https://fonts.googleapis.com/css?family=Roboto");
+}
+
+*,
+*:before,
+*:after { 
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $main-bg;
+  margin: 0;
+}

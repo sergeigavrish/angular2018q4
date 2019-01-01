@@ -1,7 +1,11 @@
-<div>
-  <div>
-    <app-search-panel></app-search-panel>
-    <button>Add Course</button>
+<div class="home-layout">
+  <div class="home-layout__tools tools-panel">
+    <app-search-panel class="tools-panel__tool" placeholder="Search course"></app-search-panel>
+    <a class="tools-panel__tool add-course button" routerLink="/courses/new">
+      <i class="add-course__icon material-icons">add</i>
+      <p class="add-course__title">Create new Course</p>
+    </a>
   </div>
   <app-courses-list></app-courses-list>
+  <button class="home-layout__load-button button" (click)="loadMore()">Load more</button>
 </div>

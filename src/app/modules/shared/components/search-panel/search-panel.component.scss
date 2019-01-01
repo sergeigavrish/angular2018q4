@@ -1,0 +1,44 @@
+@import "../../../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/constants.scss";
+
+.search-form {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__input {
+    border: 0.1em solid $main-color;
+    border-radius: $border-radius;
+    outline: none;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    transition: .5s;
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    &:focus {
+      border-color: $second-color;
+      box-shadow: 0 0 0.2em $second-color;
+    }
+
+    &:focus + .search-form__button {
+      color: $second-color;
+      transition: .5s;
+    }
+
+  }
+
+  &__button {
+    position: absolute;
+    align-self: flex-end;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: $main-color;
+    -ms-transform: translate(320%, -110%);
+  }
+
+}

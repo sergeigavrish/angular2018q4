@@ -1,7 +1,15 @@
-<div>
-  <p>id: <span>{{course.id}}</span></p>
-  <p>title: <span>{{course.title}}</span></p>
-  <p>creationDate: <span>{{course.creationDate}}</span></p>
-  <p>duration: <span>{{course.duration}}</span></p>
-  <p>description: <span>{{course.description}}</span></p>
+<div class="course">
+  <div class="course__content" routerLink="/courses/{{course.id}}">
+    <img class="course__content__image" src="https://upload.wikimedia.org/wikipedia/en/f/fc/Walken-Cowbell.jpg" alt="course image">
+    <div class="course__content__info info">
+      <h2 class="info__title">{{course.title}}</h2>
+      <p class="info__date">creationDate: <span>{{course.creationDate.toDateString()}}</span></p>
+      <p class="info__duration">duration: <span>{{course.duration}}</span></p>
+      <p class="info__description">description: <span>{{course.description}}</span></p>
+    </div>
+  </div>
+  <div class="course__actions">
+    <button class="course__actions__button material-icons" (click)="onDeleteClick()">delete</button>
+    <button class="course__actions__button material-icons">edit</button>
+  </div>
 </div>

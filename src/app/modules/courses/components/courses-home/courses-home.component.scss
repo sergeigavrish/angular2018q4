@@ -1,0 +1,56 @@
+@import "../../../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/constants.scss";
+
+.home-layout {
+
+  display: flex;
+  flex-direction: column;
+  
+  &__tools-panel, .tools-panel {
+    display: flex;
+    justify-content: flex-end;
+
+    &__tool {
+      display: flex;
+      margin: 0 0.5rem;
+    }
+  
+  }
+  
+  &__load-button {
+    align-self: center;
+    margin: 1rem;
+    border: none;
+    padding: 1rem;
+    
+    &:focus {
+      outline: 0;
+    }
+
+  }
+
+}
+
+button, .add-course {
+
+  text-decoration: none;
+  border-radius: $border-radius;
+  background: $buttons-bg;
+  color: $elements-bg;
+  padding: 0 0.5rem;
+  transition: .5s;
+
+  &:hover {
+    box-shadow: 0 0.2rem 0.5rem 0 rgba($color: $main-color, $alpha: 0.25);
+  }
+
+  &__icon {
+    align-self: center;
+  }
+
+  &__title {
+    margin: 0;
+    align-self: center;
+  }
+
+}
