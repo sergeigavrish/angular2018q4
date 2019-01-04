@@ -3,13 +3,12 @@
 .breadcrumps-list {
 
   list-style: none;
-  padding: 0;
-  margin: 0 0 0 1.5rem;
+  margin: 0 0 0 20px;
   padding: 10px 0;
 
   &__element {
     display: inline;
-    padding: 0 1.4em 0 0;
+    padding: 0 20px 0 0;
   }
 
   &__link {

@@ -4,7 +4,8 @@
 .course {
 
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
   background-color: $elements-bg;
   border-radius: $border-radius;
   box-shadow: 0 20px 40px -14px rgba($color: $main-color, $alpha: 0.25);
@@ -15,22 +16,25 @@
 
     &__image {
       height: auto;
-      max-width: 100%;
+      width: 100%;
       border-top-left-radius: $border-radius;
       border-top-right-radius: $border-radius;
       filter: contrast(70%);
       transition: $transition;
     }
 
-    &__info, .info {
+    &__info {
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
-      padding: 1rem;
+      padding: 10px;
+    }
+
+    .info {
 
       &__title {
         color: $main-color;
-        font-size: 1em;
+        font-size: 16px;
         font-weight: 300;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -63,11 +67,11 @@
 
   &__actions {
     position: absolute;
-    -ms-transform: translate(930%, -740%);
+    -ms-transform: translateX(570%);
     align-self: flex-end;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 5px;
     visibility: hidden;
 
     &__button {

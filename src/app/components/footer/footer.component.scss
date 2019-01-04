@@ -5,10 +5,10 @@
   display: flex;
   justify-content: space-between;
   background-color: $elements-bg;
-  box-shadow: 0 0 0.1em rgba($color: $main-color, $alpha: 0.25);
+  box-shadow: 0 0 5px rgba($color: $main-color, $alpha: 0.25);
 
   &__content {
-      margin-left: 1rem;
+      margin-left: 10px;
   }
 
 }
