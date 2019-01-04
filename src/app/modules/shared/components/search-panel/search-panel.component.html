@@ -1,4 +1,10 @@
-<form class="search-form">
-  <input #input class="search-form__input" type="text" [placeholder]="placeholder" [value]="inputValue | async" (input)="setInputValue($event)">
+<div class="search-form">
+  <input 
+    #input
+    class="search-form__input"
+    type="text"
+    [placeholder]="placeholder"
+    [value]="inputValue | async"
+    (input)="setInputValue($event)">
   <button class="search-form__button material-icons" (click)="search($event, input)">search</button>
-</form>
+</div>

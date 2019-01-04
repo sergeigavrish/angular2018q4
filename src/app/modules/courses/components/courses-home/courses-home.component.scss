@@ -5,52 +5,65 @@
 
   display: flex;
   flex-direction: column;
+  height: 100%;
   
-  &__tools-panel, .tools-panel {
+  &__tools {
     display: flex;
     justify-content: flex-end;
-
+  }
+  
+  
+  .tools-panel {
+    
     &__tool {
       display: flex;
-      margin: 0 0.5rem;
+      margin: 0 5px;
     }
+    
+  }
   
+  .add-course {
+    text-decoration: none;
+    
+    &__icon {
+      align-self: center;
+    }
+    
+    &__title {
+      margin: 0;
+      align-self: center;
+    }
+    
   }
   
   &__load-button {
     align-self: center;
-    margin: 1rem;
+    margin: 10px;
+    margin-top: auto;
     border: none;
-    padding: 1rem;
+    padding: 10px;
     
     &:focus {
       outline: 0;
     }
-
+  
   }
 
 }
 
 button, .add-course {
-
-  text-decoration: none;
   border-radius: $border-radius;
-  background: $buttons-bg;
+  background: $button-bg;
   color: $elements-bg;
-  padding: 0 0.5rem;
-  transition: .5s;
-
+  padding: 0 5px;
+  transition: $transition;
+  
   &:hover {
-    box-shadow: 0 0.2rem 0.5rem 0 rgba($color: $main-color, $alpha: 0.25);
+    box-shadow: 0 5px 10px 0 rgba($color: $main-color, $alpha: 0.25);
   }
 
-  &__icon {
-    align-self: center;
+  &:active {
+    background-color: $button-focused;
   }
-
-  &__title {
-    margin: 0;
-    align-self: center;
-  }
-
+  
 }

@@ -5,10 +5,16 @@
   src: url("https://fonts.googleapis.com/css?family=Roboto");
 }
 
-*,
-*:before,
-*:after { 
+html {
   box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {

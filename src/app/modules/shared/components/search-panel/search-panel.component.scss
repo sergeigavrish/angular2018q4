@@ -4,16 +4,15 @@
 .search-form {
 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
 
   &__input {
-    border: 0.1em solid $main-color;
+    border: 2px solid $main-color;
     border-radius: $border-radius;
     outline: none;
-    padding: 0.5rem;
+    padding: 5px;
     box-sizing: border-box;
-    transition: .5s;
+    transition: $transition;
 
     &::-ms-clear {
       display: none;
@@ -21,24 +20,30 @@
 
     &:focus {
       border-color: $second-color;
-      box-shadow: 0 0 0.2em $second-color;
-    }
-
-    &:focus + .search-form__button {
-      color: $second-color;
-      transition: .5s;
+      box-shadow: 0 0 5px $second-color;
     }
 
   }
 
   &__button {
-    position: absolute;
-    align-self: flex-end;
-    background: transparent;
+    align-self: center;
+    height: 100%;
     border: none;
+    border-radius: $border-radius;
     outline: none;
-    color: $main-color;
-    -ms-transform: translate(320%, -110%);
+    color: $elements-bg;
+    background-color: $button-bg;
+    margin: 0 5px;
+    transition: $transition;
+
+    &:hover {
+      box-shadow: 0 5px 10px 0 rgba($color: $main-color, $alpha: 0.25);
+    }
+
+    &:active {
+      background-color: $button-focused;      
+    }
+    
   }
 
 }

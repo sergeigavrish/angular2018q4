@@ -5,43 +5,50 @@
   display: flex;
   justify-content: space-between;
   background-color: $elements-bg;
-  box-shadow: 0 0 0.1em rgba($color: $main-color, $alpha: 0.25);
+  box-shadow: 0 0 5px rgba($color: $main-color, $alpha: 0.25);
 
-  &__logo, .logo {
+  &__logo {
     display: inherit;
     cursor: pointer;
+  }
+  
+  .logo {
 
     &__image {
-      margin: 0 1rem;
-      max-height: 50px;
+      margin: 0 10px;
+      height: 50px;
+      width: 50px;
       align-self: center;
     }
-
+  
     &__title {
       color: $title-color;
       text-transform: uppercase;
     }
-
+  
     &:focus {
       outline: 0;
     }
 
   }
 
-  &__menu, .menu {
+  &__menu,  {
     display: inherit;
     align-self: center;
     justify-content: space-around;
+  }
+  
+  .menu {
 
     &__list {
       list-style: none;
       padding: 0;
-
+  
       &__item {
         display: inline;
-        padding: 0 1rem;
+        padding: 0 10px;
       }
-
+    
     }
 
     &__link {
