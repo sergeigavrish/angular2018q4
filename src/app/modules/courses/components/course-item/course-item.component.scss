@@ -4,16 +4,11 @@
 .course {
 
   position: relative;
-  //display: flex;
-  //flex-direction: column-reverse;
-  //justify-content: flex-end;
   background-color: $elements-bg;
   border-radius: $border-radius;
   box-shadow: 0 20px 40px -14px rgba($color: $main-color, $alpha: 0.25);
 
   &__content {
-    //display: flex;
-    //flex-direction: column;
 
     &__image {
       height: auto;
@@ -70,10 +65,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    //-ms-transform: translateX(570%);
-    //align-self: flex-end;
-    //display: flex;
-    //flex-direction: column;
     padding: 5px;
     visibility: hidden;
 

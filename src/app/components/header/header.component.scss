@@ -8,7 +8,7 @@
   box-shadow: 0 0 5px rgba($color: $main-color, $alpha: 0.25);
 
   &__logo {
-    display: inherit;
+    display: flex;
     cursor: pointer;
   }
   
@@ -33,7 +33,7 @@
   }
 
   &__menu,  {
-    display: inherit;
+    display: flex;
     align-self: center;
     justify-content: space-around;
   }
