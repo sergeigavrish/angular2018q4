@@ -21,7 +21,7 @@ export class SearchPanelComponent implements OnInit {
     if (!this.inputValue.getValue()) {
       return inputElement.focus();
     }
-    console.log(this.inputValue.getValue());
+    console.log("search", this.inputValue.getValue());
   }
 
   setInputValue(event): void {
