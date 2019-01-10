@@ -1,0 +1,72 @@
+@import "../../../styles/variables/color.scss";
+
+.header {
+
+  display: flex;
+  justify-content: space-between;
+  background-color: $elements-bg;
+  box-shadow: 0 0 5px rgba($color: $main-color, $alpha: 0.25);
+
+  &__logo {
+    display: flex;
+    cursor: pointer;
+  }
+  
+  .logo {
+
+    &__image {
+      margin: 0 10px;
+      height: 50px;
+      width: 50px;
+      align-self: center;
+    }
+  
+    &__title {
+      color: $title-color;
+      text-transform: uppercase;
+    }
+  
+    &:focus {
+      outline: 0;
+    }
+
+  }
+
+  &__menu,  {
+    display: flex;
+    align-self: center;
+    justify-content: space-around;
+  }
+  
+  .menu {
+
+    &__list {
+      list-style: none;
+      padding: 0;
+  
+      &__item {
+        display: inline;
+        padding: 0 10px;
+      }
+    
+    }
+
+    &__link {
+      text-decoration: none;
+      color: $main-color;
+
+      &.active {
+        color: $active-link-color;
+        border-bottom: 2px solid $active-link-color;
+        font-weight: 300;
+      }
+
+      &:hover {
+        color: $second-color;
+      }
+
+    }
+
+  }
+
+}

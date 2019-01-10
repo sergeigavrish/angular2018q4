@@ -1,0 +1,19 @@
+@import "../../../styles/variables/color.scss";
+
+.breadcrumps-list {
+
+  list-style: none;
+  margin: 0 0 0 20px;
+  padding: 10px 0;
+
+  &__element {
+    display: inline;
+    padding: 0 20px 0 0;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $second-color;
+  }
+
+}

@@ -12,4 +12,8 @@ export class CoursesHomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  loadMore(): void {
+    console.log("loadMore");
+  }
+
 }

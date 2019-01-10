@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { CoursesHomeComponent } from "./components/courses-home/courses-home.component";
-import { CourseItemComponent } from "./components/course-item/course-item.component";
 
 const routes: Routes = [
   {
@@ -9,9 +8,13 @@ const routes: Routes = [
     component: CoursesHomeComponent,
   },
   {
+    path: "new",
+    component: CoursesHomeComponent,
+  },
+  {
     path: ":id",
-    component: CourseItemComponent,
-  }
+    component: CoursesHomeComponent,
+  },
 ];
 
 @NgModule({

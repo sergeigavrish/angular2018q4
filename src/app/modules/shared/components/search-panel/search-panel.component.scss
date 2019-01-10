@@ -1,0 +1,49 @@
+@import "../../../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/constants.scss";
+
+.search-form {
+
+  display: flex;
+  justify-content: space-around;
+
+  &__input {
+    border: 2px solid $main-color;
+    border-radius: $border-radius;
+    outline: none;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: $transition;
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    &:focus {
+      border-color: $second-color;
+      box-shadow: 0 0 5px $second-color;
+    }
+
+  }
+
+  &__button {
+    align-self: center;
+    height: 100%;
+    border: none;
+    border-radius: $border-radius;
+    outline: none;
+    color: $elements-bg;
+    background-color: $button-bg;
+    margin: 0 5px;
+    transition: $transition;
+
+    &:hover {
+      box-shadow: 0 5px 10px 0 rgba($color: $main-color, $alpha: 0.25);
+    }
+
+    &:active {
+      background-color: $button-focused;      
+    }
+    
+  }
+
+}

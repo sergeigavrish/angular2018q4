@@ -1,0 +1,87 @@
+@import "../../../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/constants.scss";
+
+.course {
+
+  position: relative;
+  background-color: $elements-bg;
+  border-radius: $border-radius;
+  box-shadow: 0 20px 40px -14px rgba($color: $main-color, $alpha: 0.25);
+
+  &__content {
+
+    &__image {
+      height: auto;
+      width: 100%;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      filter: contrast(70%);
+      transition: $transition;
+    }
+
+    &__info {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .info {
+
+      &__title {
+        color: $main-color;
+        font-size: 16px;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+  }
+
+  &:hover {
+
+    .course__content {
+
+      &__image {
+        filter: contrast(100%);
+      }
+
+    }
+
+    .course__actions {
+      visibility: visible;
+    }
+
+  }
+
+  &__actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    visibility: hidden;
+
+    &__button {
+      display: block;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $main-color;
+      transition: $transition;
+
+      &:hover {
+        color: $second-color;
+      }
+
+    }
+
+  }
+
+}
