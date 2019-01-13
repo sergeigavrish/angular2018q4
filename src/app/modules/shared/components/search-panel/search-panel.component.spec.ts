@@ -55,10 +55,11 @@ describe("SearchPanelComponent", () => {
   });
 
   it("should call search and log inputValue value", () => {
-    const search = spyOn(component, "search");
+    const search = spyOn(component, "search").and.callThrough();
     input.nativeElement.value = "hello 2";
     const event = { target: input.nativeElement };
     input.triggerEventHandler("input", event);
+    button.triggerEventHandler("click", new Event("click"));
     expect(search).toHaveBeenCalled();
     expect(component.inputValue.getValue()).toEqual(input.nativeElement.value);
   });
