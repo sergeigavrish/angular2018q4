@@ -37,16 +37,13 @@ describe("SearchPanelComponent", () => {
     expect(input.nativeElement.placeholder).toEqual(component.placeholder);
   });
 
-  it("should call setInputValue", async () => {
-    const setInputValue = spyOn(component, "setInputValue");
+  it("should call setInputValue", () => {
+    const setInputValue = spyOn(component, "setInputValue").and.callThrough();
     input.nativeElement.value = "hello";
     const event = { target: input.nativeElement };
     input.triggerEventHandler("input", event);
-    fixture.whenStable().then(() => {
-      flush();
-      expect(setInputValue).toHaveBeenCalled();
-      expect(component.inputValue.getValue()).toEqual(input.nativeElement.value);
-    });
+    expect(setInputValue).toHaveBeenCalled();
+    expect(component.inputValue.getValue()).toEqual(input.nativeElement.value);
   });
 
   it("should call search and focus input element", () => {
