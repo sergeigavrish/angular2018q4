@@ -10,6 +10,7 @@ import { CoursesRoutingModule } from "./courses-routing.module";
 import { DurationPipe } from "./pipes/duration.pipe";
 import { FilterPipe } from "./pipes/filter.pipe";
 import { SharedModule } from "../shared/shared.module";
+import { OrderByPipe } from "./pipes/order-by.pipe";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SharedModule } from "../shared/shared.module";
     BorderColorDirective,
     DurationPipe,
     FilterPipe,
+    OrderByPipe,
   ],
   imports: [
     CommonModule,
