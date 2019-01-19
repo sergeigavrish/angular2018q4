@@ -1,8 +1,11 @@
-<div class="list">
-  <app-course-item
-    *ngFor="let course of courses"
-    class="list__item"
-    [course]="course"
-    (delete)="onDelete($event)">
-  </app-course-item>
+<div *ngIf="(courses$ | async) as courses" class="list">
+  <div *ngIf="!courses.length; else coursesList" class="list__fallout">
+    <p>
+      No data. Feel free to add a new course.
+    </p>
+  </div>
+  <ng-template #coursesList>
+    <app-course-item *ngFor="let course of courses" class="list__item" [course]="course" (delete)="onDelete($event)">
+    </app-course-item>
+  </ng-template>
 </div>

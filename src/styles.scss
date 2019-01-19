@@ -10,6 +10,8 @@ html {
 }
 
 html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 
@@ -18,6 +20,5 @@ html, body {
 }
 
 body {
-  background-color: $main-bg;
-  margin: 0;
+  background-color: $main-color-1;
 }

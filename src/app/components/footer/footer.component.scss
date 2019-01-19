@@ -4,8 +4,8 @@
 
   display: flex;
   justify-content: space-between;
-  background-color: $elements-bg;
-  box-shadow: 0 0 5px rgba($color: $main-color, $alpha: 0.25);
+  background-color: $main-color-2;
+  box-shadow: 0 0 5px rgba($color: $main-color-3, $alpha: 0.25);
 
   &__content {
       margin-left: 10px;
