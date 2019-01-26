@@ -1,3 +1,4 @@
+import { SearchService } from './../../../courses/services/search.service';
 import { async, ComponentFixture, TestBed, flush, fakeAsync } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
@@ -14,6 +15,9 @@ describe("SearchPanelComponent", () => {
     TestBed.configureTestingModule({
       declarations: [
         SearchPanelComponent
+      ],
+      providers: [
+        SearchService
       ]
     })
       .compileComponents();
@@ -52,7 +56,7 @@ describe("SearchPanelComponent", () => {
   });
 
   it("should call search and log inputValue value", () => {
-    const search = spyOn(component, "search").and.callThrough();
+    const search = spyOn(component, "onSearchClick").and.callThrough();
     input.nativeElement.value = "hello 2";
     const event = { target: input.nativeElement };
     input.triggerEventHandler("input", event);

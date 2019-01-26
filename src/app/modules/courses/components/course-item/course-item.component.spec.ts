@@ -1,16 +1,18 @@
-import { By } from "@angular/platform-browser";
-import { Course } from "./../../models/interfaces/course.interface";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA, DebugElement, Component } from "@angular/core";
+import { By } from "@angular/platform-browser";
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from "@angular/core";
 
+import { Course } from "./../../models/interfaces/course.interface";
 import { CourseEntity } from "./../../models/entity/course.entity";
 import { CourseItemComponent } from "./course-item.component";
+import { DurationPipe } from "./../../pipes/duration.pipe";
+
 
 describe("Test CourseItemComponent as a class", () => {
   it("should raises the delete event when clicked", () => {
     const component = new CourseItemComponent();
     // tslint:disable-next-line:max-line-length
-    const course: Course = new CourseEntity("1", "Learn how u can use moar cowbell 1", new Date(), 1, "Guess what? You got a fever. And the only prescription is moar cowbell");
+    const course: Course = new CourseEntity("1", "Learn how u can use moar cowbell 1", new Date(), 1, "Guess what? You got a fever. And the only prescription is moar cowbell", true);
     component.course = course;
     component.delete.subscribe((selectedCourse: Course) => expect(selectedCourse).toBe(course));
     component.onDeleteClick();
@@ -26,7 +28,8 @@ describe("CourseItemComponent stand alone testing", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CourseItemComponent
+        CourseItemComponent,
+        DurationPipe
       ],
       schemas: [
         NO_ERRORS_SCHEMA
@@ -40,7 +43,7 @@ describe("CourseItemComponent stand alone testing", () => {
     component = fixture.componentInstance;
     deleteButtonDebugElement = fixture.debugElement.query(By.css(".delete"));
     // tslint:disable-next-line:max-line-length
-    course = new CourseEntity("1", "Learn how u can use moar cowbell 1", new Date(), 1, "Guess what? You got a fever. And the only prescription is moar cowbell");
+    course = new CourseEntity("1", "Learn how u can use moar cowbell 1", new Date(), 1, "Guess what? You got a fever. And the only prescription is moar cowbell", true);
     component.course = course;
     fixture.detectChanges();
   });
@@ -70,7 +73,7 @@ describe("CourseItemComponent stand alone testing", () => {
 })
 class TestHostComponent {
   // tslint:disable-next-line:max-line-length
-  course = new CourseEntity("1", "Learn how u can use moar cowbell 1", new Date(), 1, "Guess what? You got a fever. And the only prescription is moar cowbell");
+  course = new CourseEntity("1", "Learn how u can use moar cowbell 1", new Date(), 1, "Guess what? You got a fever. And the only prescription is moar cowbell", true);
   courseToDelete: Course;
   onDelete(course: Course) { this.courseToDelete = course; }
 }
@@ -84,7 +87,8 @@ describe("CourseItemComponent test host testing", () => {
     TestBed.configureTestingModule({
       declarations: [
         TestHostComponent,
-        CourseItemComponent
+        CourseItemComponent,
+        DurationPipe
       ],
       schemas: [
         NO_ERRORS_SCHEMA
