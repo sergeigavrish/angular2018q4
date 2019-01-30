@@ -8,12 +8,12 @@
   </div>
   <nav class="header__menu menu">
     <ul class="menu__list">
-      <li class="menu__list__item">
+      <li class="menu__list__item" *ngIf="isAuthenticated">
         <a
           class="menu__link"
           routerLink="/user"
           routerLinkActive="active">
-          User login
+          {{login}}
         </a>
       </li>
       <li class="menu__list__item">
@@ -27,8 +27,7 @@
       <li class="menu__list__item">
         <a
           class="menu__link"
-          routerLink="/sign-out"
-          routerLinkActive="active">
+          (click)="onLogOut($event)">
           sign-out
         </a>
       </li>

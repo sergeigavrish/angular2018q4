@@ -1,3 +1,4 @@
+import { CoursesService } from "./services/courses.service";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
@@ -11,6 +12,7 @@ import { DurationPipe } from "./pipes/duration.pipe";
 import { FilterPipe } from "./pipes/filter.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { OrderByPipe } from "./pipes/order-by.pipe";
+import { StorageProvider } from "./providers/storage.provider";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { OrderByPipe } from "./pipes/order-by.pipe";
     SharedModule
   ],
   providers: [
-    borderColorProvider
+    borderColorProvider,
+    CoursesService,
+    StorageProvider
   ]
 })
 export class CoursesModule { }
