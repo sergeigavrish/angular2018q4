@@ -7,7 +7,8 @@ export class CourseEntity implements Course {
         public creationDate: Date,
         public duration: number,
         public description: string,
-        public topRated: boolean
+        public topRated: boolean,
+        public image: string
     ) { }
 
     isCourse(): boolean {

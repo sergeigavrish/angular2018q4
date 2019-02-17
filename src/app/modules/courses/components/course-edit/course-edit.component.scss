@@ -1,0 +1,87 @@
+@import "../../../../../styles/variables/color.scss";
+
+%placeholder {
+	top: 0;
+	cursor: inherit;
+	font-size: 14px;
+	color: $main-color-4;
+}
+
+.container {
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .form {
+    &__input {
+      margin: 10px 0;
+      
+      label {
+        position: relative;
+        display: block;
+        min-height: 45px;
+        
+        textarea {
+          resize: none;
+          min-height: 50px;
+        }
+      }
+      
+      .description {
+      min-height: 80px;
+      }
+
+      .input {
+        position: absolute;
+        top: 15px;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid $main-color-3;
+
+        &[type="date"] {
+          padding-left: 40px;
+        }
+
+        &[type="date"]:focus,
+        &[type="date"]:valid {
+          padding-left: 5px;
+        }
+
+        &:focus,
+        &:valid {
+          box-shadow: none;
+          border-color: $main-color-4;
+        }
+
+        &:focus + .form__input__placeholder {
+          @extend %placeholder;
+        }
+        &:valid + .form__input__placeholder {
+          @extend %placeholder;
+        }
+      }
+
+      &__placeholder {
+        position: absolute;
+        display: block;
+        top: 20px;
+        left: 5px;
+        z-index: 1;
+        font-size: 16px;
+        transition: all 200ms ease-in-out;
+        width: 100%;
+        cursor: text;
+      }
+    }
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    .invalid {
+        background-color: $main-color-3;
+    }
+  }
+}

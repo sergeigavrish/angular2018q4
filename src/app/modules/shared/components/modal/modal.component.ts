@@ -1,15 +1,14 @@
 import {
   AfterViewInit,
   Component,
-  ComponentFactoryResolver,
   HostListener,
-  Input,
   OnInit,
   ViewChild,
   ElementRef,
-  OnDestroy,
-  Type
 } from "@angular/core";
+
+import { Observable } from "rxjs";
+import { filter } from "rxjs/operators";
 
 import { ModalDirective } from "../../directives/modal.directive";
 import { ModalService } from "../../services/modal.service";
@@ -19,43 +18,45 @@ import { ModalService } from "../../services/modal.service";
   templateUrl: "./modal.component.html",
   styleUrls: ["./modal.component.scss"]
 })
-export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  @Input() component: Type<any>;
-  @Input() data?: Object;
+export class ModalComponent implements OnInit, AfterViewInit {
 
   @ViewChild("overlay") overlay: ElementRef;
   @ViewChild(ModalDirective) appModal: ModalDirective;
 
+  isOpened$: Observable<boolean>;
+
   @HostListener("click", ["$event"]) clicked(event: MouseEvent) {
     if (this.overlay.nativeElement === event.target) {
-      this.modalService.close();
+      this.appModal.dettach();
     }
   }
 
   constructor(
     private modalService: ModalService,
-    private componentFactoryResolver: ComponentFactoryResolver
   ) { }
 
   ngOnInit() {
+    this.isOpened$ = this.modalService.getIsOpened();
   }
 
   ngAfterViewInit() {
-    this.loadComponent();
+    this.modalService
+      .getComponent()
+      .pipe(
+        filter(component => !!component)
+      )
+      .subscribe(component => {
+        this.appModal.loadComponent(component, this.modalService.getData());
+      });
   }
 
-  ngOnDestroy() {
-    this.appModal.viewContainerRef.detach();
+  getTitle() {
+    return this.modalService.getTitle();
   }
 
-  private loadComponent(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);
-    const viewContainerRef = this.appModal.viewContainerRef;
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    if (this.data) {
-      Object.keys(this.data).map(key => (<Component>componentRef.instance)[key] = this.data[key]);
-    }
+  onClose() {
+    this.appModal.dettach();
+    this.modalService.close();
   }
 
 }

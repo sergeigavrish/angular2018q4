@@ -2,36 +2,54 @@
 @import "../../../../../styles/variables/constants.scss";
 
 .course {
-  position: relative;
   background-color: $main-color-2;
   border-radius: $border-radius;
   overflow: hidden;
 
-  &__content {
+  figure {
+    margin: 0;
+  }
 
-    &__image {
-      height: auto;
-      width: 100%;
-/*      border-top-left-radius: $border-radius;
-      border-top-right-radius: $border-radius;*/
-      filter: contrast(70%);
-      transition: $transition;
-    }
+  figcaption {
+    margin: 0;
+    display: block;
+  }
+
+  &__image {
+    height: auto;
+    width: 100%;
+    filter: contrast(70%);
+    transition: $transition;
+  }
+
+  &__content {
+    position: relative;
 
     &__info {
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
-      padding: 10px;
+      padding: 15px;
     }
 
-    .info {
+    &__info .info {
       &__title {
         color: $main-color-3;
         font-size: 16px;
         font-weight: 300;
         letter-spacing: 2px;
+        line-height: 20px;
+        margin: 0;
+        height: 70px;
         text-align: center;
+        padding: 0 10px;
+      }
+
+      &__description {
+        span::before {
+          content: "•";
+          padding: 0 5px;
+        }
       }
 
     }
@@ -43,13 +61,8 @@
   }
 
   &:hover {
-
-    .course__content {
-
-      &__image {
-        filter: contrast(100%);
-      }
-
+    .course__image {
+      filter: contrast(100%);
     }
 
     .course__actions {
@@ -64,19 +77,6 @@
     right: 0;
     padding: 5px;
     visibility: hidden;
-
-    &__button {
-      display: block;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: $main-color-3;
-      transition: $transition;
-
-      &:hover {
-        color: $main-color-4;
-      }
-    }
   }
 
   &__top-rated {
@@ -94,42 +94,9 @@
 .new {
   box-shadow: none;
   border: 3px solid $new-course-color-2;
-  /*box-shadow: none;
-
-  &::before {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: -5px;
-    bottom: -5px;
-    z-index: -1;
-    border-radius: 10px;
-    content: "";
-    background: linear-gradient(
-      rgba($color: $new-course-color-1, $alpha: 0.3),
-      rgba($color: $new-course-color-2, $alpha: 0.6)
-    );
-  }*/
 }
 
 .upcoming {
   box-shadow: none;
   border: 2px solid $upcoming-course-color-2;
-
-  /*box-shadow: none;
-
-  &::before {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: -5px;
-    bottom: -5px;
-    z-index: -1;
-    border-radius: 10px;
-    content: "";
-    background: linear-gradient(
-      rgba($color: $upcoming-course-color-1, $alpha: 0.3),
-      rgba($color: $upcoming-course-color-2, $alpha: 0.6)
-    );
-  }*/
 }

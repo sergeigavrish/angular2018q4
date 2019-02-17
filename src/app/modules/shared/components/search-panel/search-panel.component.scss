@@ -8,21 +8,6 @@
 
   &__input {
     border: 2px solid $main-color-3;
-    border-radius: $border-radius;
-    outline: none;
-    padding: 5px;
-    box-sizing: border-box;
-    transition: $transition;
-
-    &::-ms-clear {
-      display: none;
-    }
-
-    &:focus {
-      border-color: $main-color-4;
-      box-shadow: 0 0 5px $main-color-4;
-    }
-
   }
 
   &__button {

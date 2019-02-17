@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 import { CourseDeleteService } from "./../../../courses/services/course-delete.service";
+import { ModalService } from "../../../shared/services/modal.service";
 
 @Component({
   selector: "app-course-delete",
@@ -9,15 +10,24 @@ import { CourseDeleteService } from "./../../../courses/services/course-delete.s
 })
 export class CourseDeleteComponent implements OnInit {
 
+  @Input() title: string;
+  @Input() id: string;
+
   constructor(
     private courseDeleteService: CourseDeleteService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
   }
 
-  onClick(value: boolean): void {
-    this.courseDeleteService.setIsConfirmed(value);
+  onCancel(): void {
+    this.modalService.close();
+  }
+
+  onConfirm() {
+    this.courseDeleteService.delete(this.id);
+    this.modalService.close();
   }
 
 }

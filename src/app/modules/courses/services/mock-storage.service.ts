@@ -32,14 +32,13 @@ export class MockStorageService implements Storage<Course> {
     );
   }
 
-  load(id?: string): Observable<Course[] | Course | boolean> {
+  load(id?: string): Observable<Course[] | Course> {
     return iif(
       () => !!id,
       this.loadCourseById(id),
       this.loadCourses(),
     ).pipe(
-      tap(console.log),
-      map((result: Course | Course[]) => result ? result : false)
+      tap(console.log)
     );
   }
 
@@ -59,16 +58,14 @@ export class MockStorageService implements Storage<Course> {
     if (!newCourse.isCourse()) {
       return of(false);
     }
-    return this.courses.asObservable().pipe(
-      map(courses => {
-        const index: number = courses.findIndex(course => course.id === id);
-        if (index === -1) {
-          return false;
-        }
-        courses[index] = newCourse;
-        return !!courses[index];
-      })
-    );
+    const courses = this.courses.getValue();
+    const courseId = courses.findIndex(el => el.id === id);
+    this.courses.next([
+      ...courses.slice(0, courseId),
+      { ...newCourse },
+      ...courses.slice(courseId + 1),
+    ]);
+    return of(true);
   }
 
   delete(id: string): Observable<boolean> {

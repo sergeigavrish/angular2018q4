@@ -1,24 +1,22 @@
-import { CourseDeleteComponent } from "./components/course-delete/course-delete.component";
+import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
-import { ModalComponent } from "./components/modal/modal.component";
 import { ModalDirective } from "./directives/modal.directive";
-import { SearchPanelComponent } from "./components/search-panel/search-panel.component";
 import { SearchService } from "./../courses/services/search.service";
+import { ModalComponent, SearchPanelComponent } from "./components";
 
 @NgModule({
   declarations: [
     SearchPanelComponent,
     ModalDirective,
     ModalComponent,
-    CourseDeleteComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers: [SearchService],
-  entryComponents: [ModalComponent, CourseDeleteComponent],
-  exports: [SearchPanelComponent]
+  exports: [SearchPanelComponent, ModalComponent, FormsModule]
 })
 export class SharedModule { }

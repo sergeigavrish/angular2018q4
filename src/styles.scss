@@ -1,4 +1,5 @@
 @import "./styles/variables/color.scss";
+@import "./styles/variables/constants.scss";
 
 @font-face {
   font-family: "Roboto", sans-serif;
@@ -21,4 +22,69 @@ html, body {
 
 body {
   background-color: $main-color-1;
+}
+
+body.modal-opened {
+  overflow: hidden;
+}
+
+.button {
+  display: block;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  color: $main-color-3;
+  transition: $transition;
+
+  &:hover {
+    color: $main-color-4;
+  }
+
+  &.cancel:hover {
+    color: $button-color-cancel;
+  }
+}
+
+.modal-actions {
+  &__button {
+    padding: 5px 10px;
+    align-self: center;
+    height: 100%;
+    border: none;
+    border-radius: $border-radius;
+    outline: none;
+    color: $main-color-2;
+    margin: 0 5px;
+    transition: $transition;
+    &.confirm {
+      background-color: $button-color;
+    }
+    &.cancel {
+      background-color: $button-color-cancel;
+    }
+    &:hover {
+      box-shadow: 0 5px 10px 0 rgba($color: $main-color-3, $alpha: 0.25);
+    }
+    &:active {
+      background-color: $button-focused;
+    }
+  }
+}
+
+input {
+  border-radius: $border-radius;
+  outline: none;
+  padding: 5px;
+  box-sizing: border-box;
+  transition: $transition;
+
+  &::-ms-clear {
+    display: none;
+  }
+
+  &:focus {
+    border-color: $main-color-4;
+    box-shadow: 0 0 5px $main-color-4;
+  }
 }

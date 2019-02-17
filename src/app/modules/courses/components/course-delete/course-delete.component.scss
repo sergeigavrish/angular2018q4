@@ -1,0 +1,14 @@
+@import "../../../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/constants.scss";
+
+.container {
+  &__message {
+    &-title {
+      font-weight: bold;
+    }
+  }
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

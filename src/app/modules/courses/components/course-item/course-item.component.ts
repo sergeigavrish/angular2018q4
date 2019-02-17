@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from "@angular/core";
+
 import { Course } from "../../models/interfaces/course.interface";
 
 @Component({
@@ -9,7 +16,9 @@ import { Course } from "../../models/interfaces/course.interface";
 export class CourseItemComponent implements OnInit {
 
   @Input() course: Course;
+
   @Output() delete: EventEmitter<Course> = new EventEmitter<Course>();
+  @Output() edit: EventEmitter<Course> = new EventEmitter<Course>();
 
   constructor() { }
 
@@ -18,6 +27,10 @@ export class CourseItemComponent implements OnInit {
 
   onDeleteClick(): void {
     this.delete.emit(this.course);
+  }
+
+  onDeleteEdit(): void {
+    this.edit.emit(this.course);
   }
 
 }
