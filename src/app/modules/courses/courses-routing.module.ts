@@ -4,7 +4,7 @@ import { CoursesHomeComponent } from "./components/courses-home/courses-home.com
 
 const routes: Routes = [
   {
-    path: "",
+    path: "courses",
     component: CoursesHomeComponent,
   },
   {

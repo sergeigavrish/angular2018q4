@@ -1,53 +1,16 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  Observable,
-  of
-} from "rxjs";
+
+import { Observable } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 import { Course } from "../../models/interfaces/course.interface";
-import { CourseEntity } from "../../models/entity/course.entity";
 import { FilterPipe } from "./../../pipes/filter.pipe";
 import { SearchService } from "./../../services/search.service";
 import { Unsubscribable } from "./../../../shared/models/entity/unsubscribable.entity";
-
-
-const CourseDates = {
-  date: new Date(),
-  old() {
-    this.date = new Date();
-    this.date.setDate(this.date.getDate() - 30);
-    return this.date;
-  },
-  new() {
-    this.date = new Date();
-    this.date.setDate(this.date.getDate() - 10);
-    return this.date;
-  },
-  upcoming() {
-    this.date = new Date();
-    this.date.setDate(this.date.getDate() + 20);
-    return this.date;
-  },
-};
-
-const coursesMockData$ = of([
-  // tslint:disable:max-line-length
-  new CourseEntity("1", "Learn how u can use moar cowbell 1", CourseDates.new(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", true),
-  new CourseEntity("2", "Learn how u can use moar cowbell 2", CourseDates.new(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("3", "Learn how u can use moar cowbell 1", CourseDates.new(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", true),
-  new CourseEntity("4", "Learn how u can use moar cowbell 2", CourseDates.old(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", true),
-  new CourseEntity("5", "Learn how u can use moar cowbell 1", CourseDates.old(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("6", "Learn how u can use moar cowbell 2", CourseDates.old(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("7", "Learn how u can use moar cowbell 1", CourseDates.upcoming(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("8", "Learn how u can use moar cowbell 2", CourseDates.upcoming(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("9", "Learn how u can use moar cowbell 1", CourseDates.upcoming(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("10", "Learn how u can use moar cowbell 2", CourseDates.new(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("11", "Learn how u can use moar cowbell 1", CourseDates.new(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("12", "Learn how u can use moar cowbell 2", CourseDates.old(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("13", "Learn how u can use moar cowbell 1", CourseDates.old(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  new CourseEntity("14", "Learn how u can use moar cowbell 2", CourseDates.upcoming(), Math.floor(Math.random() * (180 - 30 + 1)) + 30, "Guess what? You got a fever. And the only prescription is moar cowbell", false),
-  // tslint:enable:max-line-length
-]);
+import { ModalService } from "../../../shared/services/modal.service";
+import { CoursesService } from "./../../services/courses.service";
+import { CourseDeleteComponent } from "../course-delete/course-delete.component";
+import { CourseEditComponent } from "../course-edit/course-edit.component";
 
 @Component({
   selector: "app-courses-list",
@@ -57,20 +20,30 @@ const coursesMockData$ = of([
 })
 export class CoursesListComponent extends Unsubscribable implements OnInit {
 
-  courses$: Observable<Course[]> = of([]);
+  courses$: Observable<Course[]>;
 
   constructor(
     private searchService: SearchService,
-    private filterPipe: FilterPipe
+    private filterPipe: FilterPipe,
+    private coursesService: CoursesService,
+    private modalService: ModalService,
   ) { super(); }
 
   ngOnInit() {
+    this.courses$ = this.coursesService.getCourses() as Observable<Course[]>;
     this.searchService.getSearchValue$()
-      .subscribe((value: string) => this.courses$ = this.filterPipe.transform(coursesMockData$, value));
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((value: string) =>
+        this.courses$ = this.filterPipe.transform(this.coursesService.getCourses() as Observable<Course[]>, value));
   }
 
   onDelete(course: Course): void {
-    console.log(course);
+    const { title, id } = course;
+    this.modalService.init(CourseDeleteComponent, `Delete ${course.title}?`, { title, id });
+  }
+
+  onEdit(course: Course) {
+    this.modalService.init(CourseEditComponent, `Edit ${course.title}`, { id: course.id });
   }
 
 }

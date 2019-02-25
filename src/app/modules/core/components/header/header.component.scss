@@ -1,10 +1,11 @@
-@import "../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/color.scss";
 
 .header {
 
   display: flex;
   justify-content: space-between;
   background-color: $main-color-2;
+  margin-bottom: 10px;
   box-shadow: 0 0 5px rgba($color: $main-color-3, $alpha: 0.25);
 
   &__logo {

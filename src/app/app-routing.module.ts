@@ -7,22 +7,6 @@ const routes: Routes = [
     redirectTo: "/courses",
     pathMatch: "full",
   },
-  {
-    path: "courses",
-    loadChildren: "./modules/courses/courses.module#CoursesModule"
-  },
-  {
-    path: "sign-in",
-    loadChildren: "./modules/courses/courses.module#CoursesModule"
-  },
-  {
-    path: "sign-out",
-    loadChildren: "./modules/courses/courses.module#CoursesModule"
-  },
-  {
-    path: "user",
-    loadChildren: "./modules/courses/courses.module#CoursesModule"
-  },
 ];
 
 @NgModule({

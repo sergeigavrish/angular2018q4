@@ -1,0 +1,20 @@
+<div
+  #overlay
+  class="overlay"
+  [ngClass]="{
+    hidden: !(isOpened$ | async),
+    opened: isOpened$ | async
+  }"
+  >
+  <div class="modal">
+    <div class="modal__header">
+      <button
+        class="button cancel material-icons"
+        (click)="onClose()">
+        cancel
+      </button>
+      <h3 class="modal__header__title">{{getTitle()}}</h3>
+    </div>
+    <ng-template appModal class="modal__content"></ng-template>
+  </div>
+</div>

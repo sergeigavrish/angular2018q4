@@ -1,4 +1,4 @@
-import { SearchService } from './../../../courses/services/search.service';
+import { SearchService } from "./../../../courses/services/search.service";
 import { async, ComponentFixture, TestBed, flush, fakeAsync } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";

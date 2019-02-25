@@ -1,0 +1,62 @@
+@import "../../../../../styles/variables/color.scss";
+@import "../../../../../styles/variables/constants.scss";
+
+:host {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    background-color: $main-color-2;
+    padding: 10px;
+    border-radius: $border-radius;
+    box-shadow: 0 0 5px rgba(125, 124, 125, 0.25);
+
+    label {
+      margin: 5px 0;
+
+      input {
+        width: 100%;
+        border: 1px solid $main-color-3;
+        border-radius: $border-radius;
+        outline: none;
+        padding: 5px;
+        box-sizing: border-box;
+        transition: $transition;
+    
+        &::-ms-clear {
+          display: none;
+        }
+    
+        &:focus {
+          border-color: $main-color-4;
+          box-shadow: 0 0 5px $main-color-4;
+        }
+    
+      }
+    }
+
+    button {
+      padding: 10px;
+      align-self: center;
+      border: none;
+      border-radius: $border-radius;
+      outline: none;
+      color: $main-color-2;
+      background-color: $button-color;
+      margin: 0 5px;
+      transition: $transition;
+
+      &:hover {
+        box-shadow: 0 5px 10px 0 rgba($color: $main-color-3, $alpha: 0.25);
+      }
+
+      &:active {
+        background-color: $button-focused;
+      }
+    }
+  }
+}
