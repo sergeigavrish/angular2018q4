@@ -7,6 +7,6 @@ export const courseFactory = (data: Course) => new CourseEntity(
   new Date(data.creationDate),
   data.duration,
   data.description,
-  data.topRated,
-  data.image
+  data.image,
+  data.topRated
 );

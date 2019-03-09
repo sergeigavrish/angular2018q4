@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   @HostListener("click", ["$event"]) clicked(event: MouseEvent) {
     if (this.overlay.nativeElement === event.target) {
-      this.appModal.dettach();
+      this.onClose();
     }
   }
 

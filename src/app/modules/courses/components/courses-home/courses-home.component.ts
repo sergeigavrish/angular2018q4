@@ -1,4 +1,6 @@
+import { ModalService } from "./../../../shared/services/modal.service";
 import { Component, OnInit } from "@angular/core";
+import { CourseAddComponent } from "../course-add/course-add.component";
 
 @Component({
   selector: "app-courses-home",
@@ -7,13 +9,19 @@ import { Component, OnInit } from "@angular/core";
 })
 export class CoursesHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modalService: ModalService
+  ) { }
 
   ngOnInit() {
   }
 
   loadMore(): void {
     console.log("loadMore");
+  }
+
+  onAdd() {
+    this.modalService.init(CourseAddComponent, "Create new course");
   }
 
 }

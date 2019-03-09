@@ -1,0 +1,41 @@
+<form #form="ngForm" (ngSubmit)="onSave(form.value)">
+  <div class="form">
+    <label>
+      <input
+        ngModel
+        #title="ngModel"
+        [ngClass]="{invalid: title.valid || !title.pristine}"
+        name="title"
+        type="text"
+        required>
+      <span class="placeholder">Title</span>
+    </label>
+    <app-form-datepicker></app-form-datepicker>
+    <app-form-duration></app-form-duration>
+    <label class="description">
+      <textarea
+        ngModel
+        #description="ngModel"
+        [ngClass]="{invalid: description.valid || !description.pristine}"
+        name="description"
+        type="text"
+        required>
+      </textarea>
+      <span class="placeholder">Description</span>
+    </label>
+  </div>
+  <div class="modal-actions">
+    <button
+      [ngClass]="{invalid: form.invalid}"
+      [disabled]="form.invalid"
+      class="modal-actions__button confirm"
+      type="submit">
+      save
+    </button>
+    <button
+      class="modal-actions__button cancel"
+      (click)="onClose()">
+      cancel
+    </button>
+  </div>
+</form>

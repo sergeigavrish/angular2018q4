@@ -16,6 +16,9 @@ import { FilterPipe } from "./pipes/filter.pipe";
 import { OrderByPipe } from "./pipes/order-by.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { StorageProvider } from "./providers/storage.provider";
+import { CourseAddComponent } from "./components/course-add/course-add.component";
+import { FormDatepickerComponent } from "./components/course-add/components/form-datepicker/form-datepicker.component";
+import { FormDurationComponent } from "./components/course-add/components/form-duration/form-duration.component";
 
 @NgModule({
   declarations: [
@@ -28,13 +31,16 @@ import { StorageProvider } from "./providers/storage.provider";
     CourseDeleteComponent,
     CourseEditComponent,
     CoursesListComponent,
+    CourseAddComponent,
+    FormDatepickerComponent,
+    FormDurationComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     CoursesRoutingModule,
   ],
-  entryComponents: [CourseDeleteComponent, CourseEditComponent],
+  entryComponents: [CourseDeleteComponent, CourseEditComponent, CourseAddComponent],
   providers: [
     borderColorProvider,
     StorageProvider

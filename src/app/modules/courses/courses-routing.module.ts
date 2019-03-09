@@ -6,15 +6,7 @@ const routes: Routes = [
   {
     path: "courses",
     component: CoursesHomeComponent,
-  },
-  {
-    path: "new",
-    component: CoursesHomeComponent,
-  },
-  {
-    path: ":id",
-    component: CoursesHomeComponent,
-  },
+  }
 ];
 
 @NgModule({

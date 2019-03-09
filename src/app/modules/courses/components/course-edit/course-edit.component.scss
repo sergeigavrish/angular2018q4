@@ -76,12 +76,4 @@
       }
     }
   }
-
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    .invalid {
-        background-color: $main-color-3;
-    }
-  }
 }

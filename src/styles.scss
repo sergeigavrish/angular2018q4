@@ -47,6 +47,8 @@ body.modal-opened {
 }
 
 .modal-actions {
+  display: flex;
+  justify-content: flex-end;
   &__button {
     padding: 5px 10px;
     align-self: center;
@@ -63,6 +65,9 @@ body.modal-opened {
     &.cancel {
       background-color: $button-color-cancel;
     }
+    &.invalid {
+      background-color: $main-color-3;
+    }
     &:hover {
       box-shadow: 0 5px 10px 0 rgba($color: $main-color-3, $alpha: 0.25);
     }
@@ -78,6 +83,7 @@ input {
   padding: 5px;
   box-sizing: border-box;
   transition: $transition;
+  border: 1px solid $main-color-3;
 
   &::-ms-clear {
     display: none;

@@ -1,0 +1,10 @@
+<label>
+  <input
+    ngModel
+    #creationDate="ngModel"
+    [ngClass]="{ invalid: creationDate.valid || !creationDate.pristine }"
+    name="creationDate"
+    required
+    type="text">
+  <span class="placeholder">Date</span>
+</label>
