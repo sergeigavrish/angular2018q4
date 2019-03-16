@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ControlContainer, NgForm } from "@angular/forms";
+import { Course } from "../../../../models/interfaces/course.interface";
 
 @Component({
   selector: "app-form-duration",
@@ -9,7 +10,7 @@ import { ControlContainer, NgForm } from "@angular/forms";
 })
 export class FormDurationComponent implements OnInit {
 
-  duration: number;
+  @Input() course: Course;
 
   constructor() { }
 

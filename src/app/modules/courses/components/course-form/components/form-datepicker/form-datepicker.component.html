@@ -1,0 +1,11 @@
+<label>
+  <input
+    [ngModel]="course.creationDate | date:'yyyy-MM-dd'"
+    (ngModelChange)="course.creationDate = $event"
+    #formProps="ngModel"
+    [ngClass]="{ invalid: formProps.valid || !formProps.pristine }"
+    name="creationDate"
+    required
+    type="date">
+  <span class="placeholder">Date</span>
+</label>

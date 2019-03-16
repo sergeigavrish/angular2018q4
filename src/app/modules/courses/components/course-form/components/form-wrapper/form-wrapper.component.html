@@ -1,0 +1,11 @@
+<div #overlay class="overlay">
+  <div class="modal">
+    <div class="modal__header">
+      <button class="button cancel material-icons" (click)="onClose()">
+        cancel
+      </button>
+      <h3 class="modal__header__title">{{title}}</h3>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

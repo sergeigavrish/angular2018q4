@@ -1,0 +1,12 @@
+<label>
+  <input
+    #formProps="ngModel"
+    [(ngModel)]="course.duration"
+    [ngClass]="{invalid: formProps.valid || !formProps.pristine}"
+    class="duration"
+    name="duration"
+    required
+    type="number">
+  <span class="placeholder">Duration</span>
+  <p *ngIf="course.duration">{{course.duration | duration}}</p>
+</label>

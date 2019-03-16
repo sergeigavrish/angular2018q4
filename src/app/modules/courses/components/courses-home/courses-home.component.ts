@@ -1,6 +1,5 @@
-import { ModalService } from "./../../../shared/services/modal.service";
 import { Component, OnInit } from "@angular/core";
-import { CourseAddComponent } from "../course-add/course-add.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-courses-home",
@@ -10,7 +9,7 @@ import { CourseAddComponent } from "../course-add/course-add.component";
 export class CoursesHomeComponent implements OnInit {
 
   constructor(
-    private modalService: ModalService
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -21,7 +20,7 @@ export class CoursesHomeComponent implements OnInit {
   }
 
   onAdd() {
-    this.modalService.init(CourseAddComponent, "Create new course");
+    this.router.navigate(["courses/new"]);
   }
 
 }

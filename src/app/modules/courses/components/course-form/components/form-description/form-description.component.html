@@ -1,0 +1,11 @@
+<label class="description">
+  <textarea
+    #formProps="ngModel"
+    [(ngModel)]="course.description"
+    [ngClass]="{invalid: formProps.valid || !formProps.pristine}"
+    name="description"
+    type="text"
+    required>
+  </textarea>
+  <span class="placeholder">Description</span>
+</label>

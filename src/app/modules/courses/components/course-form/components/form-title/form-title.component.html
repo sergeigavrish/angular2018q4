@@ -1,0 +1,11 @@
+<label>
+  <input
+  #formProps="ngModel"
+  [(ngModel)]="course.title"
+  [ngClass]="{invalid: formProps.valid || !formProps.pristine}"
+  name="title"
+  type="text"
+  required>
+  <span class="placeholder">Title</span>
+</label>
+  

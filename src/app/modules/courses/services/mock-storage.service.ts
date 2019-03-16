@@ -65,6 +65,9 @@ export class MockStorageService implements Storage<Course> {
     }
     const courses = this.courses.getValue();
     const courseId = courses.findIndex(el => el.id === id);
+    if (courseId === -1) {
+      return of(false);
+    }
     this.courses.next([
       ...courses.slice(0, courseId),
       { ...newCourse },
