@@ -2,11 +2,16 @@
   <input
     #formProps="ngModel"
     [(ngModel)]="course.duration"
-    [ngClass]="{invalid: formProps.valid || !formProps.pristine}"
+    [ngClass]="{invalid: formProps.valid || (formProps.dirty || formProps.touched)}"
     class="duration"
     name="duration"
     required
     type="number">
   <span class="placeholder">Duration</span>
   <p *ngIf="course.duration">{{course.duration | duration}}</p>
+  <div *ngIf="formProps.invalid && (formProps.dirty || formProps.touched)" class="error">
+    <div *ngIf="formProps.errors.required">
+      Duration is required.
+    </div>
+  </div>
 </label>

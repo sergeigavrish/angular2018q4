@@ -68,6 +68,14 @@
       border-color: $input-invalid;
     }
 
+    .error {
+      position: absolute;
+      top: 0;
+      right: 5px;
+      font-size: 14px;
+      color: $input-invalid;
+    }
+
   }
 
   .description {
