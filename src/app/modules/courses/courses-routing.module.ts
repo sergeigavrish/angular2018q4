@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { CoursesHomeComponent, CourseFormComponent } from "./components";
 import { CourseResolverGuard } from "./guards/course-resolver.guard";
 import { AuthGuard } from "../auth/guards/auth.guard";
+import { CourseBreadcrumbResolverGuard } from "./guards/course-breadcrumb-resolver.guard";
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
         component: CourseFormComponent,
         resolve: {
           course: CourseResolverGuard,
+          breadcrumb: CourseBreadcrumbResolverGuard
         }
       }
     ]
@@ -40,6 +42,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CourseResolverGuard]
+  providers: [CourseResolverGuard, CourseBreadcrumbResolverGuard]
 })
 export class CoursesRoutingModule { }

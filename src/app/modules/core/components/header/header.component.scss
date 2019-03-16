@@ -1,11 +1,14 @@
 @import "../../../../../styles/variables/color.scss";
 
+:host {
+  z-index: 2;
+}
+
 .header {
 
   display: flex;
   justify-content: space-between;
   background-color: $main-color-2;
-  margin-bottom: 10px;
   box-shadow: 0 0 5px rgba($color: $main-color-3, $alpha: 0.25);
 
   &__logo {
@@ -33,7 +36,7 @@
 
   }
 
-  &__menu,  {
+  &__menu  {
     display: flex;
     align-self: center;
     justify-content: space-around;
