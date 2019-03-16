@@ -6,6 +6,7 @@ import { BreadcrumpsComponent } from "./components/breadcrumps/breadcrumps.compo
 import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { MainLayoutComponent } from "./components/main-layout/main-layout.component";
+import { PathNotFoundComponent } from "./components/path-not-found/path-not-found.component";
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { MainLayoutComponent } from "./components/main-layout/main-layout.compon
     BreadcrumpsComponent,
     FooterComponent,
     MainLayoutComponent,
+    PathNotFoundComponent,
   ],
   exports: [ MainLayoutComponent ]
 })

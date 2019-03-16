@@ -16,7 +16,7 @@
           {{login}}
         </a>
       </li>
-      <li class="menu__list__item">
+      <li class="menu__list__item" *ngIf="!isAuthenticated">
         <a
           class="menu__link"
           routerLink="/sign-in"
@@ -24,7 +24,7 @@
           sign-in
         </a>
       </li>
-      <li class="menu__list__item">
+      <li class="menu__list__item" *ngIf="isAuthenticated">
         <a
           class="menu__link"
           (click)="onLogOut($event)">

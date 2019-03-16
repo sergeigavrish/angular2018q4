@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 
 import { AuthService } from "./../../services/auth.service";
 
@@ -16,6 +17,7 @@ export class SignInComponent implements OnInit {
   });
 
   constructor(
+    private router: Router,
     private authService: AuthService
   ) { }
 
@@ -25,6 +27,8 @@ export class SignInComponent implements OnInit {
   signIn() {
     console.log(this.signInForm.value);
     this.authService.logIn();
+    const url = this.authService.getRedirectUrl() ? this.authService.getRedirectUrl() : "";
+    this.router.navigate([url]);
   }
 
 }

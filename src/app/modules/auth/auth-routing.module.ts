@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: "sign-in",
     component: SignInComponent,
+    data: {
+      title: "Login",
+      breadcrumb: "Login"
+    }
   },
 ];
 
