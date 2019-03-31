@@ -1,0 +1,15 @@
+<div class="modal-actions">
+  <button
+    [ngClass]="{invalid: isDisabled}"
+    [disabled]="isDisabled"
+    class="modal-actions__button confirm"
+    type="submit"
+    >
+    save
+  </button>
+  <button
+  class="modal-actions__button cancel"
+    (click)="onCancel()">
+    cancel
+  </button>
+</div>

@@ -1,14 +1,27 @@
 @import "../../../../../styles/variables/color.scss";
 
+:host {
+  z-index: 2;
+}
+
+.wrapper {
+  background-color: $main-color-1;
+}
+
 .breadcrumps-list {
 
   list-style: none;
   margin: 0 0 0 20px;
-  padding: 10px 0;
+  padding: 5px 0;
 
   &__element {
     display: inline;
-    padding: 0 20px 0 0;
+    padding: 0 10px 0 0;
+  }
+
+  &__element + &__element:before {
+    padding: 0 5px;
+    content: "/\00a0";
   }
 
   &__link {

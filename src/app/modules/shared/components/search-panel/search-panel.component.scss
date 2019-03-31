@@ -6,10 +6,6 @@
   display: flex;
   justify-content: space-around;
 
-  &__input {
-    border: 2px solid $main-color-3;
-  }
-
   &__button {
     align-self: center;
     height: 100%;

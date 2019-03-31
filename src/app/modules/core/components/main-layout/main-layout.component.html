@@ -1,9 +1,10 @@
 <div class="container">
   <app-header 
     [isAuthenticated]="isAuthenticated"
-    [login]="getUserInfo()"
-    (logOut)="onLogOut()"></app-header>
-  <app-breadcrumps *ngIf="isAuthenticated"></app-breadcrumps>
+    [login]="login"
+    (logOut)="onLogOut()">
+  </app-header>
+  <app-breadcrumbs *ngIf="isAuthenticated"></app-breadcrumbs>
   <div class="container__content">
     <ng-content></ng-content>
   </div>

@@ -1,12 +1,11 @@
 :host {
   label {
-    input {
-      width: 50%;
-    }
     p {
       position: absolute;
-      right: 0;
-      width: 50%;
+      top: 15px;
+      right: 10%;
+      margin: 0;
+      padding: 5px;
       text-align: center;
     }
   }

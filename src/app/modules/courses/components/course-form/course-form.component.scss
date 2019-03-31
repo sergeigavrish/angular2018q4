@@ -22,6 +22,15 @@
       border: none;
       border-radius: 0;
       border-bottom: 2px solid $main-color-3;
+
+      &[type="date"] {
+        padding-left: 40px;
+      }
+
+      &[type="date"]:focus,
+      &[type="date"]:valid {
+        padding-left: 5px;
+      }
       
       &:focus,
       &:valid {
@@ -57,6 +66,14 @@
 
     .invalid {
       border-color: $input-invalid;
+    }
+
+    .error {
+      position: absolute;
+      top: 0;
+      right: 5px;
+      font-size: 14px;
+      color: $input-invalid;
     }
 
   }

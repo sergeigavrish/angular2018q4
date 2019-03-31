@@ -12,6 +12,7 @@ import { filter, takeUntil } from "rxjs/operators";
 
 import { ModalService } from "./../services/modal.service";
 import { Unsubscribable } from "../models/entity/unsubscribable.entity";
+import { OverlayService } from "../services/overlay.service";
 
 
 @Directive({
@@ -24,7 +25,7 @@ export class ModalDirective extends Unsubscribable implements OnInit {
     private modalService: ModalService,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private renderer: Renderer2
+    private overlayService: OverlayService
   ) { super(); }
 
   ngOnInit() {
@@ -43,13 +44,13 @@ export class ModalDirective extends Unsubscribable implements OnInit {
     if (data) {
       Object.keys(data).map(key => (<Component>componentRef.instance)[key] = data[key]);
     }
-    this.renderer.addClass(document.body, "modal-opened");
+    this.overlayService.hideOverlay();
     this.modalService.setIsOpened(true);
   }
 
   dettach() {
     this.viewContainerRef.clear();
-    this.renderer.removeClass(document.body, "modal-opened");
+    this.overlayService.showOverlay();
   }
 
 }

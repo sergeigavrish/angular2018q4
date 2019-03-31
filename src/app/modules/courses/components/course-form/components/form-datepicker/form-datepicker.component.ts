@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ControlContainer, NgForm } from "@angular/forms";
+import { Course } from "../../../../models/interfaces/course.interface";
 
 @Component({
   selector: "app-form-datepicker",
@@ -8,6 +9,8 @@ import { ControlContainer, NgForm } from "@angular/forms";
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class FormDatepickerComponent implements OnInit {
+
+  @Input() course: Course;
 
   constructor() { }
 

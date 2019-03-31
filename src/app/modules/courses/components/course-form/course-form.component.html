@@ -1,0 +1,11 @@
+<app-form-wrapper [title]="formTitle">
+  <form #form="ngForm" (ngSubmit)="onSave()">
+    <div class="form">
+      <app-form-title [course]="course"></app-form-title>
+      <app-form-datepicker [course]="course"></app-form-datepicker>
+      <app-form-duration [course]="course"></app-form-duration>
+      <app-form-description [course]="course"></app-form-description>
+    </div>
+    <app-form-actions [isDisabled]="form.invalid" (cancel)="onCancel()"></app-form-actions>
+  </form>
+</app-form-wrapper>

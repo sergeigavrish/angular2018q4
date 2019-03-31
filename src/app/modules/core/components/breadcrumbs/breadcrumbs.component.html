@@ -1,0 +1,7 @@
+<div class="wrapper">
+  <ul class="breadcrumps-list">
+    <li class="breadcrumps-list__element" *ngFor="let item of breadcrumbs; let last = last">
+      <a class="breadcrumps-list__link" [routerLink]="item !== last ? item.url : null">{{item.label}}</a>
+    </li>
+  </ul>
+</div>

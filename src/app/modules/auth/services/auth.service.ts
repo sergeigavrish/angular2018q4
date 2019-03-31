@@ -10,18 +10,32 @@ import { UserEntity } from "./../../user/models/entity/user.entity";
 })
 export class AuthService {
 
-  private isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  private redirectUrl$: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor() {
     this.isLoggedIn();
   }
 
   getIsAuthenticated(): Observable<boolean> {
-    return this.isAuthenticated.asObservable();
+    return this.isAuthenticated$.asObservable();
   }
 
   setIsAuthenticated(value: boolean): void {
-    this.isAuthenticated.next(value);
+    this.isAuthenticated$.next(value);
+  }
+
+  checkIsAuthenticated(): boolean {
+    return this.isAuthenticated$.getValue();
+  }
+
+  setRedirectUrl(url: string) {
+    this.redirectUrl$.next(url);
+  }
+
+  getRedirectUrl(): string {
+    return this.redirectUrl$.getValue();
   }
 
   logIn(): void {
@@ -39,7 +53,7 @@ export class AuthService {
   }
 
   getUserInfo(): string | void {
-    if (JSON.parse(localStorage.getItem("user")) && localStorage.getItem("token")) {
+    if (this.isData()) {
       const user = JSON.parse(localStorage.getItem("user")) as User;
       const newUser = new UserEntity(user.id, user.firstName, user.lastName);
       return newUser.getFullName();
@@ -47,9 +61,13 @@ export class AuthService {
   }
 
   private isLoggedIn(): void {
-    if (JSON.parse(localStorage.getItem("user")) && localStorage.getItem("token")) {
+    if (this.isData()) {
       this.setIsAuthenticated(true);
     }
+  }
+
+  private isData() {
+    return JSON.parse(localStorage.getItem("user")) && localStorage.getItem("token");
   }
 
 }

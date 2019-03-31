@@ -4,6 +4,7 @@ import { takeUntil } from "rxjs/operators";
 
 import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-main-layout",
@@ -13,24 +14,31 @@ import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.ent
 export class MainLayoutComponent extends Unsubscribable implements OnInit {
 
   isAuthenticated: boolean;
+  login: string;
 
   constructor(
+    private router: Router,
     private authService: AuthService
   ) { super(); }
 
   ngOnInit() {
     this.authService.getIsAuthenticated()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+      .subscribe(isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+        const login = this.getUserInfo();
+        this.login = login ? login : "";
+      });
   }
 
   onLogOut(): void {
     this.authService.logOut();
     console.log("logout");
+    this.router.navigate(["sign-in"]);
   }
 
-  getUserInfo(): void {
-    this.authService.getUserInfo();
+  private getUserInfo(): string | void {
+    return this.authService.getUserInfo();
   }
 
 }

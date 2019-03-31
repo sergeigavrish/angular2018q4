@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
@@ -10,7 +11,6 @@ import { Unsubscribable } from "./../../../shared/models/entity/unsubscribable.e
 import { ModalService } from "../../../shared/services/modal.service";
 import { CoursesService } from "./../../services/courses.service";
 import { CourseDeleteComponent } from "../course-delete/course-delete.component";
-import { CourseEditComponent } from "../course-edit/course-edit.component";
 
 @Component({
   selector: "app-courses-list",
@@ -23,6 +23,7 @@ export class CoursesListComponent extends Unsubscribable implements OnInit {
   courses$: Observable<Course[]>;
 
   constructor(
+    private router: Router,
     private searchService: SearchService,
     private filterPipe: FilterPipe,
     private coursesService: CoursesService,
@@ -43,7 +44,7 @@ export class CoursesListComponent extends Unsubscribable implements OnInit {
   }
 
   onEdit(course: Course) {
-    this.modalService.init(CourseEditComponent, `Edit ${course.title}`, { id: course.id });
+    this.router.navigate(["courses", course.id]);
   }
 
 }

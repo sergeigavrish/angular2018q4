@@ -1,6 +1,10 @@
 @import "../../../../../styles/variables/color.scss";
 @import "../../../../../styles/variables/constants.scss";
 
+:host {
+  width: 100%;
+}
+
 .home-layout {
 
   display: flex;
@@ -10,8 +14,8 @@
   &__tools {
     display: flex;
     justify-content: flex-end;
+    margin: 5px 0;
   }
-  
   
   .tools-panel {
     

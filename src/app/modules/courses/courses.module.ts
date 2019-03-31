@@ -1,24 +1,29 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
+import { BorderColorDirective } from "./directives/border-color.directive";
+import { borderColorProvider } from "./providers/border-color.provider";
+import {
+  CourseFormComponent,
+  FormActionsComponent,
+  FormDatepickerComponent,
+  FormDescriptionComponent,
+  FormDurationComponent,
+  FormTitleComponent,
+  FormWrapperComponent
+} from "./components";
 import {
   CourseDeleteComponent,
-  CourseEditComponent,
   CourseItemComponent,
   CoursesHomeComponent,
   CoursesListComponent
 } from "./components";
-import { BorderColorDirective } from "./directives/border-color.directive";
-import { borderColorProvider } from "./providers/border-color.provider";
 import { CoursesRoutingModule } from "./courses-routing.module";
 import { DurationPipe } from "./pipes/duration.pipe";
 import { FilterPipe } from "./pipes/filter.pipe";
 import { OrderByPipe } from "./pipes/order-by.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { StorageProvider } from "./providers/storage.provider";
-import { CourseAddComponent } from "./components/course-add/course-add.component";
-import { FormDatepickerComponent } from "./components/course-add/components/form-datepicker/form-datepicker.component";
-import { FormDurationComponent } from "./components/course-add/components/form-duration/form-duration.component";
 
 @NgModule({
   declarations: [
@@ -29,18 +34,21 @@ import { FormDurationComponent } from "./components/course-add/components/form-d
     FilterPipe,
     OrderByPipe,
     CourseDeleteComponent,
-    CourseEditComponent,
     CoursesListComponent,
-    CourseAddComponent,
+    CourseFormComponent,
     FormDatepickerComponent,
     FormDurationComponent,
+    FormWrapperComponent,
+    FormDescriptionComponent,
+    FormTitleComponent,
+    FormActionsComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     CoursesRoutingModule,
   ],
-  entryComponents: [CourseDeleteComponent, CourseEditComponent, CourseAddComponent],
+  entryComponents: [CourseDeleteComponent],
   providers: [
     borderColorProvider,
     StorageProvider
