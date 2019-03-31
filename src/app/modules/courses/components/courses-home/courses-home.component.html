@@ -2,7 +2,7 @@
   <div class="home-layout__tools tools-panel">
     <app-search-panel class="tools-panel__tool" placeholder="Search course">
     </app-search-panel>
-    <a class="tools-panel__tool add-course button" routerLink="/courses/new">
+    <a class="tools-panel__tool add-course button" (click)="onAdd()">
       <i class="add-course__icon material-icons">add</i>
       <p class="add-course__title">Create new Course</p>
     </a>

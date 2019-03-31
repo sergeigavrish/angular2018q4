@@ -3,7 +3,8 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  ChangeDetectionStrategy
 } from "@angular/core";
 
 import { Course } from "../../models/interfaces/course.interface";
@@ -11,7 +12,8 @@ import { Course } from "../../models/interfaces/course.interface";
 @Component({
   selector: "app-course-item",
   templateUrl: "./course-item.component.html",
-  styleUrls: ["./course-item.component.scss"]
+  styleUrls: ["./course-item.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent implements OnInit {
 

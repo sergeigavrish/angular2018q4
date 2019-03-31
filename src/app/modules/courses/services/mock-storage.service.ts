@@ -43,7 +43,12 @@ export class MockStorageService implements Storage<Course> {
   }
 
   save(data: Course): Observable<boolean> {
-    const newCourse = courseFactory(data);
+    const length = this.courses.getValue().length;
+    const newCourse = courseFactory({
+      ...data,
+      id: `${length + 1}`,
+      image: "https://cdn.lynda.com/courses/375490-636814130086187859_270x480_thumb.jpg"
+    });
     if (!newCourse.isCourse()) {
       return of(false);
     }

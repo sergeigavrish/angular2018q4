@@ -1,0 +1,68 @@
+@import "../../../../../styles/variables/color.scss";
+
+%placeholder {
+  top: 0;
+  cursor: inherit;
+  font-size: 14px;
+  color: $main-color-4;
+}
+  
+.form ::ng-deep {
+  label {
+    position: relative;
+    display: block;
+    min-height: 45px;
+    margin: 10px 0;
+    
+    input,
+    textarea {
+      position: absolute;
+      top: 15px;
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      border-bottom: 2px solid $main-color-3;
+      
+      &:focus,
+      &:valid {
+        box-shadow: none;
+        border-color: $main-color-4;
+      }
+      
+      &:focus+.placeholder {
+        @extend %placeholder;
+      }
+      
+      &:valid+.placeholder {
+        @extend %placeholder;
+      }
+    }
+    
+    textarea {
+      resize: none;
+      min-height: 50px;
+    }
+    
+    .placeholder {
+      position: absolute;
+      display: block;
+      top: 20px;
+      left: 5px;
+      z-index: 1;
+      font-size: 16px;
+      transition: all 200ms ease-in-out;
+      width: 100%;
+      cursor: text;
+    }
+
+    .invalid {
+      border-color: $input-invalid;
+    }
+
+  }
+
+  .description {
+    min-height: 80px;
+  }
+
+}

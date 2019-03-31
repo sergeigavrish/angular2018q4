@@ -7,14 +7,14 @@ export class CourseEntity implements Course {
         public creationDate: Date,
         public duration: number,
         public description: string,
-        public topRated: boolean,
-        public image: string
+        public image: string,
+        public topRated: boolean = false
     ) { }
 
     isCourse(): boolean {
         const id = typeof (this.id) === "string";
         const title = this.title.length && typeof (this.title) === "string";
-        const creationDate = this.creationDate && this.creationDate instanceof Date;
+        const creationDate = this.creationDate && this.creationDate instanceof Date && !isNaN(this.creationDate as any);
         const duration = this.duration > 0 && typeof (this.duration) === "number";
         const description = typeof (this.description) === "string";
         const topRated = typeof (this.topRated) === "boolean";
