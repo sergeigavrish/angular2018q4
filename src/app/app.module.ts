@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
@@ -8,7 +9,9 @@ import { SharedModule } from "./modules/shared/shared.module";
 import { UserModule } from "./modules/user/user.module";
 import { CoursesModule } from "./modules/courses/courses.module";
 import { AppRoutingModule } from "./app-routing.module";
-
+import { InterceptionUrlProvder, INTERCEPTION_URLS_TOKEN } from "./modules/auth/providers/InterceptionUrlProvder";
+import { AuthService } from "./modules/auth/services/auth.service";
+import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import { AppRoutingModule } from "./app-routing.module";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     SharedModule,
     AuthModule,
     CoursesModule,
@@ -23,7 +27,15 @@ import { AppRoutingModule } from "./app-routing.module";
     UserModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    InterceptionUrlProvder,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: (authService: AuthService, interceptionUrls: Array<string>) => new AuthInterceptor(authService, interceptionUrls),
+      deps: [AuthService, INTERCEPTION_URLS_TOKEN],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,12 @@
 import { Injectable } from "@angular/core";
 
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import { tap } from "rxjs/operators";
 
-import { User } from "./../../user/models/interface/user.interface";
-import { UserEntity } from "./../../user/models/entity/user.entity";
+import { AuthRemoteService } from "./auth-remote.service";
+import { LoginResponse } from "../models/interface/login-response.interface";
+import { LoginData } from "../models/interface/login-data.interface";
+import { UserResponse } from "../models/interface/user-response.interface";
 
 @Injectable({
   providedIn: "root"
@@ -14,7 +17,7 @@ export class AuthService {
 
   private redirectUrl$: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
-  constructor() {
+  constructor(private remote: AuthRemoteService) {
     this.isLoggedIn();
   }
 
@@ -38,26 +41,43 @@ export class AuthService {
     return this.redirectUrl$.getValue();
   }
 
-  logIn(): void {
-    const user = new UserEntity("1", "Dmitriy", "Malikov");
-    const token = "ETO_TOKEN";
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    this.setIsAuthenticated(true);
+  logIn(data: LoginData): void {
+    this.remote.login<LoginData, LoginResponse>(data)
+      .pipe(
+        tap(console.log)
+      )
+      .subscribe(
+        (res: LoginResponse) => {
+          localStorage.setItem("token", res.token);
+          this.setIsAuthenticated(true);
+        },
+        error => console.error(error.message)
+      );
   }
 
   logOut(): void {
-    localStorage.removeItem("user");
     localStorage.removeItem("token");
     this.setIsAuthenticated(false);
   }
 
-  getUserInfo(): string | void {
+  getUserInfo(): Observable<UserResponse | boolean> {
     if (this.isData()) {
-      const user = JSON.parse(localStorage.getItem("user")) as User;
-      const newUser = new UserEntity(user.id, user.firstName, user.lastName);
-      return newUser.getFullName();
+      return this.remote.getUserInfo<string, UserResponse>(localStorage.getItem("token")).pipe(
+        tap(console.log)
+      );
     }
+
+    return of(false);
+  }
+
+  getToken(): string | null {
+    const token = localStorage.getItem("token");
+
+    if (this.isAuthenticated$.getValue() && token) {
+      return token;
+    }
+
+    return null;
   }
 
   private isLoggedIn(): void {
@@ -66,8 +86,8 @@ export class AuthService {
     }
   }
 
-  private isData() {
-    return JSON.parse(localStorage.getItem("user")) && localStorage.getItem("token");
+  private isData(): boolean {
+    return !!localStorage.getItem("token");
   }
 
 }

@@ -5,6 +5,7 @@ import { takeUntil } from "rxjs/operators";
 import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { Router } from "@angular/router";
+import { UserName, UserResponse, isUserResponse } from "./../../../auth/models/interface/user-response.interface";
 
 @Component({
   selector: "app-main-layout",
@@ -14,7 +15,7 @@ import { Router } from "@angular/router";
 export class MainLayoutComponent extends Unsubscribable implements OnInit {
 
   isAuthenticated: boolean;
-  login: string;
+  login: UserName = { first: "", last: "" };
 
   constructor(
     private router: Router,
@@ -26,8 +27,7 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(isAuthenticated => {
         this.isAuthenticated = isAuthenticated;
-        const login = this.getUserInfo();
-        this.login = login ? login : "";
+        this.getUserInfo();
       });
   }
 
@@ -37,8 +37,14 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
     this.router.navigate(["sign-in"]);
   }
 
-  private getUserInfo(): string | void {
-    return this.authService.getUserInfo();
+  private getUserInfo(): void {
+    this.authService.getUserInfo()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((info: UserResponse | boolean) => {
+        if (isUserResponse(info)) {
+          return this.login = info.name;
+        }
+      });
   }
 
 }
