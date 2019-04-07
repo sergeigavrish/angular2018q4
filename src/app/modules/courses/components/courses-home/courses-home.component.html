@@ -7,7 +7,7 @@
       <p class="add-course__title">Create new Course</p>
     </a>
   </div>
-  <app-courses-list></app-courses-list>
-  <button class="home-layout__load-button button" (click)="loadMore()">Load more</button>
+  <app-courses-list [courses]="(courses$ | filter: (search$ | async)) | async"></app-courses-list>
+  <button class="home-layout__load-button button" (click)="load()">Load more</button>
 </div>
 <router-outlet></router-outlet>

@@ -13,9 +13,7 @@ import { courseFactory } from "./../factories/course.factory";
 import { mockCoursesData } from "./../../../../data/mockCoursesData";
 import { Storage } from "../models/interfaces/strorage.interfase";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class MockStorageService implements Storage<Course> {
 
   private courses: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>(mockCoursesData);

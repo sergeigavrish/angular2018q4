@@ -1,7 +1,7 @@
 <label>
   <input
   #formProps="ngModel"
-  [(ngModel)]="course.title"
+  [(ngModel)]="course.name"
   [ngClass]="{invalid: formProps.valid || (formProps.dirty || formProps.touched)}"
   name="title"
   type="text"

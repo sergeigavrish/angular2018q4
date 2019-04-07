@@ -23,9 +23,9 @@ export class CourseBreadcrumbResolverGuard implements Resolve<string> {
 
     const { courseId } = route.params;
 
-    return this.coursesService.getCourseById(courseId).pipe(
+    return this.coursesService.loadCourseById(courseId).pipe(
       map((course: CourseEntity) => {
-        return course.title;
+        return course.name;
       }),
       first(),
       catchError(() => {

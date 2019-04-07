@@ -20,7 +20,7 @@ export class CourseResolverGuard implements Resolve<CourseEntity> {
 
     const { courseId } = route.params;
 
-    return this.coursesService.getCourseById(courseId).pipe(
+    return this.coursesService.loadCourseById(courseId).pipe(
       map((course: CourseEntity) => {
         if (course) {
           return course;

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { BehaviorSubject, Observable, of } from "rxjs";
-import { tap } from "rxjs/operators";
+import { tap, map } from "rxjs/operators";
 
 import { AuthRemoteService } from "./auth-remote.service";
 import { LoginResponse } from "../models/interface/login-response.interface";
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   checkIsAuthenticated(): boolean {
-    return this.isAuthenticated$.getValue();
+    return this.isData() && this.isAuthenticated$.getValue();
   }
 
   setRedirectUrl(url: string) {
@@ -41,17 +41,14 @@ export class AuthService {
     return this.redirectUrl$.getValue();
   }
 
-  logIn(data: LoginData): void {
-    this.remote.login<LoginData, LoginResponse>(data)
+  logIn(data: LoginData): Observable<void> {
+    return this.remote.login<LoginData, LoginResponse>(data)
       .pipe(
-        tap(console.log)
-      )
-      .subscribe(
-        (res: LoginResponse) => {
+        tap(console.log),
+        map((res: LoginResponse) => {
           localStorage.setItem("token", res.token);
           this.setIsAuthenticated(true);
-        },
-        error => console.error(error.message)
+        })
       );
   }
 

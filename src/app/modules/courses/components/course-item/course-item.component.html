@@ -1,13 +1,13 @@
-<div class="course" [appBorderColor]="course.creationDate">
+<div class="course" [appBorderColor]="course.date">
   <figure>
     <img class="course__image" src="{{course.image}}" alt="course image">
     <figcaption>
       <div class="course__content">
         <div class="course__content__info info">
-          <h3 class="info__title">{{course.title | uppercase}}</h3>
+          <h3 class="info__title">{{course.name | uppercase}}</h3>
           <div class="info__description">
-            <span>{{course.creationDate | date}}</span>
-            <span>{{course.duration | duration}}</span>
+            <span>{{course.date | date}}</span>
+            <span>{{course.length | duration}}</span>
           </div>
         </div>
         <div class="course__top-rated" *ngIf="course.topRated">

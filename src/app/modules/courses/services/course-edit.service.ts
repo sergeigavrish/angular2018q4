@@ -13,7 +13,7 @@ export class CourseEditService {
   constructor(private coursesService: CoursesService) { }
 
   getCourse(id: string): Observable<Course> {
-    return this.coursesService.getCourseById(id);
+    return this.coursesService.loadCourseById(id);
   }
 
   updateCourse(course: Course, id: string): Observable<boolean> {

@@ -3,8 +3,8 @@ import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { Course } from "./../models/interfaces/course.interface";
-import { Storage } from "../models/interfaces/strorage.interfase";
 import { STORAGE_TOKEN } from "./../providers/storage.provider";
+import { CoursesStorage } from "../models/interfaces/courses-storage.interface";
 
 @Injectable({
   providedIn: "root"
@@ -12,14 +12,18 @@ import { STORAGE_TOKEN } from "./../providers/storage.provider";
 export class CoursesService {
 
   constructor(
-    @Inject(STORAGE_TOKEN) private storage: Storage<Course>
+    @Inject(STORAGE_TOKEN) private storage: CoursesStorage
   ) { }
 
-  getCourses(): Observable<Course[] | boolean> {
+  getCourses(): Observable<Course[]> {
+    return this.storage.getCourses();
+  }
+
+  loadCourses(): Observable<Course[] | boolean> {
     return this.storage.load() as Observable<Course[] | boolean>;
   }
 
-  getCourseById(id: string): Observable<Course> {
+  loadCourseById(id: string): Observable<Course> {
     return this.storage.load(id) as Observable<Course>;
   }
 
