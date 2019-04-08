@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
+import { Observable } from "rxjs";
+import { map, takeUntil } from "rxjs/operators";
+
 import { CoursesService } from "../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
-import { map, takeUntil } from "rxjs/operators";
 import { OverlayService } from "../../../shared/services/overlay.service";
 
 @Component({
@@ -43,12 +45,15 @@ export class CourseFormComponent extends Unsubscribable implements OnInit, OnDes
 
   onSave() {
     console.log(this.course);
+    let res: Observable<any>;
     if (this.course.id) {
-      this.coursesService.updateCourse(this.course, this.course.id);
+      res = this.coursesService.updateCourse(this.course, this.course.id);
     } else {
-      this.coursesService.createCourse(this.course);
+      res = this.coursesService.createCourse(this.course);
     }
-    this.router.navigate(["courses"]);
+    res.subscribe(() => {
+      this.router.navigate(["courses"]);
+    });
   }
 
   onCancel() {

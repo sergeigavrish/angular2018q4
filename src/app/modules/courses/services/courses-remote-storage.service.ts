@@ -12,6 +12,7 @@ import { courseFactory } from "./../factories/course.factory";
 import { environment } from "../../../../environments/environment";
 import { Storage } from "../models/interfaces/strorage.interfase";
 import { CourseRequestParams } from "../models/interfaces/CourseRequestParams.interface";
+import { CourseEntity } from "../models/entity/course.entity";
 
 @Injectable()
 export class CoursesRemoteStorageService implements Storage<Course> {
@@ -50,51 +51,38 @@ export class CoursesRemoteStorageService implements Storage<Course> {
     );
   }
 
-  save(data: Course): Observable<boolean> {
-    // const length = this.courses.getValue().length;
-    // const newCourse = courseFactory({
-    //   ...data,
-    //   id: `${length + 1}`,
-    //   image: "https://cdn.lynda.com/courses/375490-636814130086187859_270x480_thumb.jpg"
-    // });
-    // if (!newCourse.isCourse()) {
-    //   return of(false);
-    // }
-    // const courses = this.courses.getValue();
-    // courses.push(newCourse);
-    // this.courses.next(courses);
-    return of(true);
+  save(data: Course): Observable<Course | boolean> {
+    const course = courseFactory({
+      ...data,
+      image: "https://cdn.lynda.com/courses/375490-636814130086187859_270x480_thumb.jpg"
+    });
+    if (!CourseEntity.isCourse(course)) {
+      return of(false);
+    }
+
+    return this.http.post<Course>(`${environment.backendUrl}/courses`, course);
   }
 
-  update(data: Course, id: string): Observable<boolean> {
-    // const newCourse = courseFactory(data);
-    // if (!newCourse.isCourse()) {
-    //   return of(false);
-    // }
-    // const courses = this.courses.getValue();
-    // const courseId = courses.findIndex(el => el.id === id);
-    // if (courseId === -1) {
-    //   return of(false);
-    // }
-    // this.courses.next([
-    //   ...courses.slice(0, courseId),
-    //   { ...newCourse },
-    //   ...courses.slice(courseId + 1),
-    // ]);
-    return of(true);
+  update(data: Course, id: string): Observable<Course | boolean> {
+    if (!CourseEntity.isCourse(data)) {
+      return of(false);
+    }
+    return this.http.put<Course>(`${environment.backendUrl}/courses/${id}`, data).pipe(
+      catchError(error => {
+        console.warn(error.message);
+        return of(false);
+      })
+    );
   }
 
-  delete(id: string): Observable<boolean> {
-    // const courses = this.courses.getValue();
-    // const index = courses.findIndex(course => course.id === id);
-    // if (index === -1) {
-    //   return of(false);
-    // }
-    // this.courses.next([
-    //   ...courses.slice(0, index),
-    //   ...courses.slice(index + 1),
-    // ]);
-    return of(true);
+  delete(id: string): Observable<string | boolean> {
+    return this.http.delete(`${environment.backendUrl}/courses/${id}`).pipe(
+      map(() => id),
+      catchError(error => {
+        console.warn(error.message);
+        return of(false);
+      })
+    );
   }
 
 }

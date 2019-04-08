@@ -39,7 +39,6 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
 
   private getUserInfo(): void {
     this.authService.getUserInfo()
-      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((info: UserResponse | boolean) => {
         if (isUserResponse(info)) {
           return this.login = info.name;

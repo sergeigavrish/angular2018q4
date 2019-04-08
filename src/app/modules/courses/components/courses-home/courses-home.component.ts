@@ -26,7 +26,7 @@ export class CoursesHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.load();
+    this.init();
     this.search();
   }
 
@@ -42,7 +42,7 @@ export class CoursesHomeComponent implements OnInit {
     );
   }
 
-  load(): void {
+  private init(): void {
     this.courses$ = this.coursesService.getCourses().pipe(
       switchMap(data => {
         return iif(
@@ -52,6 +52,12 @@ export class CoursesHomeComponent implements OnInit {
         );
       })
     );
+
+  }
+
+  load(): void {
+    this.coursesService.loadCourses()
+      .subscribe(() => console.log("loaded"));
   }
 
   onAdd() {
