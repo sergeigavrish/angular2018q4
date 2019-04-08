@@ -1,3 +1,4 @@
+import { CourseRequestParams } from "./../models/interfaces/CourseRequestParams.interface";
 import { Injectable } from "@angular/core";
 
 import {
@@ -30,12 +31,16 @@ export class MockStorageService implements Storage<Course> {
     );
   }
 
-  load(id?: string): Observable<Course[] | Course> {
+  private handleLoad(opts: CourseRequestParams) {
     return iif(
-      () => !!id,
-      this.loadCourseById(id),
+      () => !!opts.id,
+      this.loadCourseById(opts.id),
       this.loadCourses(),
-    ).pipe(
+    );
+  }
+
+  load<U>(opts: U): Observable<Course[] | Course> {
+    return this.handleLoad(opts).pipe(
       tap(console.log)
     );
   }

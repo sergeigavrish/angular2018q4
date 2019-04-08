@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { Observable } from "rxjs";
+import { Observable, of, iif } from "rxjs";
 
 import { CoursesService } from "./../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
 import { SearchService } from "../../services/search.service";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-courses-home",
@@ -15,7 +16,8 @@ import { SearchService } from "../../services/search.service";
 export class CoursesHomeComponent implements OnInit {
 
   courses$: Observable<Array<Course>>;
-  search$: Observable<string>;
+  filteredCourses$: Observable<Array<Course>>;
+  searchValue$: Observable<string>;
 
   constructor(
     private router: Router,
@@ -29,11 +31,27 @@ export class CoursesHomeComponent implements OnInit {
   }
 
   private search() {
-    this.search$ = this.searchService.getSearchValue$();
+    this.searchValue$ = this.searchService.getSearchValue();
+    this.filteredCourses$ = this.searchService.getSearchValue().pipe(
+      switchMap(v => {
+        if (v) {
+          return this.coursesService.searchCourses(v);
+        }
+        return of([]);
+      })
+    );
   }
 
   load(): void {
-    this.courses$ = this.coursesService.loadCourses() as Observable<Array<Course>>;
+    this.courses$ = this.coursesService.getCourses().pipe(
+      switchMap(data => {
+        return iif(
+          () => !!data.length,
+          of(data),
+          this.coursesService.loadCourses()
+        );
+      })
+    );
   }
 
   onAdd() {
