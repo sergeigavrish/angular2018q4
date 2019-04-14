@@ -55,9 +55,9 @@ export class CoursesService {
   updateCourse(course: Course, id: string): Observable<Course | boolean> {
     return this.storage.update(course, id).pipe(
       map((res: Course | boolean) => {
-        if (CourseEntity.isCourse(res as Course)) {
+        if (CourseEntity.isCourse(res)) {
           const courses = this.courses$.getValue();
-          const index = courses.findIndex(c => c.id === (<Course>res).id);
+          const index = courses.findIndex(c => c.id === res.id);
           const newCourse = courseFactory(res as Course);
           const oldCourse = courses[index];
           this.courses$.next([
