@@ -22,7 +22,7 @@ export class BreadcrumbsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router
-  ) { window["loh"] = this; }
+  ) { }
 
   ngOnInit() {
     this.router.events

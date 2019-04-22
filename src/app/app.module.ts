@@ -11,6 +11,7 @@ import { CoursesModule } from "./modules/courses/courses.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthService } from "./modules/auth/services/auth.service";
 import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
+import { LoaderService } from "./modules/shared/services/loader.service";
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useFactory: (authService: AuthService) => new AuthInterceptor(authService),
-      deps: [AuthService],
+      useFactory: (authService: AuthService, loaderService: LoaderService) => new AuthInterceptor(authService, loaderService),
+      deps: [AuthService, LoaderService],
       multi: true
     }
   ],
