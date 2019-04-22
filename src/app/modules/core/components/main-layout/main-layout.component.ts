@@ -1,13 +1,12 @@
 import { LoaderService } from "./../../../shared/services/loader.service";
 import { Component, OnInit } from "@angular/core";
 
-import { takeUntil } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { Router } from "@angular/router";
-import { UserName, UserResponse, isUserResponse } from "./../../../auth/models/interface/user-response.interface";
-import { Observable } from "rxjs";
+import { UserName } from "./../../../auth/models/interface/user-response.interface";
 
 @Component({
   selector: "app-main-layout",
@@ -16,9 +15,9 @@ import { Observable } from "rxjs";
 })
 export class MainLayoutComponent extends Unsubscribable implements OnInit {
 
-  isAuthenticated: boolean;
+  isAuthenticated$: Observable<boolean>;
   loading$: Observable<boolean>;
-  login: UserName = { first: "", last: "" };
+  login$: Observable<UserName>;
 
   constructor(
     private router: Router,
@@ -27,13 +26,8 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
   ) { super(); }
 
   ngOnInit() {
-    this.authService.getIsAuthenticated()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(isAuthenticated => {
-        this.isAuthenticated = isAuthenticated;
-        this.getUserInfo();
-      });
-
+    this.isAuthenticated$ = this.authService.getIsAuthenticated();
+    this.login$ = this.authService.getUserInfo();
     this.loading$ = this.loaderService.getLoading();
   }
 
@@ -41,15 +35,6 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
     this.authService.logOut();
     console.log("logout");
     this.router.navigate(["sign-in"]);
-  }
-
-  private getUserInfo(): void {
-    this.authService.getUserInfo()
-      .subscribe((info: UserResponse | boolean) => {
-        if (isUserResponse(info)) {
-          return this.login = info.name;
-        }
-      });
   }
 
 }
