@@ -7,7 +7,8 @@ import {
   FooterComponent,
   HeaderComponent,
   MainLayoutComponent,
-  PathNotFoundComponent
+  PathNotFoundComponent,
+  LoaderComponent
 } from "./components";
 
 @NgModule({
@@ -21,6 +22,7 @@ import {
     FooterComponent,
     MainLayoutComponent,
     PathNotFoundComponent,
+    LoaderComponent
   ],
   exports: [MainLayoutComponent]
 })

@@ -10,7 +10,7 @@ import { ModalComponent, SearchPanelComponent } from "./components";
   declarations: [
     SearchPanelComponent,
     ModalDirective,
-    ModalComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,

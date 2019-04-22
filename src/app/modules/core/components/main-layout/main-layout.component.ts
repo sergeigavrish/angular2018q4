@@ -1,3 +1,4 @@
+import { LoaderService } from "./../../../shared/services/loader.service";
 import { Component, OnInit } from "@angular/core";
 
 import { takeUntil } from "rxjs/operators";
@@ -6,6 +7,7 @@ import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { Router } from "@angular/router";
 import { UserName, UserResponse, isUserResponse } from "./../../../auth/models/interface/user-response.interface";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-main-layout",
@@ -15,11 +17,13 @@ import { UserName, UserResponse, isUserResponse } from "./../../../auth/models/i
 export class MainLayoutComponent extends Unsubscribable implements OnInit {
 
   isAuthenticated: boolean;
+  loading$: Observable<boolean>;
   login: UserName = { first: "", last: "" };
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private loaderService: LoaderService
   ) { super(); }
 
   ngOnInit() {
@@ -29,6 +33,8 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
         this.isAuthenticated = isAuthenticated;
         this.getUserInfo();
       });
+
+    this.loading$ = this.loaderService.getLoading();
   }
 
   onLogOut(): void {
