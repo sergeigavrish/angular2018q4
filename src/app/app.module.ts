@@ -9,7 +9,6 @@ import { SharedModule } from "./modules/shared/shared.module";
 import { UserModule } from "./modules/user/user.module";
 import { CoursesModule } from "./modules/courses/courses.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { InterceptionUrlProvder, INTERCEPTION_URLS_TOKEN } from "./modules/auth/providers/InterceptionUrlProvder";
 import { AuthService } from "./modules/auth/services/auth.service";
 import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
 
@@ -28,11 +27,10 @@ import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
     AppRoutingModule,
   ],
   providers: [
-    InterceptionUrlProvder,
     {
       provide: HTTP_INTERCEPTORS,
-      useFactory: (authService: AuthService, interceptionUrls: Array<string>) => new AuthInterceptor(authService, interceptionUrls),
-      deps: [AuthService, INTERCEPTION_URLS_TOKEN],
+      useFactory: (authService: AuthService) => new AuthInterceptor(authService),
+      deps: [AuthService],
       multi: true
     }
   ],
