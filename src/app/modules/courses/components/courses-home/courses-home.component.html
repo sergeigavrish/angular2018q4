@@ -7,7 +7,7 @@
       <p class="add-course__title">Create new Course</p>
     </a>
   </div>
-  <app-courses-list *ngIf="(filteredCourses$ | async)?.length && (searchValue$ | async); else Courses"
+  <app-courses-list *ngIf="searchValue$ | async; else Courses"
     [courses]="filteredCourses$ | async">
   </app-courses-list>
   <ng-template #Courses>

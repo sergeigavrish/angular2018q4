@@ -2,11 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { Observable, of, iif } from "rxjs";
+import { switchMap, map } from "rxjs/operators";
 
 import { CoursesService } from "./../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
 import { SearchService } from "../../services/search.service";
-import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-courses-home",
@@ -31,15 +31,10 @@ export class CoursesHomeComponent implements OnInit {
   }
 
   private search() {
-    this.searchValue$ = this.searchService.getSearchValue();
-    this.filteredCourses$ = this.searchService.getSearchValue().pipe(
-      switchMap(v => {
-        if (v) {
-          return this.coursesService.searchCourses(v);
-        }
-        return of([]);
-      })
+    this.searchValue$ = this.searchService.getSearchValue().pipe(
+      map(value => value.trim().toLowerCase())
     );
+    this.filteredCourses$ = this.searchService.getFoundCourses();
   }
 
   private init(): void {

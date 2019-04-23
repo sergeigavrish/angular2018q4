@@ -1,5 +1,6 @@
-import { BehaviorSubject } from "rxjs";
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+
+import { Observable } from "rxjs";
 
 import { SearchService } from "./../../../courses/services/search.service";
 
@@ -8,32 +9,24 @@ import { SearchService } from "./../../../courses/services/search.service";
   templateUrl: "./search-panel.component.html",
   styleUrls: ["./search-panel.component.scss"]
 })
-export class SearchPanelComponent {
+export class SearchPanelComponent implements OnInit {
 
   @Input() placeholder: string;
 
-  inputValue = new BehaviorSubject<string>("");
+  inputValue$: Observable<string>;
 
   constructor(private searchService: SearchService) { }
 
-  onSearchClick(event: MouseEvent, inputElement: HTMLElement): void {
-    event.preventDefault();
-    if (!this.inputValue.getValue()) {
-      return inputElement.focus();
-    }
-    console.log("search", this.inputValue.getValue());
-    this.searchService.setSearchValue(this.inputValue.getValue());
+  ngOnInit() {
+    this.inputValue$ = this.searchService.getSearchValue();
   }
 
   onEnter() {
-    this.searchService.setSearchValue(this.inputValue.getValue());
+    this.searchService.setSearchValue();
   }
 
   setInputValue(event: KeyboardEvent): void {
-    this.inputValue.next((<HTMLInputElement>event.target).value);
-    if (!(<HTMLInputElement>event.target).value) {
-      this.searchService.setSearchValue(this.inputValue.getValue());
-    }
+    this.searchService.setSearchValue((<HTMLInputElement>event.target).value);
   }
 
 }
