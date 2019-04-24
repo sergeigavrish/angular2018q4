@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 import { CoursesListComponent } from "./courses-list.component";
-import { SearchService } from "./../../services/search.service";
+import { SearchService } from "../../../core/services/search.service";
 
 describe("CoursesListComponent", () => {
   let component: CoursesListComponent;

@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserName(): string {
-    return `${this.login.first} ${this.login.last}`;
+    return this.login && `${this.login.first} ${this.login.last}`;
   }
 
 }

@@ -8,8 +8,10 @@ import {
   HeaderComponent,
   MainLayoutComponent,
   PathNotFoundComponent,
-  LoaderComponent
+  LoaderComponent,
+  SearchPanelComponent
 } from "./components";
+import { SearchService } from "./services/search.service";
 
 @NgModule({
   imports: [
@@ -22,8 +24,10 @@ import {
     FooterComponent,
     MainLayoutComponent,
     PathNotFoundComponent,
-    LoaderComponent
+    LoaderComponent,
+    SearchPanelComponent
   ],
+  providers: [SearchService],
   exports: [MainLayoutComponent]
 })
 export class CoreModule { }

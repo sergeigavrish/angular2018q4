@@ -1,18 +1,14 @@
 <div class="container">
 
-  <app-loader *ngIf="loading$ | async; else layout"></app-loader>
-
-  <ng-template #layout>
-    <app-header 
-      [isAuthenticated]="isAuthenticated$ | async"
-      [login]="login$ | async"
-      (logOut)="onLogOut()">
-    </app-header>
-    <app-breadcrumbs *ngIf="isAuthenticated$ | async"></app-breadcrumbs>
-    <div class="container__content">
+  <app-header [isAuthenticated]="isAuthenticated$ | async" [login]="login$ | async" (logOut)="onLogOut()">
+  </app-header>
+  <app-breadcrumbs *ngIf="isAuthenticated$ | async"></app-breadcrumbs>
+  <div class="container__content">
+    <app-loader *ngIf="loading$ | async; else layout"></app-loader>
+    <ng-template #layout>
       <ng-content></ng-content>
-    </div>
-    <app-footer class="container__footer"></app-footer>
-  </ng-template>
+    </ng-template>
+  </div>
+  <app-footer class="container__footer"></app-footer>
 
 </div>

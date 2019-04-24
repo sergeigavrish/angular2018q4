@@ -2,11 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { Observable, of, iif } from "rxjs";
-import { switchMap, map } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 
 import { CoursesService } from "./../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
-import { SearchService } from "../../services/search.service";
+import { SearchService } from "../../../core/services/search.service";
+import { SearchStatus } from "../../../core/types";
 
 @Component({
   selector: "app-courses-home",
@@ -17,7 +18,6 @@ export class CoursesHomeComponent implements OnInit {
 
   courses$: Observable<Array<Course>>;
   filteredCourses$: Observable<Array<Course>>;
-  searchValue$: Observable<string>;
 
   constructor(
     private router: Router,
@@ -31,9 +31,6 @@ export class CoursesHomeComponent implements OnInit {
   }
 
   private search() {
-    this.searchValue$ = this.searchService.getSearchValue().pipe(
-      map(value => value.trim().toLowerCase())
-    );
     this.filteredCourses$ = this.searchService.getFoundCourses();
   }
 
@@ -48,6 +45,10 @@ export class CoursesHomeComponent implements OnInit {
       })
     );
 
+  }
+
+  getSearchStatus() {
+    return this.searchService.getSearchStatus() === SearchStatus.success;
   }
 
   load(): void {

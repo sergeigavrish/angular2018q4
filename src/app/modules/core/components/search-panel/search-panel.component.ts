@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 
 import { Observable } from "rxjs";
 
-import { SearchService } from "./../../../courses/services/search.service";
+import { SearchService } from "../../services/search.service";
 
 @Component({
   selector: "app-search-panel",

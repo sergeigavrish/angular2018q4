@@ -3,12 +3,10 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
 import { ModalDirective } from "./directives/modal.directive";
-import { SearchService } from "./../courses/services/search.service";
-import { ModalComponent, SearchPanelComponent } from "./components";
+import { ModalComponent } from "./components";
 
 @NgModule({
   declarations: [
-    SearchPanelComponent,
     ModalDirective,
     ModalComponent
   ],
@@ -16,7 +14,6 @@ import { ModalComponent, SearchPanelComponent } from "./components";
     CommonModule,
     FormsModule
   ],
-  providers: [SearchService],
-  exports: [SearchPanelComponent, ModalComponent, FormsModule]
+  exports: [ModalComponent, FormsModule]
 })
 export class SharedModule { }

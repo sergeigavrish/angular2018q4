@@ -1,7 +1,7 @@
 import { isUserResponse } from "./../models/interface/user-response.interface";
 import { Injectable } from "@angular/core";
 
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { tap, map } from "rxjs/operators";
 
 import { AuthRemoteService } from "./auth-remote.service";
@@ -60,6 +60,9 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<UserName> {
+    if (this.isData()) {
+      return this.loadUserInfo();
+    }
     return this.userInfo$.asObservable();
   }
 
@@ -76,16 +79,19 @@ export class AuthService {
   private isLoggedIn(): void {
     if (this.isData()) {
       this.setIsAuthenticated(true);
+      this.loadUserInfo();
     }
   }
 
-  private loadUserInfo = (): void => {
+  private loadUserInfo = (): Observable<UserName> => {
     this.remote.getUserInfo<string, UserResponse>(localStorage.getItem("token"))
       .subscribe((info: UserResponse | boolean) => {
         if (isUserResponse(info)) {
-          this.userInfo$.next(info.name);
+          return this.userInfo$.next(info.name);
         }
+        return this.userInfo$.next({ first: "", last: "" });
       });
+    return this.userInfo$.asObservable();
   }
 
   private isData(): boolean {
