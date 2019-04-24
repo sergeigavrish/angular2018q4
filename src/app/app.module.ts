@@ -10,6 +10,7 @@ import { UserModule } from "./modules/user/user.module";
 import { CoursesModule } from "./modules/courses/courses.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
+import { LoaderInterceptor } from "./modules/core/interceptors/loader.interceptor";
 import { LoaderService } from "./modules/core/services/loader.service";
 
 @NgModule({
@@ -29,7 +30,12 @@ import { LoaderService } from "./modules/core/services/loader.service";
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useFactory: (loaderService: LoaderService) => new AuthInterceptor(loaderService),
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: (loaderService: LoaderService) => new LoaderInterceptor(loaderService),
       deps: [LoaderService],
       multi: true
     }
