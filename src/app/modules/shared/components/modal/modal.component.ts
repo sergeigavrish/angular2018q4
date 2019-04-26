@@ -8,17 +8,18 @@ import {
 } from "@angular/core";
 
 import { Observable } from "rxjs";
-import { filter } from "rxjs/operators";
+import { filter, takeUntil } from "rxjs/operators";
 
 import { ModalDirective } from "../../directives/modal.directive";
 import { ModalService } from "../../services/modal.service";
+import { Unsubscribable } from "../../models/entity/unsubscribable.entity";
 
 @Component({
   selector: "app-modal",
   templateUrl: "./modal.component.html",
   styleUrls: ["./modal.component.scss"]
 })
-export class ModalComponent implements OnInit, AfterViewInit {
+export class ModalComponent extends Unsubscribable implements OnInit, AfterViewInit {
 
   @ViewChild("overlay") overlay: ElementRef;
   @ViewChild(ModalDirective) appModal: ModalDirective;
@@ -33,7 +34,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   constructor(
     private modalService: ModalService,
-  ) { }
+  ) { super(); }
 
   ngOnInit() {
     this.isOpened$ = this.modalService.getIsOpened();
@@ -43,6 +44,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.modalService
       .getComponent()
       .pipe(
+        takeUntil(this.ngUnsubscribe$),
         filter(component => !!component)
       )
       .subscribe(component => {
