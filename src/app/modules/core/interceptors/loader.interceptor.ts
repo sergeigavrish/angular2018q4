@@ -9,41 +9,39 @@ import { LoaderService } from "../../core/services/loader.service";
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
-  private reqCount = 0;
+  private reqCount = new Set<string>();
 
   constructor(
     private loaderService: LoaderService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.reqCount++;
+    this.reqCount.add(req.url);
     this.loaderService.loading();
-    return next.handle(req).pipe(this.interceptHandlePipe());
+    return next.handle(req).pipe(this.interceptHandlePipe(req.url));
   }
 
-  private interceptHandlePipe() {
+  private interceptHandlePipe(url: string) {
     return pipe(
       mergeMap(evt => {
         if (evt instanceof HttpResponse) {
           return of(evt).pipe(
             delay(1500),
-            tap(this.handleLoader),
+            tap(() => this.handleLoader(url)),
           );
         }
         return of(evt);
       }),
       catchError(err => {
-        this.handleLoader();
+        this.handleLoader(url);
         return of(err);
       })
     );
   }
 
-  private handleLoader = (): void => {
-    if (this.reqCount > 0) {
-      this.reqCount--;
-    }
-    if (!this.reqCount) {
+  private handleLoader(url: string): void {
+    this.reqCount.delete(url);
+    if (!this.reqCount.size) {
       this.loaderService.done();
     }
   }
