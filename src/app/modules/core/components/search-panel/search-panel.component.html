@@ -1,9 +1,7 @@
 <div class="search-form">
-  <input 
+  <input
+    #sp
     class="search-form__input input"
     type="text"
-    [placeholder]="placeholder"
-    [value]="inputValue$ | async"
-    (keyup)="setInputValue($event)"
-    (keyup.enter)="onEnter()">
-</div>
+    [placeholder]="placeholder">
+  </div>

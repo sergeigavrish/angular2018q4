@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
-import { BehaviorSubject, Observable } from "rxjs";
-import { debounceTime, switchMap, distinctUntilChanged, filter, tap, map } from "rxjs/operators";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import { switchMap, filter, tap, map } from "rxjs/operators";
 
 import { CoursesService } from "../../courses/services/courses.service";
 import { Course } from "../../courses/models/interfaces/course.interface";
@@ -10,24 +10,12 @@ import { SearchStatus } from "../types";
 @Injectable()
 export class SearchService {
 
-  private searchValue$: BehaviorSubject<string> = new BehaviorSubject("");
   private foundCourses$: BehaviorSubject<Array<Course>> = new BehaviorSubject([]);
   private searchStatus$: BehaviorSubject<SearchStatus> = new BehaviorSubject(SearchStatus.empty);
 
   constructor(
     private coursesService: CoursesService,
   ) { }
-
-  getSearchValue(): Observable<string> {
-    return this.searchValue$.asObservable();
-  }
-
-  setSearchValue(value?: string): void {
-    if (typeof value === "string") {
-      this.searchValue$.next(value);
-    }
-    this.search();
-  }
 
   getFoundCourses(): Observable<Array<Course>> {
     return this.foundCourses$.asObservable();
@@ -37,22 +25,23 @@ export class SearchService {
     return this.searchStatus$.getValue();
   }
 
-  private search() {
-    this.searchValue$.asObservable()
+  search = (value: string): Observable<Array<Course>> => {
+    return of(value)
       .pipe(
-        debounceTime(400),
-        distinctUntilChanged(),
-        map(value => value.trim().toLowerCase()),
-        filter(() => this.searchValue$.getValue().length >= 3),
+        map(v => v.trim().toLowerCase()),
+        filter(v => v.length >= 3),
         tap(() => this.searchStatus$.next(SearchStatus.pending)),
-        switchMap(() => this.coursesService.searchCourses(this.searchValue$.getValue())),
-      )
-      .subscribe(this.setFoundCourses);
+        switchMap(v => this.coursesService.searchCourses(v)),
+      );
   }
 
-  private setFoundCourses = (courses: Array<Course>): void => {
+  setFoundCourses = (courses: Array<Course>): void => {
     this.foundCourses$.next(courses);
-    this.searchStatus$.next(SearchStatus.success);
+    if (courses.length) {
+      this.searchStatus$.next(SearchStatus.success);
+    } else {
+      this.searchStatus$.next(SearchStatus.empty);
+    }
   }
 
 }
