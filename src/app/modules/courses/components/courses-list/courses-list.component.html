@@ -1,16 +1,18 @@
-<div class="list">
-  <div *ngIf="!courses?.length; else coursesList" class="list__fallout">
-    <p>
-      No data. Feel free to add a new course.
-    </p>
+<div class="inner">
+  <div class="list">
+    <div *ngIf="!courses?.length; else coursesList" class="list__fallout">
+      <p>
+        No data. Feel free to add a new course.
+      </p>
+    </div>
+    <ng-template #coursesList>
+      <app-course-item 
+        *ngFor="let course of courses | orderBy"
+        class="list__item"
+        [course]="course"
+        (delete)="onDelete($event)"
+        (edit)="onEdit($event)">
+      </app-course-item>
+    </ng-template>
   </div>
-  <ng-template #coursesList>
-    <app-course-item 
-      *ngFor="let course of courses | orderBy"
-      class="list__item"
-      [course]="course"
-      (delete)="onDelete($event)"
-      (edit)="onEdit($event)">
-    </app-course-item>
-  </ng-template>
 </div>
