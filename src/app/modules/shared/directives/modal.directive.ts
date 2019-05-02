@@ -5,7 +5,6 @@ import {
   OnInit,
   Type,
   ViewContainerRef,
-  Renderer2
 } from "@angular/core";
 
 import { filter, takeUntil } from "rxjs/operators";
@@ -33,7 +32,8 @@ export class ModalDirective extends Unsubscribable implements OnInit {
       .pipe(
         takeUntil(this.ngUnsubscribe$),
         filter(isOpened => !isOpened)
-      ).subscribe(() => this.dettach());
+      )
+      .subscribe(() => this.dettach());
   }
 
   loadComponent(component: Type<any>, data?: Object): void {

@@ -1,5 +1,5 @@
-import { SearchService } from "./../../../courses/services/search.service";
-import { async, ComponentFixture, TestBed, flush, fakeAsync } from "@angular/core/testing";
+import { SearchService } from "../../services/search.service";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
 
@@ -47,7 +47,7 @@ describe("SearchPanelComponent", () => {
     const event = { target: input.nativeElement };
     input.triggerEventHandler("input", event);
     expect(setInputValue).toHaveBeenCalled();
-    expect(component.inputValue.getValue()).toEqual(input.nativeElement.value);
+    expect(component.inputValue$.getValue()).toEqual(input.nativeElement.value);
   });
 
   it("should call search and focus input element", () => {
@@ -62,7 +62,7 @@ describe("SearchPanelComponent", () => {
     input.triggerEventHandler("input", event);
     button.triggerEventHandler("click", new Event("click"));
     expect(search).toHaveBeenCalled();
-    expect(component.inputValue.getValue()).toEqual(input.nativeElement.value);
+    expect(component.inputValue$.getValue()).toEqual(input.nativeElement.value);
   });
 
 });

@@ -9,8 +9,9 @@ import { SharedModule } from "./modules/shared/shared.module";
 import { UserModule } from "./modules/user/user.module";
 import { CoursesModule } from "./modules/courses/courses.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { AuthService } from "./modules/auth/services/auth.service";
 import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
+import { LoaderInterceptor } from "./modules/core/interceptors/loader.interceptor";
+import { LoaderService } from "./modules/core/services/loader.service";
 
 @NgModule({
   declarations: [
@@ -29,8 +30,13 @@ import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useFactory: (authService: AuthService) => new AuthInterceptor(authService),
-      deps: [AuthService],
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: (loaderService: LoaderService) => new LoaderInterceptor(loaderService),
+      deps: [LoaderService],
       multi: true
     }
   ],

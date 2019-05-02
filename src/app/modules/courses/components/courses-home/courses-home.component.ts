@@ -2,28 +2,29 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { Observable, of, iif } from "rxjs";
+import { switchMap, takeUntil } from "rxjs/operators";
 
 import { CoursesService } from "./../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
-import { SearchService } from "../../services/search.service";
-import { switchMap } from "rxjs/operators";
+import { SearchService } from "../../../core/services/search.service";
+import { SearchStatus } from "../../../core/types";
+import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 
 @Component({
   selector: "app-courses-home",
   templateUrl: "./courses-home.component.html",
   styleUrls: ["./courses-home.component.scss"]
 })
-export class CoursesHomeComponent implements OnInit {
+export class CoursesHomeComponent extends Unsubscribable implements OnInit {
 
   courses$: Observable<Array<Course>>;
   filteredCourses$: Observable<Array<Course>>;
-  searchValue$: Observable<string>;
 
   constructor(
     private router: Router,
     private coursesService: CoursesService,
     private searchService: SearchService,
-  ) { }
+  ) { super(); }
 
   ngOnInit() {
     this.init();
@@ -31,15 +32,7 @@ export class CoursesHomeComponent implements OnInit {
   }
 
   private search() {
-    this.searchValue$ = this.searchService.getSearchValue();
-    this.filteredCourses$ = this.searchService.getSearchValue().pipe(
-      switchMap(v => {
-        if (v) {
-          return this.coursesService.searchCourses(v);
-        }
-        return of([]);
-      })
-    );
+    this.filteredCourses$ = this.searchService.getFoundCourses();
   }
 
   private init(): void {
@@ -55,8 +48,13 @@ export class CoursesHomeComponent implements OnInit {
 
   }
 
+  getSearchStatus() {
+    return this.searchService.getSearchStatus() === SearchStatus.success;
+  }
+
   load(): void {
     this.coursesService.loadCourses()
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => console.log("loaded"));
   }
 

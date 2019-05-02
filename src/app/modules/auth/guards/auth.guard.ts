@@ -1,7 +1,9 @@
-import { AuthService } from "./../services/auth.service";
 import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivateChild } from "@angular/router";
-import { Observable } from "rxjs";
+
+import { Observable, of } from "rxjs";
+
+import { AuthService } from "./../services/auth.service";
 
 @Injectable({
   providedIn: "root"
@@ -15,26 +17,26 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot): Observable<boolean> {
     return this.isAuthenticated(state.url);
   }
 
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  ): Observable<boolean> {
     return this.isAuthenticated(state.url);
   }
 
-  private isAuthenticated(url: string): boolean {
+  private isAuthenticated(url: string): Observable<boolean> {
     if (this.authService.checkIsAuthenticated()) {
-      return true;
+      return of(true);
     }
 
     this.authService.setRedirectUrl(url);
     this.router.navigate(["sign-in"]);
 
-    return false;
-
+    return of(false);
   }
+
 }

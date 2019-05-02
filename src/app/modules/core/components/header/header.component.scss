@@ -44,6 +44,10 @@
   
   .menu {
 
+    &__search {
+      align-self: center;
+    }
+
     &__list {
       list-style: none;
       padding: 0;

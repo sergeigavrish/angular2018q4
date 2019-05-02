@@ -51,9 +51,11 @@ export class CourseFormComponent extends Unsubscribable implements OnInit, OnDes
     } else {
       res = this.coursesService.createCourse(this.course);
     }
-    res.subscribe(() => {
-      this.router.navigate(["courses"]);
-    });
+    res
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {
+        this.router.navigate(["courses"]);
+      });
   }
 
   onCancel() {

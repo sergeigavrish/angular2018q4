@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { takeUntil } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
 import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
-import { Router } from "@angular/router";
-import { UserName, UserResponse, isUserResponse } from "./../../../auth/models/interface/user-response.interface";
+import { UserName } from "./../../../auth/models/interface/user-response.interface";
+import { LoaderService } from "../../services/loader.service";
 
 @Component({
   selector: "app-main-layout",
@@ -14,36 +16,27 @@ import { UserName, UserResponse, isUserResponse } from "./../../../auth/models/i
 })
 export class MainLayoutComponent extends Unsubscribable implements OnInit {
 
-  isAuthenticated: boolean;
-  login: UserName = { first: "", last: "" };
+  isAuthenticated$: Observable<boolean>;
+  loading$: Observable<boolean>;
+  login$: Observable<UserName>;
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private loaderService: LoaderService
   ) { super(); }
 
   ngOnInit() {
-    this.authService.getIsAuthenticated()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(isAuthenticated => {
-        this.isAuthenticated = isAuthenticated;
-        this.getUserInfo();
-      });
+    this.isAuthenticated$ = this.authService.getIsAuthenticated().pipe(
+      tap(() => this.login$ = this.authService.getUserInfo())
+    );
+    this.loading$ = this.loaderService.getLoading();
   }
 
   onLogOut(): void {
     this.authService.logOut();
     console.log("logout");
     this.router.navigate(["sign-in"]);
-  }
-
-  private getUserInfo(): void {
-    this.authService.getUserInfo()
-      .subscribe((info: UserResponse | boolean) => {
-        if (isUserResponse(info)) {
-          return this.login = info.name;
-        }
-      });
   }
 
 }
