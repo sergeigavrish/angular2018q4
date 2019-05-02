@@ -1,5 +1,5 @@
-<div *ngIf="(courses$ | async) as courses" class="list">
-  <div *ngIf="!courses.length; else coursesList" class="list__fallout">
+<div class="list">
+  <div *ngIf="!courses?.length; else coursesList" class="list__fallout">
     <p>
       No data. Feel free to add a new course.
     </p>

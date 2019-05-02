@@ -3,9 +3,9 @@ import { CourseEntity } from "./../models/entity/course.entity";
 
 export const courseFactory = (data: Course) => new CourseEntity(
   data.id,
-  data.title,
-  new Date(data.creationDate),
-  data.duration,
+  data.name,
+  new Date(data.date),
+  data.length,
   data.description,
   data.image,
   data.topRated

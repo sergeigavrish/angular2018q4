@@ -1,46 +1,30 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { Observable } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-
 import { Course } from "../../models/interfaces/course.interface";
-import { FilterPipe } from "./../../pipes/filter.pipe";
-import { SearchService } from "./../../services/search.service";
-import { Unsubscribable } from "./../../../shared/models/entity/unsubscribable.entity";
 import { ModalService } from "../../../shared/services/modal.service";
-import { CoursesService } from "./../../services/courses.service";
 import { CourseDeleteComponent } from "../course-delete/course-delete.component";
 
 @Component({
   selector: "app-courses-list",
   templateUrl: "./courses-list.component.html",
-  styleUrls: ["./courses-list.component.scss"],
-  providers: [FilterPipe]
+  styleUrls: ["./courses-list.component.scss"]
 })
-export class CoursesListComponent extends Unsubscribable implements OnInit {
+export class CoursesListComponent implements OnInit {
 
-  courses$: Observable<Course[]>;
+  @Input() courses: Array<Course>;
 
   constructor(
     private router: Router,
-    private searchService: SearchService,
-    private filterPipe: FilterPipe,
-    private coursesService: CoursesService,
     private modalService: ModalService,
-  ) { super(); }
+  ) { }
 
   ngOnInit() {
-    this.courses$ = this.coursesService.getCourses() as Observable<Course[]>;
-    this.searchService.getSearchValue$()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((value: string) =>
-        this.courses$ = this.filterPipe.transform(this.coursesService.getCourses() as Observable<Course[]>, value));
   }
 
   onDelete(course: Course): void {
-    const { title, id } = course;
-    this.modalService.init(CourseDeleteComponent, `Delete ${course.title}?`, { title, id });
+    const { name, id } = course;
+    this.modalService.init(CourseDeleteComponent, `Delete ${name}?`, { name, id });
   }
 
   onEdit(course: Course) {

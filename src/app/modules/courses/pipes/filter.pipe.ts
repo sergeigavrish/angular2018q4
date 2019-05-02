@@ -12,7 +12,7 @@ export class FilterPipe implements PipeTransform {
 
   transform(courses$: Observable<Course[]>, input: string): Observable<Course[]> {
     return courses$.pipe(
-      map((courses: Course[]) => courses.filter((course: Course) => course.title.toLowerCase().includes(input))),
+      map((courses: Course[]) => courses.filter((course: Course) => course && course.name.toLowerCase().includes(input))),
       tap(console.log)
     );
   }

@@ -26,9 +26,11 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     console.log(this.signInForm.value);
-    this.authService.logIn();
-    const url = this.authService.getRedirectUrl() ? this.authService.getRedirectUrl() : "";
-    this.router.navigate([url]);
+    this.authService.logIn(this.signInForm.value)
+      .subscribe(() => {
+        const url = this.authService.getRedirectUrl() ? this.authService.getRedirectUrl() : "";
+        this.router.navigate([url]);
+      });
   }
 
 }

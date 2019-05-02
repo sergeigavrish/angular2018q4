@@ -10,7 +10,7 @@ export class SearchService {
 
   constructor() { }
 
-  getSearchValue$(): Observable<string> {
+  getSearchValue(): Observable<string> {
     return this.searchValue$.asObservable().pipe(
       map((value: string) => value.trim().toLowerCase())
     );

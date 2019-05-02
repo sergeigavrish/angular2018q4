@@ -1,14 +1,14 @@
 <label>
   <input
     #formProps="ngModel"
-    [(ngModel)]="course.duration"
+    [(ngModel)]="course.length"
     [ngClass]="{invalid: formProps.valid || (formProps.dirty || formProps.touched)}"
     class="duration"
     name="duration"
     required
     type="number">
   <span class="placeholder">Duration</span>
-  <p *ngIf="course.duration">{{course.duration | duration}}</p>
+  <p *ngIf="course.length">{{course.length | duration}}</p>
   <div *ngIf="formProps.invalid && (formProps.dirty || formProps.touched)" class="error">
     <div *ngIf="formProps.errors.required">
       Duration is required.
