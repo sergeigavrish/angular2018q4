@@ -3,11 +3,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
-import { AuthModule } from "./modules/auth/auth.module";
 import { CoreModule } from "./modules/core/core.module";
 import { SharedModule } from "./modules/shared/shared.module";
-import { UserModule } from "./modules/user/user.module";
-import { CoursesModule } from "./modules/courses/courses.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthInterceptor } from "./modules/auth/interceptors/auth.interceptor";
 import { LoaderInterceptor } from "./modules/core/interceptors/loader.interceptor";
@@ -21,10 +18,7 @@ import { LoaderService } from "./modules/core/services/loader.service";
     BrowserModule,
     HttpClientModule,
     SharedModule,
-    AuthModule,
-    CoursesModule,
     CoreModule,
-    UserModule,
     AppRoutingModule,
   ],
   providers: [

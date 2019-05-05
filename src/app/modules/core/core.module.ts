@@ -12,10 +12,16 @@ import {
   SearchPanelComponent
 } from "./components";
 import { SearchService } from "./services/search.service";
+import { AuthModule } from "../auth/auth.module";
+import { CoursesModule } from "../courses/courses.module";
+import { UserModule } from "../user/user.module";
 
 @NgModule({
   imports: [
     CommonModule,
+    AuthModule,
+    CoursesModule,
+    UserModule,
     RouterModule
   ],
   declarations: [
