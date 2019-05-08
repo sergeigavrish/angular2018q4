@@ -2,6 +2,8 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
+import { StoreModule } from "@ngrx/store";
+
 import {
   BreadcrumbsComponent,
   FooterComponent,
@@ -15,10 +17,12 @@ import { SearchService } from "./services/search.service";
 import { AuthModule } from "../auth/auth.module";
 import { CoursesModule } from "../courses/courses.module";
 import { UserModule } from "../user/user.module";
+import { metaReducers } from "./store/metaReducer";
 
 @NgModule({
   imports: [
     CommonModule,
+    StoreModule.forRoot({}, { metaReducers }),
     AuthModule,
     CoursesModule,
     UserModule,
