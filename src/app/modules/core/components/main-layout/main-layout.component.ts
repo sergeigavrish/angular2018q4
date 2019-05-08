@@ -2,12 +2,15 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+
+import { Store, select } from "@ngrx/store";
 
 import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { UserName } from "./../../../auth/models/interface/user-response.interface";
 import { LoaderService } from "../../services/loader.service";
+import { AppState } from "./../../store/AppState";
+import { selectIsAuthenticated, selectUserInfo } from "../../../auth/store/auth.selectors";
 
 @Component({
   selector: "app-main-layout",
@@ -23,13 +26,13 @@ export class MainLayoutComponent extends Unsubscribable implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private store: Store<AppState>
   ) { super(); }
 
   ngOnInit() {
-    this.isAuthenticated$ = this.authService.getIsAuthenticated().pipe(
-      tap(() => this.login$ = this.authService.getUserInfo())
-    );
+    this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
+    this.login$ = this.store.pipe(select(selectUserInfo));
     this.loading$ = this.loaderService.getLoading();
   }
 
