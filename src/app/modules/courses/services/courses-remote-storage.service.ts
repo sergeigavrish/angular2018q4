@@ -4,8 +4,9 @@ import { Injectable } from "@angular/core";
 import {
   Observable,
   of,
+  pipe
 } from "rxjs";
-import { map, catchError, mergeMap } from "rxjs/operators";
+import { map, catchError, mergeMap, switchMap } from "rxjs/operators";
 
 import { Course } from "./../models/interfaces/course.interface";
 import { courseFactory } from "./../factories/course.factory";
@@ -41,6 +42,16 @@ export class CoursesRemoteStorageService implements Storage<Course> {
     return (data: Course | Array<Course>) => this.handleCourses(data);
   }
 
+  private saveAndUpdatePipe() {
+    return pipe(
+      switchMap(res => this.handleCourses(res as Course) as Observable<Course>),
+      catchError(error => {
+        console.warn(error.message);
+        return of(false);
+      })
+    );
+  }
+
   load<U>(opts: U): Observable<Course | Course[]> {
     return this.setupCourseReq(opts).pipe(
       mergeMap(this.setupCourseRes()),
@@ -59,20 +70,14 @@ export class CoursesRemoteStorageService implements Storage<Course> {
     if (!CourseEntity.isCourse(course)) {
       return of(false);
     }
-
-    return this.http.post<Course>(`${environment.backendUrl}/courses`, course);
+    return this.http.post<Course>(`${environment.backendUrl}/courses`, course).pipe(this.saveAndUpdatePipe());
   }
 
   update(data: Course, id: string): Observable<Course | boolean> {
     if (!CourseEntity.isCourse(data)) {
       return of(false);
     }
-    return this.http.put<Course>(`${environment.backendUrl}/courses/${id}`, data).pipe(
-      catchError(error => {
-        console.warn(error.message);
-        return of(false);
-      })
-    );
+    return this.http.put<Course>(`${environment.backendUrl}/courses/${id}`, data).pipe(this.saveAndUpdatePipe());
   }
 
   delete(id: string): Observable<string | boolean> {

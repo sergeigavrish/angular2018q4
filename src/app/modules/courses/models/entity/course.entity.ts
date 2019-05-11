@@ -19,4 +19,10 @@ export class CourseEntity implements Course {
       && c.hasOwnProperty("description") && typeof (c.description) === "string"
       && c.hasOwnProperty("topRated") && typeof (c.topRated) === "boolean";
   }
+
+  static isArrayOfCourse(arr: Array<any> | Array<Course>): arr is Array<Course> {
+    const arrayOfCourse = arr as Array<Course>;
+    return arrayOfCourse.every(c => this.isCourse(c));
+  }
+
 }
