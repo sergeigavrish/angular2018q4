@@ -5,6 +5,7 @@ import {
   OnInit,
   Type,
   ViewContainerRef,
+  Renderer2
 } from "@angular/core";
 
 import { filter, takeUntil } from "rxjs/operators";
@@ -19,12 +20,12 @@ import { OverlayService } from "../services/overlay.service";
 })
 export class ModalDirective extends Unsubscribable implements OnInit {
 
-
   constructor(
     private modalService: ModalService,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private renderer: Renderer2
   ) { super(); }
 
   ngOnInit() {
@@ -51,6 +52,10 @@ export class ModalDirective extends Unsubscribable implements OnInit {
   dettach() {
     this.viewContainerRef.clear();
     this.overlayService.showOverlay();
+  }
+
+  hideModalOverlay(el: HTMLElement) {
+    this.renderer.addClass(el, "hidden");
   }
 
 }

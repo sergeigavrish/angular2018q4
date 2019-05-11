@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { Injectable, Type } from "@angular/core";
 
 @Injectable({
@@ -7,6 +7,7 @@ import { Injectable, Type } from "@angular/core";
 export class ModalService {
 
   private isOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private hideOveray$: Subject<void> = new Subject();
   private data$: BehaviorSubject<Object | null> = new BehaviorSubject<Object | null>(null);
   private title$: BehaviorSubject<string> = new BehaviorSubject<string>("");
   private component$: BehaviorSubject<Type<any> | null> = new BehaviorSubject<Type<any> | null>(null);
@@ -43,6 +44,14 @@ export class ModalService {
 
   setComponent(component: Type<any> = null): void {
     this.component$.next(component);
+  }
+
+  getHideOveray(): Observable<void> {
+    return this.hideOveray$.asObservable();
+  }
+
+  hideOveray() {
+    this.hideOveray$.next();
   }
 
   init(component: Type<any>, title: string, data?: Object): void {
