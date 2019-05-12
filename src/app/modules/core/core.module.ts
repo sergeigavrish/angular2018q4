@@ -17,7 +17,7 @@ import { SearchService } from "./services/search.service";
 import { AuthModule } from "../auth/auth.module";
 import { CoursesModule } from "../courses/courses.module";
 import { UserModule } from "../user/user.module";
-import { metaReducers } from "./store/metaReducer";
+import { metaReducers } from "./store/meta.reducer";
 
 @NgModule({
   imports: [

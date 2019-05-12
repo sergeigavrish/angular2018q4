@@ -9,7 +9,7 @@ import { AuthService } from "./../../../auth/services/auth.service";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { UserName } from "./../../../auth/models/interface/user-response.interface";
 import { LoaderService } from "../../services/loader.service";
-import { AppState } from "./../../store/AppState";
+import { AppState } from "../../models/interfaces/app-state.interface";
 import { selectIsAuthenticated, selectUserInfo } from "../../../auth/store/auth.selectors";
 
 @Component({

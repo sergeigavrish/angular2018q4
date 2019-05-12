@@ -7,7 +7,7 @@ import { Store } from "@ngrx/store";
 import { CoursesService } from "./../../services/courses.service";
 import { ModalService } from "../../../shared/services/modal.service";
 import { Unsubscribable } from "./../../../shared/models/entity/unsubscribable.entity";
-import { AppState } from "../../../core/store/AppState";
+import { AppState } from "../../../core/models/interfaces/app-state.interface";
 import { DeleteCourse } from "../../store/courses.actions";
 
 @Component({

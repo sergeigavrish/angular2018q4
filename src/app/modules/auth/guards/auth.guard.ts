@@ -12,7 +12,7 @@ import { tap } from "rxjs/operators";
 
 import { select, Store } from "@ngrx/store";
 
-import { AppState } from "./../../core/store/AppState";
+import { AppState } from "../../core/models/interfaces/app-state.interface";
 import { AuthService } from "./../services/auth.service";
 import { selectIsAuthenticated } from "../store/auth.selectors";
 

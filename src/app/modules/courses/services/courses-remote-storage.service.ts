@@ -11,8 +11,8 @@ import { map, catchError, mergeMap, switchMap } from "rxjs/operators";
 import { Course } from "./../models/interfaces/course.interface";
 import { courseFactory } from "./../factories/course.factory";
 import { environment } from "../../../../environments/environment";
-import { Storage } from "../models/interfaces/strorage.interfase";
-import { CourseRequestParams } from "../models/interfaces/CourseRequestParams.interface";
+import { Storage } from "../models/interfaces/strorage.interface";
+import { CourseRequestParams } from "../models/interfaces/course-request-params.interface";
 import { CourseEntity } from "../models/entity/course.entity";
 
 @Injectable()

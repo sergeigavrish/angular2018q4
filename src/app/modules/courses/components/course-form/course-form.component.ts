@@ -10,7 +10,7 @@ import { CoursesService } from "../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { OverlayService } from "../../../shared/services/overlay.service";
-import { AppState } from "../../../core/store/AppState";
+import { AppState } from "../../../core/models/interfaces/app-state.interface";
 import { UpdateCourse, CreateCourse } from "../../store/courses.actions";
 import { CourseEntity } from "../../models/entity/course.entity";
 

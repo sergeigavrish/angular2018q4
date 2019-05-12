@@ -12,7 +12,7 @@ import { LogIn } from "../../store/auth.actions";
 import { UserInfo } from "./../../store/auth.actions";
 import { isUserResponse, UserResponse } from "./../../models/interface/user-response.interface";
 import { isLoginResponse, LoginResponse } from "./../../models/interface/login-response.interface";
-import { AppState } from "./../../../core/store/AppState";
+import { AppState } from "../../../core/models/interfaces/app-state.interface";
 
 @Component({
   selector: "app-sign-in",

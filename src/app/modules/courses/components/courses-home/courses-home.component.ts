@@ -9,7 +9,7 @@ import { CoursesService } from "./../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
 import { SearchService } from "../../../core/services/search.service";
 import { SearchStatus } from "../../../core/types";
-import { AppState } from "../../../core/store/AppState";
+import { AppState } from "../../../core/models/interfaces/app-state.interface";
 import { selectCourses } from "../../store/courses.selectors";
 import { LoadCourses } from "../../store/courses.actions";
 import { CourseEntity } from "./../../models/entity/course.entity";

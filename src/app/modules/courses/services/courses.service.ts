@@ -4,8 +4,8 @@ import { Observable } from "rxjs";
 
 import { Course } from "./../models/interfaces/course.interface";
 import { STORAGE_TOKEN } from "./../providers/storage.provider";
-import { Storage } from "../models/interfaces/strorage.interfase";
-import { CourseRequestParams } from "../models/interfaces/CourseRequestParams.interface";
+import { Storage } from "../models/interfaces/strorage.interface";
+import { CourseRequestParams } from "../models/interfaces/course-request-params.interface";
 import { COUNT_TOKEN } from "./../providers/count.provider";
 
 @Injectable({
