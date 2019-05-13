@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import {
   BreadcrumbsComponent,
@@ -18,11 +19,13 @@ import { AuthModule } from "../auth/auth.module";
 import { CoursesModule } from "../courses/courses.module";
 import { UserModule } from "../user/user.module";
 import { metaReducers } from "./store/meta.reducer";
+import { environment } from "../../../environments/environment";
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot({}, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     AuthModule,
     CoursesModule,
     UserModule,
