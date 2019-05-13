@@ -1,4 +1,5 @@
 import { ActionReducer, MetaReducer } from "@ngrx/store";
+import { storeFreeze } from "ngrx-store-freeze";
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
@@ -9,4 +10,4 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
-export const metaReducers: MetaReducer<any>[] = [debug];
+export const metaReducers: MetaReducer<any>[] = [debug, storeFreeze];
