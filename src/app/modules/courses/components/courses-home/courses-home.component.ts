@@ -1,19 +1,16 @@
 import { Store, select } from "@ngrx/store";
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { Observable, of, iif } from "rxjs";
-import { switchMap, tap, first } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
-import { CoursesService } from "./../../services/courses.service";
 import { Course } from "../../models/interfaces/course.interface";
 import { SearchService } from "../../../core/services/search.service";
 import { SearchStatus } from "../../../core/types";
 import { AppState } from "../../../core/models/interfaces/app-state.interface";
 import { selectCourses } from "../../store/courses.selectors";
-import { LoadCourses } from "../../store/courses.actions";
-import { CourseEntity } from "./../../models/entity/course.entity";
-import { COUNT_TOKEN } from "../../providers/count.provider";
+import { LoadCoursesStarted } from "../../store/courses.actions";
 
 @Component({
   selector: "app-courses-home",
@@ -27,10 +24,8 @@ export class CoursesHomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private coursesService: CoursesService,
     private searchService: SearchService,
     private store: Store<AppState>,
-    @Inject(COUNT_TOKEN) private count: number
   ) { }
 
   ngOnInit() {
@@ -45,14 +40,13 @@ export class CoursesHomeComponent implements OnInit {
   private init(): void {
     this.courses$ = this.store.pipe(
       select(selectCourses),
-      switchMap(courses => iif(
-        () => { console.log("LOOOH", courses); return !!courses.length; },
-        of(courses),
-        this.coursesService.loadCourses().pipe(
-          tap(this.dispatchArrayOfCourse),
-          select(selectCourses)
-        )
-      ))
+      switchMap(courses => {
+        if (courses.length) {
+          return of(courses);
+        }
+        this.store.dispatch(new LoadCoursesStarted);
+        return of([]);
+      })
     );
   }
 
@@ -61,28 +55,11 @@ export class CoursesHomeComponent implements OnInit {
   }
 
   load(): void {
-    this.courses$
-      .pipe(
-        first(),
-        switchMap(courses => {
-          const start = this.count * +(courses.length / this.count).toFixed();
-          return this.coursesService.loadCourses(start)
-            .pipe(
-              tap(res => console.log("loaded", res))
-            );
-        })
-      )
-      .subscribe(this.dispatchArrayOfCourse);
+    return this.store.dispatch(new LoadCoursesStarted);
   }
 
   onAdd() {
     this.router.navigate(["courses/new"]);
-  }
-
-  private dispatchArrayOfCourse = (res: Array<any>): void => {
-    if (CourseEntity.isArrayOfCourse(res)) {
-      this.store.dispatch(new LoadCourses(res));
-    }
   }
 
 }

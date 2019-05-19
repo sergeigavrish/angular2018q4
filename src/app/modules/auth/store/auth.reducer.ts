@@ -6,17 +6,6 @@ const initialState: AuthState = {
   userInfo: { first: "", last: "" }
 };
 
-export function authReducer(state = initialState, action: AuthActions): AuthState {
-  switch (action.type) {
-    case AuthActionTypes.LogIn:
-      return handleLogin(state, action);
-    case AuthActionTypes.UserInfo:
-      return handleUserInfo(state, action);
-    default:
-      return state;
-  }
-}
-
 const handleLogin = (state: AuthState, action: LogIn) => {
   return {
     ...state,
@@ -30,3 +19,14 @@ const handleUserInfo = (state: AuthState, action: UserInfo) => {
     userInfo: action.payload
   };
 };
+
+export function authReducer(state = initialState, action: AuthActions): AuthState {
+  switch (action.type) {
+    case AuthActionTypes.LogIn:
+      return handleLogin(state, action);
+    case AuthActionTypes.UserInfo:
+      return handleUserInfo(state, action);
+    default:
+      return state;
+  }
+}

@@ -20,11 +20,13 @@ import { CoursesModule } from "../courses/courses.module";
 import { UserModule } from "../user/user.module";
 import { metaReducers } from "./store/meta.reducer";
 import { environment } from "../../../environments/environment";
+import { EffectsModule } from "@ngrx/effects";
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot({}, { metaReducers }),
+    EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AuthModule,
     CoursesModule,
