@@ -6,6 +6,9 @@ export enum CoursesActionTypes {
   LoadCoursesStarted = "[Courses] LoadCoursesStarted",
   LoadCoursesSucceed = "[Courses] LoadCoursesSucceed",
   LoadCoursesFailed = "[Courses] LoadCoursesFailed",
+  LoadCourseByIdStarted = "[Courses] LoadCourseByIdStarted",
+  LoadCourseByIdSucceed = "[Courses] LoadCourseByIdSucceed",
+  LoadCourseByIdFailed = "[Courses] LoadCourseByIdFailed",
   CreateCourseStarted = "[Courses] CreateCourseStarted",
   CreateCourseSucceed = "[Courses] CreateCourseSucceed",
   CreateCourseFailed = "[Courses] CreateCourseFailed",
@@ -15,6 +18,12 @@ export enum CoursesActionTypes {
   DeleteCourseStarted = "[Courses] DeleteCourseStarted",
   DeleteCourseSucceed = "[Courses] DeleteCourseSucceed",
   DeleteCourseFailed = "[Courses] DeleteCourseFailed",
+  SearchCoursesStarted = "[Courses] SearchCoursesStarted",
+  SearchCoursesSucceed = "[Courses] SearchCoursesSucceed",
+  SearchCoursesFailed = "[Courses] SearchCoursesFailed",
+  RestoreCoursesStarted = "[Courses] RestoreCoursesStarted",
+  RestoreCoursesSucceed = "[Courses] RestoreCoursesSucceed",
+  RestoreCoursesFailed = "[Courses] RestoreCoursesFailed",
 }
 
 export class LoadCoursesStarted implements Action {
@@ -29,6 +38,21 @@ export class LoadCoursesSucceed implements Action {
 
 export class LoadCoursesFailed implements Action {
   readonly type = CoursesActionTypes.LoadCoursesFailed;
+  constructor() { }
+}
+
+export class LoadCourseByIdStarted implements Action {
+  readonly type = CoursesActionTypes.LoadCourseByIdStarted;
+  constructor(public payload: string) { }
+}
+
+export class LoadCourseByIdSucceed implements Action {
+  readonly type = CoursesActionTypes.LoadCourseByIdSucceed;
+  constructor(public payload: Course) { }
+}
+
+export class LoadCourseByIdFailed implements Action {
+  readonly type = CoursesActionTypes.LoadCourseByIdFailed;
   constructor() { }
 }
 
@@ -76,7 +100,40 @@ export class DeleteCourseFailed implements Action {
   constructor() { }
 }
 
+export class SearchCoursesStarted implements Action {
+  readonly type = CoursesActionTypes.SearchCoursesStarted;
+  constructor(public payload: string) { }
+}
+
+export class SearchCoursesSucceed implements Action {
+  readonly type = CoursesActionTypes.SearchCoursesSucceed;
+  constructor(public payload: Array<Course>) { }
+}
+
+export class SearchCoursesFailed implements Action {
+  readonly type = CoursesActionTypes.SearchCoursesFailed;
+  constructor() { }
+}
+
+export class RestoreCoursesStarted implements Action {
+  readonly type = CoursesActionTypes.RestoreCoursesStarted;
+  constructor() { }
+}
+
+export class RestoreCoursesSucceed implements Action {
+  readonly type = CoursesActionTypes.RestoreCoursesSucceed;
+  constructor(public payload: Array<Course>) { }
+}
+
+export class RestoreCoursesFailed implements Action {
+  readonly type = CoursesActionTypes.RestoreCoursesFailed;
+  constructor() { }
+}
+
 export type CoursesActions = LoadCoursesStarted | LoadCoursesSucceed | LoadCoursesFailed
+  | LoadCourseByIdStarted | LoadCourseByIdSucceed | LoadCourseByIdFailed
   | CreateCourseStarted | CreateCourseSucceed | CreateCourseFailed
   | UpdateCourseStarted | UpdateCourseSucceed | UpdateCourseFailed
-  | DeleteCourseStarted | DeleteCourseSucceed | DeleteCourseFailed;
+  | DeleteCourseStarted | DeleteCourseSucceed | DeleteCourseFailed
+  | SearchCoursesStarted | SearchCoursesSucceed | SearchCoursesFailed
+  | RestoreCoursesStarted | RestoreCoursesSucceed | RestoreCoursesFailed;
