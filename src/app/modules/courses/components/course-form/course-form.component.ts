@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { map, takeUntil } from "rxjs/operators";
+import { takeUntil } from "rxjs/operators";
 
 import { Store } from "@ngrx/store";
 
@@ -30,10 +30,7 @@ export class CourseFormComponent extends Unsubscribable implements OnInit, OnDes
 
   ngOnInit() {
     this.route.data
-      .pipe(
-        map(data => data),
-        takeUntil(this.ngUnsubscribe$)
-      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(data => {
         this.course = { ...data.course };
         this.formTitle = data.course ? data.course.title : "Add new course";

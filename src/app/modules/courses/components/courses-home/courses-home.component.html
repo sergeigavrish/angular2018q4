@@ -5,12 +5,7 @@
       <p class="add-course__title">Create new Course</p>
     </a>
   </div>
-  <app-courses-list *ngIf="getSearchStatus(); else Courses"
-    [courses]="filteredCourses$ | async">
-  </app-courses-list>
-  <ng-template #Courses>
-    <app-courses-list [courses]="courses$ | async"></app-courses-list>
-  </ng-template>
+  <app-courses-list [courses]="courses$ | async"></app-courses-list>
   <button class="home-layout__load-button button" (click)="load()">Load more</button>
 </div>
 <router-outlet></router-outlet>

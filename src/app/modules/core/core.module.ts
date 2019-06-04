@@ -14,7 +14,6 @@ import {
   LoaderComponent,
   SearchPanelComponent
 } from "./components";
-import { SearchService } from "./services/search.service";
 import { AuthModule } from "../auth/auth.module";
 import { CoursesModule } from "../courses/courses.module";
 import { UserModule } from "../user/user.module";
@@ -42,7 +41,6 @@ import { EffectsModule } from "@ngrx/effects";
     LoaderComponent,
     SearchPanelComponent
   ],
-  providers: [SearchService],
   exports: [MainLayoutComponent]
 })
 export class CoreModule { }
