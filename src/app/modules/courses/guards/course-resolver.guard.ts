@@ -1,18 +1,25 @@
-import { ActivatedRouteSnapshot, Resolve, Router } from "@angular/router";
-import { catchError, first, map } from "rxjs/operators";
-import { CourseEntity } from "./../models/entity/course.entity";
-import { CoursesService } from "./../services/courses.service";
 import { Injectable } from "@angular/core";
+import { ActivatedRouteSnapshot, Resolve, Router } from "@angular/router";
+
 import { Observable, of } from "rxjs";
+import { catchError, first, tap, filter } from "rxjs/operators";
+
+import { Store, select } from "@ngrx/store";
+
+import { AppState } from "./../../core/models/interfaces/app-state.interface";
+import { CourseEntity } from "./../models/entity/course.entity";
+import { selectCourseById } from "../store/courses.selectors";
+import { Course } from "../models/interfaces/course.interface";
+import { LoadCourseByIdStarted } from "./../store/courses.actions";
 
 @Injectable()
-export class CourseResolverGuard implements Resolve<CourseEntity> {
+export class CourseResolverGuard implements Resolve<Course> {
   constructor(
-    private coursesService: CoursesService,
     private router: Router,
+    private store: Store<AppState>
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<CourseEntity | null> {
+  resolve(route: ActivatedRouteSnapshot): Observable<Course | null> {
 
     if (!route.params.courseId) {
       return of(null);
@@ -20,15 +27,14 @@ export class CourseResolverGuard implements Resolve<CourseEntity> {
 
     const { courseId } = route.params;
 
-    return this.coursesService.loadCourseById(courseId).pipe(
-      map((course: CourseEntity) => {
-        if (course) {
-          return course;
-        } else {
-          this.router.navigate(["/courses"]);
-          return null;
+    return this.store.pipe(
+      select(selectCourseById(courseId)),
+      tap(с => {
+        if (!с) {
+          this.store.dispatch(new LoadCourseByIdStarted(courseId));
         }
       }),
+      filter(CourseEntity.isCourse),
       first(),
       catchError(() => {
         this.router.navigate(["/courses"]);
