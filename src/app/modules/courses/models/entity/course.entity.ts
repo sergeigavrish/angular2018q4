@@ -11,18 +11,18 @@ export class CourseEntity implements Course {
     public topRated: boolean = false
   ) { }
 
-  static isCourse(course: Object | Course): course is Course {
+  static isCourse = (course: Object | Course): course is Course => {
     const c = course as Course;
-    return c.hasOwnProperty("name") && typeof c.name === "string" && c.name.length
+    return c && c.hasOwnProperty("name") && typeof c.name === "string" && c.name.length
       && c.hasOwnProperty("date") && !isNaN(new Date(c.date) as any)
       && c.hasOwnProperty("length") && c.length > 0 && !isNaN(c.length)
       && c.hasOwnProperty("description") && typeof (c.description) === "string"
       && c.hasOwnProperty("topRated") && typeof (c.topRated) === "boolean";
   }
 
-  static isArrayOfCourse(arr: Array<any> | Array<Course>): arr is Array<Course> {
+  static isArrayOfCourse = (arr: Array<any> | Array<Course>): arr is Array<Course> => {
     const arrayOfCourse = arr as Array<Course>;
-    return arrayOfCourse.every(c => this.isCourse(c));
+    return arrayOfCourse && arrayOfCourse.every(c => CourseEntity.isCourse(c));
   }
 
 }

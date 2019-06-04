@@ -22,8 +22,8 @@ export class CoursesService {
     return this.storage.load<CourseRequestParams>({ textFragment }) as Observable<Array<Course>>;
   }
 
-  loadCourses(start = 0): Observable<Course[]> {
-    return this.storage.load<CourseRequestParams>({ start, count: this.count }) as Observable<Course[]>;
+  loadCourses(start = 0, counter?: number): Observable<Course[]> {
+    return this.storage.load<CourseRequestParams>({ start, count: counter ? counter : this.count }) as Observable<Course[]>;
   }
 
   loadCourseById(id: string): Observable<Course> {
