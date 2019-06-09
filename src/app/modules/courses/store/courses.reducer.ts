@@ -1,3 +1,6 @@
+import { arrayToIndexedObject } from "./../../shared/helpers/index";
+import { CoursesState } from "../models/interfaces/courses-state.interface";
+import { ReqStatus } from "./../../shared/types/index";
 import {
   CoursesActions,
   CoursesActionTypes,
@@ -9,11 +12,9 @@ import {
   SearchCoursesSucceed,
   RestoreCoursesSucceed,
 } from "./courses.actions";
-import { CoursesState } from "../models/interfaces/courses-state.interface";
-import { ReqStatus } from "./../../shared/types/index";
 
 const initialState: CoursesState = {
-  courses: [],
+  courses: {},
   loading: ReqStatus.empty,
   counter: 0
 };
@@ -22,56 +23,34 @@ const handleGetCourses = (state: CoursesState, action: LoadCoursesSucceed): Cour
   return {
     ...state,
     loading: ReqStatus.success,
-    courses: action.payload.reduce((acc, course) => {
-      if (!acc.some(c => c.id === course.id)) {
-        acc = acc.concat(course);
-      }
-      return acc;
-    }, state.courses),
-    counter: state.courses.length + action.payload.length
+    courses: action.payload.reduce((acc, course) => ({
+      ...acc, [course.id]: course
+    }), state.courses),
+    counter: Object.keys(state.courses).length + action.payload.length
   };
 };
 
-const handleSingleCourse = (state: CoursesState, action: CreateCourseSucceed | LoadCourseByIdSucceed) => {
+const handleSingleCourse = (state: CoursesState, action: CreateCourseSucceed | LoadCourseByIdSucceed | UpdateCourseSucceed) => {
   return {
     ...state,
     loading: ReqStatus.success,
-    courses: state.courses.concat(action.payload)
-  };
-};
-
-const handleUpdateCourse = (state: CoursesState, action: UpdateCourseSucceed) => {
-  const course = action.payload;
-  const { courses } = state;
-  const index = courses.findIndex(c => c.id === course.id);
-  return {
-    ...state,
-    loading: ReqStatus.success,
-    courses: [
-      ...courses.slice(0, index),
-      course,
-      ...courses.slice(index + 1),
-    ]
+    courses: { ...state.courses, [action.payload.id]: action.payload }
   };
 };
 
 const handleDeleteCourse = (state: CoursesState, action: DeleteCourseSucceed) => {
-  const { courses } = state;
-  const index = courses.findIndex(c => c.id === action.payload);
+  const { [action.payload]: deletedCourse, ...courses } = state.courses;
   return {
     ...state,
     loading: ReqStatus.success,
-    courses: [
-      ...courses.slice(0, index),
-      ...courses.slice(index + 1)
-    ]
+    courses
   };
 };
 
 const handleSearchCourses = (state: CoursesState, action: SearchCoursesSucceed) => {
   return {
     ...state,
-    courses: action.payload,
+    courses: arrayToIndexedObject(action.payload),
     loading: ReqStatus.success
   };
 }
@@ -79,7 +58,7 @@ const handleSearchCourses = (state: CoursesState, action: SearchCoursesSucceed) 
 const handleRestoreCourses = (state: CoursesState, action: RestoreCoursesSucceed) => {
   return {
     ...state,
-    courses: action.payload,
+    courses: arrayToIndexedObject(action.payload),
     counter: action.payload.length,
     loading: ReqStatus.success
   };
@@ -104,14 +83,12 @@ export function coursesReducer(state = initialState, action: CoursesActions): Co
       return handleLoadStarted(state);
     case CoursesActionTypes.LoadCoursesSucceed:
       return handleGetCourses(state, action);
-    case CoursesActionTypes.CreateCourseSucceed:
-      return handleSingleCourse(state, action);
     case CoursesActionTypes.UpdateCourseSucceed:
-      return handleUpdateCourse(state, action);
-    case CoursesActionTypes.DeleteCourseSucceed:
-      return handleDeleteCourse(state, action);
+    case CoursesActionTypes.CreateCourseSucceed:
     case CoursesActionTypes.LoadCourseByIdSucceed:
       return handleSingleCourse(state, action);
+    case CoursesActionTypes.DeleteCourseSucceed:
+      return handleDeleteCourse(state, action);
     case CoursesActionTypes.SearchCoursesSucceed:
       return handleSearchCourses(state, action);
     case CoursesActionTypes.RestoreCoursesSucceed:

@@ -1,7 +1,7 @@
-import { Course } from "./../models/interfaces/course.interface";
 import { CourseEntity } from "./../models/entity/course.entity";
+import { ICourseEntity } from "../models/interfaces/course-entity.interface";
 
-export const courseFactory = (data: Course) => new CourseEntity(
+export const courseFactory = (data: ICourseEntity) => new CourseEntity(
   data.id,
   data.name,
   new Date(data.date),

@@ -1,6 +1,7 @@
 import { Course } from "../interfaces/course.interface";
+import { ICourseEntity } from "../interfaces/course-entity.interface";
 
-export class CourseEntity implements Course {
+export class CourseEntity implements ICourseEntity {
   constructor(
     public id: string,
     public name: string,
@@ -20,9 +21,15 @@ export class CourseEntity implements Course {
       && c.hasOwnProperty("topRated") && typeof (c.topRated) === "boolean";
   }
 
-  static isArrayOfCourse = (arr: Array<any> | Array<Course>): arr is Array<Course> => {
-    const arrayOfCourse = arr as Array<Course>;
-    return arrayOfCourse && arrayOfCourse.every(c => CourseEntity.isCourse(c));
+  static isCourseEntity = (course: Object | ICourseEntity): course is ICourseEntity => {
+    const c = course as ICourseEntity;
+    return c && c.hasOwnProperty("id") && typeof c.id === "string" && c.id.length
+      && CourseEntity.isCourse(c);
+  }
+
+  static isArrayOfCourseEntity = (arr: Array<any> | Array<ICourseEntity>): arr is Array<ICourseEntity> => {
+    const arrayOfCourse = arr as Array<ICourseEntity>;
+    return arrayOfCourse && arrayOfCourse.every(c => CourseEntity.isCourseEntity(c));
   }
 
 }

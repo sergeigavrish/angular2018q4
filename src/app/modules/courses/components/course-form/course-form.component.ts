@@ -10,6 +10,8 @@ import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.ent
 import { OverlayService } from "../../../shared/services/overlay.service";
 import { AppState } from "../../../core/models/interfaces/app-state.interface";
 import { CreateCourseStarted, UpdateCourseStarted } from "../../store/courses.actions";
+import { ICourseEntity } from "../../models/interfaces/course-entity.interface";
+import { CourseEntity } from "../../models/entity/course.entity";
 
 @Component({
   selector: "app-course-form",
@@ -18,7 +20,7 @@ import { CreateCourseStarted, UpdateCourseStarted } from "../../store/courses.ac
 })
 export class CourseFormComponent extends Unsubscribable implements OnInit, OnDestroy {
 
-  course: Course;
+  course: Course | ICourseEntity;
   formTitle: string;
 
   constructor(
@@ -45,7 +47,7 @@ export class CourseFormComponent extends Unsubscribable implements OnInit, OnDes
   onSave() {
     console.log(this.course);
     this.router.navigate(["courses"]);
-    if (this.course.id) {
+    if (CourseEntity.isCourseEntity(this.course)) {
       return this.store.dispatch(new UpdateCourseStarted(this.course));
     } else {
       return this.store.dispatch(new CreateCourseStarted(this.course));

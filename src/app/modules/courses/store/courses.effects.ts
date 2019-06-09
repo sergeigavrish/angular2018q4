@@ -31,10 +31,10 @@ import {
 } from "./courses.actions";
 import { CoursesService } from "../services/courses.service";
 import { CourseEntity } from "../models/entity/course.entity";
-import { Course } from "../models/interfaces/course.interface";
-import { selectCourses, selectCounter } from "./courses.selectors";
+import { selectCounter } from "./courses.selectors";
 import { COUNT_TOKEN } from "../providers/count.provider";
 import { AppState } from "./../../core/models/interfaces/app-state.interface";
+import { ICourseEntity } from "../models/interfaces/course-entity.interface";
 
 @Injectable()
 export class CoursesEffects {
@@ -48,14 +48,13 @@ export class CoursesEffects {
 
   @Effect() loadCourses$ = this.actions$.pipe(
     ofType(CoursesActionTypes.LoadCoursesStarted),
-    withLatestFrom(this.store.pipe(select(selectCourses))),
-    switchMap(([_, courses]) => {
-      const start = this.count * +(courses.length / this.count).toFixed();
-      return this.coursesService.loadCourses(start)
-        .pipe(this.handleResponsePipe<Array<Course>>(
+    withLatestFrom(this.store.pipe(select(selectCounter))),
+    switchMap(([_, counter]) => {
+      return this.coursesService.loadCourses(counter)
+        .pipe(this.handleResponsePipe<Array<ICourseEntity>>(
           LoadCoursesSucceed,
           LoadCoursesFailed,
-          CourseEntity.isArrayOfCourse
+          CourseEntity.isArrayOfCourseEntity
         ))
         .pipe(this.handleErrorPipe(LoadCoursesFailed));
     })
@@ -65,10 +64,10 @@ export class CoursesEffects {
     ofType(CoursesActionTypes.CreateCourseStarted),
     map((action: CreateCourseStarted) => action.payload),
     switchMap(course => this.coursesService.createCourse(course)
-      .pipe(this.handleResponsePipe<Course>(
+      .pipe(this.handleResponsePipe<ICourseEntity>(
         CreateCourseSucceed,
         CreateCourseFailed,
-        CourseEntity.isCourse
+        CourseEntity.isCourseEntity
       ))
       .pipe(this.handleErrorPipe(CreateCourseFailed))
     )
@@ -91,10 +90,10 @@ export class CoursesEffects {
     ofType(CoursesActionTypes.UpdateCourseStarted),
     map((action: UpdateCourseStarted) => action.payload),
     switchMap(course => this.coursesService.updateCourse(course, course.id)
-      .pipe(this.handleResponsePipe<Course>(
+      .pipe(this.handleResponsePipe<ICourseEntity>(
         UpdateCourseSucceed,
         UpdateCourseFailed,
-        CourseEntity.isCourse
+        CourseEntity.isCourseEntity
       ))
       .pipe(this.handleErrorPipe(UpdateCourseFailed))
     )
@@ -104,10 +103,10 @@ export class CoursesEffects {
     ofType(CoursesActionTypes.LoadCourseByIdStarted),
     map((action: LoadCourseByIdStarted) => action.payload),
     switchMap(id => this.coursesService.loadCourseById(id)
-      .pipe(this.handleResponsePipe<Course>(
+      .pipe(this.handleResponsePipe<ICourseEntity>(
         LoadCourseByIdSucceed,
         LoadCourseByIdFailed,
-        CourseEntity.isCourse
+        CourseEntity.isCourseEntity
       ))
       .pipe(this.handleErrorPipe(LoadCourseByIdFailed))
     )
@@ -117,10 +116,10 @@ export class CoursesEffects {
     ofType(CoursesActionTypes.SearchCoursesStarted),
     map((action: SearchCoursesStarted) => action.payload),
     switchMap(v => this.coursesService.searchCourses(v)
-      .pipe(this.handleResponsePipe<Array<Course>>(
+      .pipe(this.handleResponsePipe<Array<ICourseEntity>>(
         SearchCoursesSucceed,
         SearchCoursesFailed,
-        CourseEntity.isArrayOfCourse
+        CourseEntity.isArrayOfCourseEntity
       ))
       .pipe(this.handleErrorPipe(SearchCoursesFailed))
     )
@@ -130,10 +129,10 @@ export class CoursesEffects {
     ofType(CoursesActionTypes.RestoreCoursesStarted),
     withLatestFrom(this.store.pipe(select(selectCounter))),
     switchMap(([_, counter]) => this.coursesService.loadCourses(0, counter)
-      .pipe(this.handleResponsePipe<Array<Course>>(
+      .pipe(this.handleResponsePipe<Array<ICourseEntity>>(
         RestoreCoursesSucceed,
         RestoreCoursesFailed,
-        CourseEntity.isArrayOfCourse
+        CourseEntity.isArrayOfCourseEntity
       ))
       .pipe(this.handleErrorPipe(RestoreCoursesFailed))
     )

@@ -16,7 +16,7 @@ export const selectCounter = createSelector(
 
 export const selectCourseById = (id: string) => createSelector(
   selectCourses,
-  courses => courses.find(c => c.id === id)
+  courses => courses[id]
 );
 
 export const selectCoursesStatus = createSelector(

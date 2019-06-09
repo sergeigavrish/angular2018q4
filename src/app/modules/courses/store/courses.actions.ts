@@ -1,6 +1,7 @@
 import { Action } from "@ngrx/store";
 
 import { Course } from "../models/interfaces/course.interface";
+import { ICourseEntity } from "../models/interfaces/course-entity.interface";
 
 export enum CoursesActionTypes {
   LoadCoursesStarted = "[Courses] LoadCoursesStarted",
@@ -33,7 +34,7 @@ export class LoadCoursesStarted implements Action {
 
 export class LoadCoursesSucceed implements Action {
   readonly type = CoursesActionTypes.LoadCoursesSucceed;
-  constructor(public payload: Array<Course>) { }
+  constructor(public payload: Array<ICourseEntity>) { }
 }
 
 export class LoadCoursesFailed implements Action {
@@ -48,7 +49,7 @@ export class LoadCourseByIdStarted implements Action {
 
 export class LoadCourseByIdSucceed implements Action {
   readonly type = CoursesActionTypes.LoadCourseByIdSucceed;
-  constructor(public payload: Course) { }
+  constructor(public payload: ICourseEntity) { }
 }
 
 export class LoadCourseByIdFailed implements Action {
@@ -63,7 +64,7 @@ export class CreateCourseStarted implements Action {
 
 export class CreateCourseSucceed implements Action {
   readonly type = CoursesActionTypes.CreateCourseSucceed;
-  constructor(public payload: Course) { }
+  constructor(public payload: ICourseEntity) { }
 }
 
 export class CreateCourseFailed implements Action {
@@ -72,12 +73,12 @@ export class CreateCourseFailed implements Action {
 }
 export class UpdateCourseStarted implements Action {
   readonly type = CoursesActionTypes.UpdateCourseStarted;
-  constructor(public payload: Course) { }
+  constructor(public payload: ICourseEntity) { }
 }
 
 export class UpdateCourseSucceed implements Action {
   readonly type = CoursesActionTypes.UpdateCourseSucceed;
-  constructor(public payload: Course) { }
+  constructor(public payload: ICourseEntity) { }
 }
 
 export class UpdateCourseFailed implements Action {
@@ -107,7 +108,7 @@ export class SearchCoursesStarted implements Action {
 
 export class SearchCoursesSucceed implements Action {
   readonly type = CoursesActionTypes.SearchCoursesSucceed;
-  constructor(public payload: Array<Course>) { }
+  constructor(public payload: Array<ICourseEntity>) { }
 }
 
 export class SearchCoursesFailed implements Action {
@@ -122,7 +123,7 @@ export class RestoreCoursesStarted implements Action {
 
 export class RestoreCoursesSucceed implements Action {
   readonly type = CoursesActionTypes.RestoreCoursesSucceed;
-  constructor(public payload: Array<Course>) { }
+  constructor(public payload: Array<ICourseEntity>) { }
 }
 
 export class RestoreCoursesFailed implements Action {

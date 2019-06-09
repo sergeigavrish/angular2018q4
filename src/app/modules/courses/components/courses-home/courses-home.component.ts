@@ -2,13 +2,15 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
 
-import { Course } from "../../models/interfaces/course.interface";
 import { AppState } from "../../../core/models/interfaces/app-state.interface";
 import { selectCourses } from "../../store/courses.selectors";
 import { LoadCoursesStarted } from "../../store/courses.actions";
+import { ICourseEntity } from "../../models/interfaces/course-entity.interface";
+import { indexedObjectToArray } from "./../../../shared/helpers/index";
 
 @Component({
   selector: "app-courses-home",
@@ -17,7 +19,7 @@ import { LoadCoursesStarted } from "../../store/courses.actions";
 })
 export class CoursesHomeComponent implements OnInit {
 
-  courses$: Observable<Array<Course>>;
+  courses$: Observable<Array<ICourseEntity>>;
 
   constructor(
     private router: Router,
@@ -30,7 +32,10 @@ export class CoursesHomeComponent implements OnInit {
 
   private init(): void {
     this.store.dispatch(new LoadCoursesStarted);
-    this.courses$ = this.store.pipe(select(selectCourses));
+    this.courses$ = this.store.pipe(
+      select(selectCourses),
+      map(c => indexedObjectToArray<ICourseEntity>(c))
+    );
   }
 
   load(): void {

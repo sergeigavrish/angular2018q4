@@ -1,8 +1,9 @@
-import { Course } from "./course.interface";
+import { ICourseEntity } from "./course-entity.interface";
 import { ReqStatus } from "./../../../shared/types/index";
+import { IndexedObject } from "../../../shared/models/interfaces/indexed-object.interface";
 
 export interface CoursesState {
-  courses: Array<Course>;
+  courses: IndexedObject<ICourseEntity>;
   loading: ReqStatus;
   counter: number;
 }
