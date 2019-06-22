@@ -7,17 +7,24 @@
   color: $main-color-4;
 }
   
+fieldset {
+  border: none;
+}
+
 .form ::ng-deep {
+
+
   label {
     position: relative;
-    display: block;
-    min-height: 45px;
+    display: flex;
+    min-height: 35px;
     margin: 10px 0;
     
     input,
     textarea {
-      position: absolute;
-      top: 15px;
+      outline: none;
+      margin-top: 10px;
+      background-color: transparent;
       width: 100%;
       border: none;
       border-radius: 0;
@@ -27,23 +34,52 @@
         padding-left: 40px;
       }
 
+      &::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+      ::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+      ::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+          color: transparent;
+      }
+
       &[type="date"]:focus,
       &[type="date"]:valid {
         padding-left: 5px;
       }
       
       &:focus,
-      &:valid {
+      &:valid.ng-valid{
         box-shadow: none;
         border-color: $main-color-4;
+      }
+
+      &:valid.ng-valid+.placeholder{
+        @extend %placeholder;
       }
       
       &:focus+.placeholder {
         @extend %placeholder;
       }
-      
-      &:valid+.placeholder {
-        @extend %placeholder;
+
+      // &.ng-valid {
+        &.placeholder {
+          @extend %placeholder;
+        }
+      // }
+
+      &.ng-invalid {
+        &.ng-touched {
+          border-color: $input-invalid;
+          &+.placeholder {
+            color: $input-invalid;
+            @extend %placeholder;
+          }
+        }
+        &.ng-dirty {
+          border-color: $input-invalid;
+          &+.placeholder {
+            color: $input-invalid;
+            @extend %placeholder;
+          }
+        }
       }
     }
     
@@ -55,17 +91,13 @@
     .placeholder {
       position: absolute;
       display: block;
-      top: 20px;
-      left: 5px;
+      top: 15px;
+      left: 2px;
       z-index: 1;
       font-size: 16px;
       transition: all 200ms ease-in-out;
       width: 100%;
       cursor: text;
-    }
-
-    .invalid {
-      border-color: $input-invalid;
     }
 
     .error {

@@ -1,16 +1,10 @@
 <label class="description">
-  <textarea
-    #formProps="ngModel"
-    [(ngModel)]="course.description"
-    [ngClass]="{invalid: formProps.valid || (formProps.dirty || formProps.touched)}"
-    name="description"
-    type="text"
-    required>
+  <textarea [formControl]="control" type="text">
   </textarea>
   <span class="placeholder">Description</span>
-  <div *ngIf="formProps.invalid && (formProps.dirty || formProps.touched)" class="error">
-    <div *ngIf="formProps.errors.required">
+  <div *ngIf="!control.valid && (control.dirty || control.touched)" class="error">
+    <span *ngIf="control?.errors?.required">
       Description is required.
-    </div>
+    </span>
   </div>
 </label>

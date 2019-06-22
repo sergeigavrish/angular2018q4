@@ -1,11 +1,12 @@
 <app-form-wrapper [title]="formTitle">
-  <form #form="ngForm" (ngSubmit)="onSave()">
-    <div class="form">
-      <app-form-title [course]="course"></app-form-title>
-      <app-form-datepicker [course]="course"></app-form-datepicker>
-      <app-form-duration [course]="course"></app-form-duration>
-      <app-form-description [course]="course"></app-form-description>
-    </div>
-    <app-form-actions [isDisabled]="form.invalid" (cancel)="onCancel()"></app-form-actions>
+  <form [formGroup]="courseForm" (ngSubmit)="onSave()">
+    <fieldset class="form">
+      <app-form-title [control]="courseForm.get('name')"></app-form-title>
+      <app-form-datepicker formControlName="date"></app-form-datepicker>
+      <app-form-duration formControlName="length"></app-form-duration>
+      <app-form-authors formControlName="authors" [options]="authors$ | async" [errors]="courseForm.get('authors').errors"></app-form-authors>
+      <app-form-description [control]="courseForm.get('description')"></app-form-description>
+    </fieldset>
+    <app-form-actions [isDisabled]="courseForm.invalid" (cancel)="onCancel()"></app-form-actions>
   </form>
 </app-form-wrapper>

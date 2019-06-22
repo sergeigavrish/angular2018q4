@@ -1,20 +1,40 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ControlContainer, NgForm } from "@angular/forms";
-import { Course } from "../../../../models/interfaces/course.interface";
+import { Component } from "@angular/core";
+import { FormControl, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
+import { valueAccessorProviderFactory } from "../../../../factories/value-accessor-provider.factory";
+import { validatorsProviderFactory } from "../../../../factories/validators-provider.factory";
 
 @Component({
   selector: "app-form-datepicker",
   templateUrl: "./form-datepicker.component.html",
   styleUrls: ["./form-datepicker.component.scss"],
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
+  providers: [
+    valueAccessorProviderFactory<FormDatepickerComponent>(FormDatepickerComponent),
+    validatorsProviderFactory<FormDatepickerComponent>(FormDatepickerComponent)
+  ]
 })
-export class FormDatepickerComponent implements OnInit {
+export class FormDatepickerComponent {
 
-  @Input() course: Course;
+  control: FormControl = new FormControl("", [Validators.required]);
 
   constructor() { }
 
-  ngOnInit() {
+  onChange = (_) => { };
+  onTouched = () => { };
+
+  writeValue(v) {
+    this.control.setValue(v);
+  }
+
+  registerOnChange(fn: any) {
+    this.control.valueChanges.subscribe((date) => fn(new Date(date)));
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
+  }
+
+  validate(c: AbstractControl): ValidationErrors | null {
+    return c.valid ? null : { required: 42 };
   }
 
 }

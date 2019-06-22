@@ -1,0 +1,136 @@
+@import "../../../../../../../styles/variables/color.scss";
+
+%placeholder {
+  top: 0;
+  cursor: inherit;
+  font-size: 14px;
+  color: $main-color-4;
+}
+  
+:host {
+
+  &.ng-invalid {
+    &.ng-touched {
+      .multyinput__input{
+        border-color: $input-invalid;
+      }
+      .placeholder {
+        color: $input-invalid;
+        @extend %placeholder;
+      }
+    }
+    &.ng-dirty {
+      .multyinput__input{
+        border-color: $input-invalid;
+      }
+      .placeholder {
+        color: $input-invalid;
+        @extend %placeholder;
+      }
+    }
+  }
+
+  &:focus,
+  &.ng-valid{
+    .multyinput__input {
+      border-color: $main-color-4;
+    }
+  }
+
+  &.ng-valid{
+    .placeholder{
+      @extend %placeholder;
+    }
+  }
+  
+  &:focus+.placeholder {
+    @extend %placeholder;
+  }
+
+ &.ng-valid {
+  .multyinput {
+    border-color: $main-color-4;
+  }
+}
+  
+  .actions {
+    top: 50%;
+    position: absolute;
+    z-index: 2;
+    transform: translate(0, -50%);
+    right: 0px;
+    user-select: none;
+  }
+
+  .multyinput {
+    height: 50px;
+    position: relative;
+    
+    &__input {
+      height: 100%;
+      margin: 0;
+      border-bottom: 2px solid $main-color-3;
+
+      &.focused {
+        border-color: $main-color-4;
+      }
+
+      input {
+        border: none;
+      }
+
+      .pill-container {
+        position: relative;
+        display: flex;
+        flex: 1;
+        align-items: flex-end;
+        width: 100%;
+        height: 40px;
+        justify-content: space-between;
+        
+        .pill {
+          border-radius: 100px;
+          background-color: $main-color-4;
+          width: 80px;
+          height: 20px;
+          margin: 0 2px;
+          font-size: 10px;
+          white-space: nowrap;
+          z-index: 2;
+          display: flex;
+          padding: 3px;
+          align-items: center;
+
+          &__cancel {
+            font-size: 10px;
+            margin-left: auto;
+          }
+        }
+      }
+    }
+
+    .list {
+      max-height: 210px;
+      width: 100%;
+      position: absolute;
+      overflow: auto;
+      z-index: 2;
+      display: block;
+      background-color: $button-focused;
+
+      &__option {
+        height: 20px;
+        margin: 1px 0;
+
+        &:hover {
+          background-color: $title-color; 
+        }
+
+        b {
+          color: $title-color;
+        }
+      }
+
+    }
+  }
+}

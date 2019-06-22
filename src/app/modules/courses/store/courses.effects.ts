@@ -49,15 +49,14 @@ export class CoursesEffects {
   @Effect() loadCourses$ = this.actions$.pipe(
     ofType(CoursesActionTypes.LoadCoursesStarted),
     withLatestFrom(this.store.pipe(select(selectCounter))),
-    switchMap(([_, counter]) => {
-      return this.coursesService.loadCourses(counter)
-        .pipe(this.handleResponsePipe<Array<ICourseEntity>>(
-          LoadCoursesSucceed,
-          LoadCoursesFailed,
-          CourseEntity.isArrayOfCourseEntity
-        ))
-        .pipe(this.handleErrorPipe(LoadCoursesFailed));
-    })
+    switchMap(([_, counter]) => this.coursesService.loadCourses(counter)
+      .pipe(this.handleResponsePipe<Array<ICourseEntity>>(
+        LoadCoursesSucceed,
+        LoadCoursesFailed,
+        CourseEntity.isArrayOfCourseEntity
+      ))
+      .pipe(this.handleErrorPipe(LoadCoursesFailed))
+    )
   );
 
   @Effect() createCourse$ = this.actions$.pipe(

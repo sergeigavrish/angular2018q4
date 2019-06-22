@@ -1,16 +1,9 @@
 <label>
-  <input
-    [ngModel]="course.date | date:'yyyy-MM-dd'"
-    (ngModelChange)="course.date = $event"
-    #formProps="ngModel"
-    [ngClass]="{ invalid: formProps.valid || (formProps.dirty || formProps.touched) }"
-    name="date"
-    required
-    type="date">
-    <span class="placeholder">Date</span>
-    <div *ngIf="formProps.invalid && (formProps.dirty || formProps.touched)" class="error">
-      <div *ngIf="formProps.errors.required">
-        Date is required.
-      </div>
+  <input [formControl]="control" type="date" [value]="control.value | date:'yyyy-MM-dd'">
+  <span class="placeholder">Date</span>
+  <div *ngIf="control.invalid && (control.dirty || control.touched)" class="error">
+    <div *ngIf="control?.errors?.required">
+      Date is required.
     </div>
+  </div>
 </label>

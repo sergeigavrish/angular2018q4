@@ -1,16 +1,12 @@
 <label>
-  <input
-  #formProps="ngModel"
-  [(ngModel)]="course.name"
-  [ngClass]="{invalid: formProps.valid || (formProps.dirty || formProps.touched)}"
-  name="title"
-  type="text"
-  required>
+  <input type="text" [formControl]="control">
   <span class="placeholder">Title</span>
-  <div *ngIf="formProps.invalid && (formProps.dirty || formProps.touched)" class="error">
-      <div *ngIf="formProps.errors.required">
-        Title is required.
-      </div>
-    </div>
+  <div *ngIf="!control.valid && (control.dirty || control.touched)" class="error">
+    <span *ngIf="control?.errors?.required">
+      Title is required.
+    </span>
+    <span *ngIf="control?.errors?.maxlength">
+      Maxlength
+    </span>
+  </div>
 </label>
-  

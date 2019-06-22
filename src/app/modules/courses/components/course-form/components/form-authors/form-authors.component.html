@@ -1,0 +1,35 @@
+<section class="multyinput">
+  <label class="multyinput__input" [ngClass]="{focused: isFocused}">
+    <section *ngIf="selected.length" class="pill-container">
+      <p class="pill" *ngFor="let a of selected">
+        {{a.firstName | slice:0:1}} {{a.lastName}}
+        <i class="material-icons pill__cancel" (click)="onDeletePill(a.id)">cancel</i>
+      </p>
+    </section>
+    <input #input *ngIf="isNotFull" type="text" (blur)="onBlur()" (focus)="onFocus()">
+    <span class="placeholder">Authors</span>
+    <ng-container *ngIf="mode === 1 && isNotFull">
+      <i *ngIf="isOpened;else up" class="material-icons actions" (click)="toogleList()">arrow_drop_up</i>
+      <ng-template #up>
+        <i class="material-icons actions" (click)="toogleList()">arrow_drop_down</i>
+      </ng-template>
+    </ng-container>
+    <i *ngIf="mode === 0 && isNotFull" class="material-icons actions" (click)="onCancelSearch()">close</i>
+    <div *ngIf="errors && (dirty || touched)" class="error">
+      <div *ngIf="errors?.required">
+        Authors is required.
+      </div>
+      <div *ngIf="errors?.maxLength">
+        maxlength.
+      </div>
+    </div>
+  </label>
+  <datalist class="list" *ngIf="isOpened && mode === 1">
+    <option class="list__option" *ngFor="let o of options | indexedObjectToArray" (click)="onSelect(o.id)">
+      {{o.firstName}} {{o.lastName}}</option>
+  </datalist>
+  <datalist class="list" *ngIf="mode === 0">
+    <option class="list__option" *ngFor="let a of filtered" (click)="onSelect(a.id)" innerHTML="{{a.firstName}} {{a.lastName}}">
+      </option>
+  </datalist>
+</section>

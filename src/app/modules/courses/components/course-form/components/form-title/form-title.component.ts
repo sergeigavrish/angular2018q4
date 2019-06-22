@@ -1,20 +1,15 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ControlContainer, NgForm } from "@angular/forms";
-import { Course } from "../../../../models/interfaces/course.interface";
+import { FormControl } from "@angular/forms";
+import { Component, Input } from "@angular/core";
 
 @Component({
   selector: "app-form-title",
   templateUrl: "./form-title.component.html",
   styleUrls: ["./form-title.component.scss"],
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
-export class FormTitleComponent implements OnInit {
+export class FormTitleComponent {
 
-  @Input() course: Course;
+  @Input() control: FormControl;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
