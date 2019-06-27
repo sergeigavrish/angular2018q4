@@ -9,15 +9,18 @@ import {
   Component,
   ElementRef,
   Input,
-  ViewChild
+  ViewChild,
+  HostListener
 } from "@angular/core";
 
 import {
   debounceTime,
   map,
-  takeUntil
+  takeUntil,
+  skipUntil,
+  filter
 } from "rxjs/operators";
-import { fromEvent } from "rxjs";
+import { fromEvent, Subject, pipe } from "rxjs";
 
 import { HighlightMatchingPipe } from "../../../../../shared/pipes/highlight-matching.pipe";
 import { IAuthor } from "../../../../models/interfaces/author.interface";
@@ -38,9 +41,17 @@ import { MultiSelectMode } from "../../../../models/types";
 })
 export class FormAuthorsComponent extends Unsubscribable implements AfterViewInit, ControlValueAccessor, Validator {
 
-  @ViewChild("input") input: ElementRef;
+  @ViewChild("input") set elementRef(elementRef: ElementRef) {
+    if (elementRef) {
+      this.input = elementRef;
+      fromEvent(this.input.nativeElement, "keyup")
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .pipe(this.keyupPipe())
+        .subscribe(this.filterAuthors);
+    }
+  }
 
-  @Input() errors;
+  @Input() errors: ValidationErrors | null;
   @Input("options")
   set options(value: IndexedObject<IAuthor>) {
     this.authors = value;
@@ -54,37 +65,38 @@ export class FormAuthorsComponent extends Unsubscribable implements AfterViewIni
     }, {});
   }
 
+  private input: ElementRef;
   private authors: IndexedObject<IAuthor>;
-
   private maxValue = 4;
-  get isNotFull() {
-    return this.selected.length < this.maxValue;
-  }
-
-  selected: Array<IAuthor> = [];
+  private isClicked = new Subject();
 
   isOpened = false;
   isFocused = false;
   touched = false;
   dirty = false;
-
+  selected: Array<IAuthor> = [];
   mode: MultiSelectMode = MultiSelectMode.list;
-
   filtered: Array<IAuthor> = [];
 
-  constructor() { super(); }
+  get isNotFull() {
+    return this.selected.length < this.maxValue;
+  }
 
-  private onChange = (_: any) => { };
-  private onTouched = () => { };
+  @HostListener("click", ["$event"]) clickedInside(e: MouseEvent) {
+    if (this.checkClick(e)) {
+      this.onFocus();
+    }
+  }
+
+  constructor(
+    private el: ElementRef
+  ) { super(); }
 
   ngAfterViewInit() {
-    fromEvent(this.input.nativeElement, "keyup").pipe(
-      takeUntil(this.ngUnsubscribe$),
-      map((e: KeyboardEvent) => (<HTMLInputElement>e.target).value),
-      debounceTime(500),
-      map(v => v.trim().toLowerCase()),
-    )
-      .subscribe(v => this.filterAuthors(v));
+    fromEvent(document, "click")
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(this.clickOutsidePipe())
+      .subscribe(this.onBlur);
   }
 
   writeValue(obj: any): void {
@@ -105,9 +117,9 @@ export class FormAuthorsComponent extends Unsubscribable implements AfterViewIni
 
   validate(c: AbstractControl): ValidationErrors | null {
     if (c.value && !c.value.length) {
-      return { required: "MEAW" };
+      return { required: true };
     } else if (c.value && c.value.length > 4) {
-      return { maxLength: "MEAW2" };
+      return { maxLength: true };
     }
     return null;
   }
@@ -125,19 +137,8 @@ export class FormAuthorsComponent extends Unsubscribable implements AfterViewIni
     if (this.mode === MultiSelectMode.input) {
       this.onCancelSearch();
     }
-
     this.dirty = true;
     return id && this.selected.length < 4 && this.authors[id] && this.writeValue(this.selected.concat(this.authors[id]));
-  }
-
-  onBlur() {
-    this.isFocused = false;
-    this.touched = true;
-    this.onTouched();
-  }
-
-  onFocus() {
-    this.isFocused = true;
   }
 
   onCancelSearch() {
@@ -146,7 +147,23 @@ export class FormAuthorsComponent extends Unsubscribable implements AfterViewIni
     this.isOpened = false;
   }
 
-  private filterAuthors(v: string) {
+  private onChange = (_: any) => { };
+
+  private onTouched = () => { };
+
+  private onBlur = () => {
+    this.isFocused = false;
+    this.touched = true;
+    this.isOpened = false;
+    this.onTouched();
+  }
+
+  private onFocus = () => {
+    this.isFocused = true;
+    this.isClicked.next("");
+  }
+
+  private filterAuthors = (v: string) => {
     if (!v) {
       return this.onCancelSearch();
     }
@@ -173,6 +190,25 @@ export class FormAuthorsComponent extends Unsubscribable implements AfterViewIni
 
   private checkSelected(k: string): boolean {
     return !!this.selected.find(a => a.id === k);
+  }
+
+  private checkClick = (e: MouseEvent) => {
+    return this.el.nativeElement.contains(e.target);
+  }
+
+  private keyupPipe() {
+    return pipe(
+      map((e: KeyboardEvent) => (<HTMLInputElement>e.target).value),
+      debounceTime(500),
+      map(v => v.trim().toLowerCase()),
+    );
+  }
+
+  private clickOutsidePipe = () => {
+    return pipe(
+      filter((e: MouseEvent) => !this.checkClick(e)),
+      skipUntil(this.isClicked.asObservable()),
+    );
   }
 
 }

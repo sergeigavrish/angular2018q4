@@ -6,7 +6,7 @@
         <i class="material-icons pill__cancel" (click)="onDeletePill(a.id)">cancel</i>
       </p>
     </section>
-    <input #input *ngIf="isNotFull" type="text" (blur)="onBlur()" (focus)="onFocus()">
+    <input #input *ngIf="isNotFull" type="text">
     <span class="placeholder">Authors</span>
     <ng-container *ngIf="mode === 1 && isNotFull">
       <i *ngIf="isOpened;else up" class="material-icons actions" (click)="toogleList()">arrow_drop_up</i>

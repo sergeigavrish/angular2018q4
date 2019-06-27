@@ -13,10 +13,10 @@
     &.ng-touched {
       .multyinput__input{
         border-color: $input-invalid;
-      }
-      .placeholder {
-        color: $input-invalid;
-        @extend %placeholder;
+        .placeholder {
+          color: $input-invalid;
+          @extend %placeholder;
+        }
       }
     }
     &.ng-dirty {
@@ -30,7 +30,6 @@
     }
   }
 
-  &:focus,
   &.ng-valid{
     .multyinput__input {
       border-color: $main-color-4;
@@ -41,10 +40,6 @@
     .placeholder{
       @extend %placeholder;
     }
-  }
-  
-  &:focus+.placeholder {
-    @extend %placeholder;
   }
 
  &.ng-valid {
@@ -73,6 +68,10 @@
 
       &.focused {
         border-color: $main-color-4;
+
+        .placeholder {
+          @extend %placeholder;
+        }
       }
 
       input {
