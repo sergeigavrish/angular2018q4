@@ -1,3 +1,5 @@
+import { IAuthor } from "./author.interface";
+
 export interface Course {
   name: string;
   date: Date;
@@ -5,4 +7,5 @@ export interface Course {
   description: string;
   image: string;
   topRated: boolean;
+  authors: Array<IAuthor>;
 }

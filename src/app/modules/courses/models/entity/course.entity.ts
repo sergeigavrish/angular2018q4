@@ -1,5 +1,6 @@
 import { Course } from "../interfaces/course.interface";
 import { ICourseEntity } from "../interfaces/course-entity.interface";
+import { IAuthor } from "../interfaces/author.interface";
 
 export class CourseEntity implements ICourseEntity {
   constructor(
@@ -9,7 +10,8 @@ export class CourseEntity implements ICourseEntity {
     public length: number,
     public description: string,
     public image: string,
-    public topRated: boolean = false
+    public topRated: boolean = false,
+    public authors: Array<IAuthor>
   ) { }
 
   static isCourse = (course: Object | Course): course is Course => {
@@ -18,7 +20,8 @@ export class CourseEntity implements ICourseEntity {
       && c.hasOwnProperty("date") && !isNaN(new Date(c.date) as any)
       && c.hasOwnProperty("length") && c.length > 0 && !isNaN(c.length)
       && c.hasOwnProperty("description") && typeof (c.description) === "string"
-      && c.hasOwnProperty("topRated") && typeof (c.topRated) === "boolean";
+      && c.hasOwnProperty("topRated") && typeof (c.topRated) === "boolean"
+      && c.hasOwnProperty("authors") && Array.isArray(c.authors)  && !!c.authors.length;
   }
 
   static isCourseEntity = (course: Object | ICourseEntity): course is ICourseEntity => {

@@ -20,27 +20,27 @@ export class CoursesService {
   ) { }
 
   searchCourses(textFragment: string): Observable<Array<ICourseEntity>> {
-    return this.storage.load<CourseRequestParams>({ textFragment }) as Observable<Array<ICourseEntity>>;
+    return this.storage.loadReq<CourseRequestParams>({ textFragment }) as Observable<Array<ICourseEntity>>;
   }
 
   loadCourses(start = 0, counter?: number): Observable<ICourseEntity[]> {
-    return this.storage.load<CourseRequestParams>({ start, count: counter ? counter : this.count }) as Observable<ICourseEntity[]>;
+    return this.storage.loadReq<CourseRequestParams>({ start, count: counter ? counter : this.count }) as Observable<ICourseEntity[]>;
   }
 
   loadCourseById(id: string): Observable<Course> {
-    return this.storage.load<CourseRequestParams>({ id }) as Observable<Course>;
+    return this.storage.loadReq<CourseRequestParams>({ id }) as Observable<Course>;
   }
 
   createCourse(data: Course): Observable<Course | boolean> {
-    return this.storage.save<Course>(data);
+    return this.storage.saveReq<Course>(data);
   }
 
   updateCourse(course: ICourseEntity, id: string): Observable<ICourseEntity | boolean> {
-    return this.storage.update(course, id);
+    return this.storage.updateReq(course, id);
   }
 
   deleteCourse(id: string): Observable<string | boolean> {
-    return this.storage.delete(id);
+    return this.storage.deleteReq(id);
   }
 
 }

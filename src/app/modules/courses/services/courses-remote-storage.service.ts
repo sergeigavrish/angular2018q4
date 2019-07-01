@@ -31,10 +31,12 @@ export class CoursesRemoteStorageService implements Storage<ICourseEntity> {
   }
 
   private setupCourseReq(opts: CourseRequestParams) {
+    if (!opts) {
+      return this.http.get(`${environment.backendUrl}/courses`);
+    }
     if (opts.id) {
       return this.http.get(`${environment.backendUrl}/courses/${opts.id}`);
     }
-
     return this.http.get(`${environment.backendUrl}/courses`, { params: opts as { [param: string]: string } });
   }
 
@@ -52,7 +54,7 @@ export class CoursesRemoteStorageService implements Storage<ICourseEntity> {
     );
   }
 
-  load<U>(opts: U): Observable<ICourseEntity | ICourseEntity[]> {
+  loadReq<U>(opts?: U): Observable<ICourseEntity | ICourseEntity[]> {
     return this.setupCourseReq(opts).pipe(
       mergeMap(this.setupCourseRes()),
       catchError(error => {
@@ -62,7 +64,7 @@ export class CoursesRemoteStorageService implements Storage<ICourseEntity> {
     );
   }
 
-  save<T extends object>(data: T): Observable<ICourseEntity | boolean> {
+  saveReq<T extends object>(data: T): Observable<ICourseEntity | boolean> {
     const course = {
       ...data as object,
       image: "https://cdn.lynda.com/courses/375490-636814130086187859_270x480_thumb.jpg"
@@ -73,14 +75,14 @@ export class CoursesRemoteStorageService implements Storage<ICourseEntity> {
     return this.http.post<ICourseEntity>(`${environment.backendUrl}/courses`, course).pipe(this.saveAndUpdatePipe());
   }
 
-  update(data: ICourseEntity, id: string): Observable<ICourseEntity | boolean> {
+  updateReq(data: ICourseEntity, id: string): Observable<ICourseEntity | boolean> {
     if (!CourseEntity.isCourse(data)) {
       return of(false);
     }
     return this.http.put<ICourseEntity>(`${environment.backendUrl}/courses/${id}`, data).pipe(this.saveAndUpdatePipe());
   }
 
-  delete(id: string): Observable<string | boolean> {
+  deleteReq(id: string): Observable<string | boolean> {
     return this.http.delete(`${environment.backendUrl}/courses/${id}`).pipe(
       map(() => id),
       catchError(error => {

@@ -11,6 +11,7 @@ import { selectCourses } from "../../store/courses.selectors";
 import { LoadCoursesStarted } from "../../store/courses.actions";
 import { ICourseEntity } from "../../models/interfaces/course-entity.interface";
 import { indexedObjectToArray } from "./../../../shared/helpers/index";
+import { LoadAuthorsStarted } from "../../store/authors.actions";
 
 @Component({
   selector: "app-courses-home",
@@ -32,6 +33,7 @@ export class CoursesHomeComponent implements OnInit {
 
   private init(): void {
     this.store.dispatch(new LoadCoursesStarted);
+    this.store.dispatch(new LoadAuthorsStarted);
     this.courses$ = this.store.pipe(
       select(selectCourses),
       map(c => indexedObjectToArray<ICourseEntity>(c))

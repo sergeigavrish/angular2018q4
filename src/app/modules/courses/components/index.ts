@@ -9,3 +9,4 @@ export * from "./course-form/components/form-duration/form-duration.component";
 export * from "./course-form/components/form-description/form-description.component";
 export * from "./course-form/components/form-wrapper/form-wrapper.component";
 export * from "./course-form/components/form-actions/form-actions.component";
+export * from "./course-form/components/form-authors/form-authors.component";

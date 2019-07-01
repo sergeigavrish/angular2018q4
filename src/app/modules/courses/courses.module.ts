@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { StoreModule } from "@ngrx/store";
 
@@ -14,7 +15,8 @@ import {
   FormDescriptionComponent,
   FormDurationComponent,
   FormTitleComponent,
-  FormWrapperComponent
+  FormWrapperComponent,
+  FormAuthorsComponent
 } from "./components";
 import {
   CourseDeleteComponent,
@@ -29,8 +31,10 @@ import { OrderByPipe } from "./pipes/order-by.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { StorageProvider } from "./providers/storage.provider";
 import { coursesReducer } from "./store/courses.reducer";
+import { authorsReducer } from "./store/authors.reducer";
 import { CountProvider } from "./providers/count.provider";
 import { CoursesEffects } from "./store/courses.effects";
+import { AuthorsEffects } from "./store/authors.effects";
 
 @NgModule({
   declarations: [
@@ -48,13 +52,16 @@ import { CoursesEffects } from "./store/courses.effects";
     FormWrapperComponent,
     FormDescriptionComponent,
     FormTitleComponent,
-    FormActionsComponent
+    FormActionsComponent,
+    FormAuthorsComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     StoreModule.forFeature("courses", coursesReducer),
-    EffectsModule.forFeature([CoursesEffects]),
+    StoreModule.forFeature("authors", authorsReducer),
+    EffectsModule.forFeature([CoursesEffects, AuthorsEffects]),
     CoursesRoutingModule,
   ],
   entryComponents: [CourseDeleteComponent],

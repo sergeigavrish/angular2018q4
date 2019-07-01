@@ -8,5 +8,6 @@ export const courseFactory = (data: ICourseEntity) => new CourseEntity(
   data.length,
   data.description,
   data.image,
-  data.topRated
+  data.topRated,
+  data.authors
 );
