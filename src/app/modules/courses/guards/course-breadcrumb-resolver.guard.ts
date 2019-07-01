@@ -1,18 +1,20 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve, Router } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 import { Observable, of } from "rxjs";
-import { map, first, catchError } from "rxjs/operators";
+import { map, first, catchError, filter } from "rxjs/operators";
 
-import { CoursesService } from "../services/courses.service";
+import { Store, select } from "@ngrx/store";
+
 import { CourseEntity } from "../models/entity/course.entity";
+import { AppState } from "./../../core/models/interfaces/app-state.interface";
+import { selectCourseById } from "./../store/courses.selectors";
 
 @Injectable()
 export class CourseBreadcrumbResolverGuard implements Resolve<string> {
 
   constructor(
-    private coursesService: CoursesService,
-    private router: Router,
+    private store: Store<AppState>
   ) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<string> {
@@ -23,13 +25,12 @@ export class CourseBreadcrumbResolverGuard implements Resolve<string> {
 
     const { courseId } = route.params;
 
-    return this.coursesService.loadCourseById(courseId).pipe(
-      map((course: CourseEntity) => {
-        return course.name;
-      }),
+    return this.store.pipe(
+      select(selectCourseById(courseId)),
+      filter(CourseEntity.isCourse),
+      map(c => c.name),
       first(),
       catchError(() => {
-        this.router.navigate(["/courses"]);
         return of("");
       })
     );

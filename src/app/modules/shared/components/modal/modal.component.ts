@@ -38,6 +38,9 @@ export class ModalComponent extends Unsubscribable implements OnInit, AfterViewI
 
   ngOnInit() {
     this.isOpened$ = this.modalService.getIsOpened();
+    this.modalService.getHideOveray()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.appModal.hideModalOverlay(this.overlay.nativeElement));
   }
 
   ngAfterViewInit() {

@@ -5,18 +5,23 @@ import {
   OnInit,
   ViewChild
 } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { fromEvent } from "rxjs";
 import {
   debounceTime,
   distinctUntilChanged,
   map,
-  switchMap,
   takeUntil,
-  tap
+  tap,
+  filter
 } from "rxjs/operators";
-import { SearchService } from "../../services/search.service";
+
+import { Store } from "@ngrx/store";
+
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
+import { SearchCoursesStarted, RestoreCoursesStarted } from "./../../../courses/store/courses.actions";
+import { AppState } from "./../../models/interfaces/app-state.interface";
 
 @Component({
   selector: "app-search-panel",
@@ -29,25 +34,30 @@ export class SearchPanelComponent extends Unsubscribable implements OnInit {
 
   @ViewChild("sp") sp: ElementRef;
 
-  constructor(private searchService: SearchService) {
-    super();
-  }
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) { super(); }
 
   ngOnInit() {
     fromEvent(this.sp.nativeElement, "keyup")
       .pipe(
         takeUntil(this.ngUnsubscribe$),
         tap((e: KeyboardEvent) => {
-          if ((<HTMLInputElement>e.target).value.length < 3) {
-            this.searchService.setFoundCourses([]);
+          if (!(<HTMLInputElement>e.target).value.length) {
+            this.store.dispatch(new RestoreCoursesStarted);
           }
         }),
         map(e => (<HTMLInputElement>e.target).value),
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap(this.searchService.search)
+        map(v => v.trim().toLowerCase()),
+        filter(v => v.length >= 3),
       )
-      .subscribe(this.searchService.setFoundCourses);
+      .subscribe(v => {
+        this.router.navigate(["courses"]);
+        this.store.dispatch(new SearchCoursesStarted(v));
+      });
   }
 
 }

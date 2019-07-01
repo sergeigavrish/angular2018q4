@@ -4,28 +4,29 @@ import { Injectable } from "@angular/core";
 import {
   Observable,
   of,
+  pipe
 } from "rxjs";
-import { map, catchError, mergeMap } from "rxjs/operators";
+import { map, catchError, mergeMap, switchMap } from "rxjs/operators";
 
-import { Course } from "./../models/interfaces/course.interface";
 import { courseFactory } from "./../factories/course.factory";
 import { environment } from "../../../../environments/environment";
-import { Storage } from "../models/interfaces/strorage.interfase";
-import { CourseRequestParams } from "../models/interfaces/CourseRequestParams.interface";
+import { Storage } from "../models/interfaces/strorage.interface";
+import { CourseRequestParams } from "../models/interfaces/course-request-params.interface";
 import { CourseEntity } from "../models/entity/course.entity";
+import { ICourseEntity } from "../models/interfaces/course-entity.interface";
 
 @Injectable()
-export class CoursesRemoteStorageService implements Storage<Course> {
+export class CoursesRemoteStorageService implements Storage<ICourseEntity> {
 
   constructor(private http: HttpClient) { }
 
-  private handleCourses(data: Course | Array<Course>) {
+  private handleCourses(data: ICourseEntity | Array<ICourseEntity>) {
     return of(data).pipe(
       map(this.makeCourse)
     );
   }
 
-  private makeCourse(data: Course | Array<Course>) {
+  private makeCourse(data: ICourseEntity | Array<ICourseEntity>) {
     return Array.isArray(data) ? data.map(c => courseFactory(c)) : courseFactory(data);
   }
 
@@ -38,10 +39,20 @@ export class CoursesRemoteStorageService implements Storage<Course> {
   }
 
   private setupCourseRes() {
-    return (data: Course | Array<Course>) => this.handleCourses(data);
+    return (data: ICourseEntity | Array<ICourseEntity>) => this.handleCourses(data);
   }
 
-  load<U>(opts: U): Observable<Course | Course[]> {
+  private saveAndUpdatePipe() {
+    return pipe(
+      switchMap(res => this.handleCourses(res as ICourseEntity) as Observable<ICourseEntity>),
+      catchError(error => {
+        console.warn(error.message);
+        return of(false);
+      })
+    );
+  }
+
+  load<U>(opts: U): Observable<ICourseEntity | ICourseEntity[]> {
     return this.setupCourseReq(opts).pipe(
       mergeMap(this.setupCourseRes()),
       catchError(error => {
@@ -51,28 +62,22 @@ export class CoursesRemoteStorageService implements Storage<Course> {
     );
   }
 
-  save(data: Course): Observable<Course | boolean> {
-    const course = courseFactory({
-      ...data,
+  save<T extends object>(data: T): Observable<ICourseEntity | boolean> {
+    const course = {
+      ...data as object,
       image: "https://cdn.lynda.com/courses/375490-636814130086187859_270x480_thumb.jpg"
-    });
+    };
     if (!CourseEntity.isCourse(course)) {
       return of(false);
     }
-
-    return this.http.post<Course>(`${environment.backendUrl}/courses`, course);
+    return this.http.post<ICourseEntity>(`${environment.backendUrl}/courses`, course).pipe(this.saveAndUpdatePipe());
   }
 
-  update(data: Course, id: string): Observable<Course | boolean> {
+  update(data: ICourseEntity, id: string): Observable<ICourseEntity | boolean> {
     if (!CourseEntity.isCourse(data)) {
       return of(false);
     }
-    return this.http.put<Course>(`${environment.backendUrl}/courses/${id}`, data).pipe(
-      catchError(error => {
-        console.warn(error.message);
-        return of(false);
-      })
-    );
+    return this.http.put<ICourseEntity>(`${environment.backendUrl}/courses/${id}`, data).pipe(this.saveAndUpdatePipe());
   }
 
   delete(id: string): Observable<string | boolean> {

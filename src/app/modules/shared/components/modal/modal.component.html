@@ -1,11 +1,7 @@
 <div
   #overlay
   class="overlay"
-  [ngClass]="{
-    hidden: !(isOpened$ | async),
-    opened: isOpened$ | async
-  }"
-  >
+  [ngClass]="{hidden: !(isOpened$ | async)}">
   <div class="modal">
     <div class="modal__header">
       <button

@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { filter } from "rxjs/operators";
 
-import { Breadcrumb } from "../../models/interfaces/Breadcrumb";
+import { Breadcrumb } from "../../models/interfaces/breadcrumb.interface";
 
 @Component({
   selector: "app-breadcrumbs",

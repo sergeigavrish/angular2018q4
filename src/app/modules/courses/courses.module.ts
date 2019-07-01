@@ -1,6 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
+import { StoreModule } from "@ngrx/store";
+
+import { EffectsModule } from "@ngrx/effects";
+
 import { BorderColorDirective } from "./directives/border-color.directive";
 import { borderColorProvider } from "./providers/border-color.provider";
 import {
@@ -24,6 +28,9 @@ import { FilterPipe } from "./pipes/filter.pipe";
 import { OrderByPipe } from "./pipes/order-by.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { StorageProvider } from "./providers/storage.provider";
+import { coursesReducer } from "./store/courses.reducer";
+import { CountProvider } from "./providers/count.provider";
+import { CoursesEffects } from "./store/courses.effects";
 
 @NgModule({
   declarations: [
@@ -46,12 +53,15 @@ import { StorageProvider } from "./providers/storage.provider";
   imports: [
     CommonModule,
     SharedModule,
+    StoreModule.forFeature("courses", coursesReducer),
+    EffectsModule.forFeature([CoursesEffects]),
     CoursesRoutingModule,
   ],
   entryComponents: [CourseDeleteComponent],
   providers: [
     borderColorProvider,
-    StorageProvider
+    StorageProvider,
+    CountProvider
   ]
 })
 export class CoursesModule { }

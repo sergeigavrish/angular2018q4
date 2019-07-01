@@ -1,13 +1,17 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Observable } from "rxjs";
-import { map, takeUntil } from "rxjs/operators";
+import { takeUntil } from "rxjs/operators";
 
-import { CoursesService } from "../../services/courses.service";
+import { Store } from "@ngrx/store";
+
 import { Course } from "../../models/interfaces/course.interface";
 import { Unsubscribable } from "../../../shared/models/entity/unsubscribable.entity";
 import { OverlayService } from "../../../shared/services/overlay.service";
+import { AppState } from "../../../core/models/interfaces/app-state.interface";
+import { CreateCourseStarted, UpdateCourseStarted } from "../../store/courses.actions";
+import { ICourseEntity } from "../../models/interfaces/course-entity.interface";
+import { CourseEntity } from "../../models/entity/course.entity";
 
 @Component({
   selector: "app-course-form",
@@ -16,22 +20,19 @@ import { OverlayService } from "../../../shared/services/overlay.service";
 })
 export class CourseFormComponent extends Unsubscribable implements OnInit, OnDestroy {
 
-  course: Course;
+  course: Course | ICourseEntity;
   formTitle: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private store: Store<AppState>
   ) { super(); }
 
   ngOnInit() {
     this.route.data
-      .pipe(
-        map(data => data),
-        takeUntil(this.ngUnsubscribe$)
-      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(data => {
         this.course = { ...data.course };
         this.formTitle = data.course ? data.course.title : "Add new course";
@@ -45,17 +46,12 @@ export class CourseFormComponent extends Unsubscribable implements OnInit, OnDes
 
   onSave() {
     console.log(this.course);
-    let res: Observable<any>;
-    if (this.course.id) {
-      res = this.coursesService.updateCourse(this.course, this.course.id);
+    this.router.navigate(["courses"]);
+    if (CourseEntity.isCourseEntity(this.course)) {
+      return this.store.dispatch(new UpdateCourseStarted(this.course));
     } else {
-      res = this.coursesService.createCourse(this.course);
+      return this.store.dispatch(new CreateCourseStarted(this.course));
     }
-    res
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => {
-        this.router.navigate(["courses"]);
-      });
   }
 
   onCancel() {

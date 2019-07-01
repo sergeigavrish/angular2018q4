@@ -1,5 +1,9 @@
 @import "../../../../../styles/variables/color.scss";
 
+.overlay {
+  z-index: 2;
+}
+
 .loader {
     color: $main-color-1;
 }

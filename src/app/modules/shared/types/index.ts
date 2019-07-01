@@ -1,5 +1,6 @@
-export enum SearchStatus {
+export enum ReqStatus {
   empty,
   pending,
   success,
+  error
 }

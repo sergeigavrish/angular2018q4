@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from "@angular/core";
 
-import { takeUntil } from "rxjs/operators";
 
-import { CoursesService } from "./../../services/courses.service";
+import { Store } from "@ngrx/store";
+
 import { ModalService } from "../../../shared/services/modal.service";
 import { Unsubscribable } from "./../../../shared/models/entity/unsubscribable.entity";
+import { AppState } from "../../../core/models/interfaces/app-state.interface";
+import { DeleteCourseStarted } from "../../store/courses.actions";
 
 @Component({
   selector: "app-course-delete",
@@ -17,8 +19,8 @@ export class CourseDeleteComponent extends Unsubscribable implements OnInit {
   @Input() id: string;
 
   constructor(
-    private courseService: CoursesService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private store: Store<AppState>
   ) { super(); }
 
   ngOnInit() {
@@ -29,11 +31,9 @@ export class CourseDeleteComponent extends Unsubscribable implements OnInit {
   }
 
   onConfirm() {
-    this.courseService.deleteCourse(this.id)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(c => {
-        this.modalService.close();
-      });
+    this.modalService.hideOveray();
+    this.store.dispatch(new DeleteCourseStarted(this.id));
+    this.modalService.close();
   }
 
 }
