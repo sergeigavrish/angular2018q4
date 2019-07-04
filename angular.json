@@ -54,14 +54,18 @@
               "outputPath": "dist/angular2018q4-en",
               "i18nFile": "src/assets/i18n/messages.en.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "en"
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error",
+              "baseHref": "/en/"
             },
             "de": {
               "aot": true,
               "outputPath": "dist/angular2018q4-de",
               "i18nFile": "src/assets/i18n/messages.de.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "de"
+              "i18nLocale": "de",
+              "i18nMissingTranslation": "error",
+              "baseHref": "/de/"
             }
           }
         },
