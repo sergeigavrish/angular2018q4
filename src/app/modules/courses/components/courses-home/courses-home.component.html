@@ -2,10 +2,10 @@
   <div class="home-layout__tools tools-panel">
     <a class="tools-panel__tool add-course button" (click)="onAdd()">
       <i class="add-course__icon material-icons">add</i>
-      <p class="add-course__title">Create new Course</p>
+      <p class="add-course__title" i18n>Create new Course</p>
     </a>
   </div>
   <app-courses-list [courses]="courses$ | async"></app-courses-list>
-  <button class="home-layout__load-button button" (click)="load()">Load more</button>
+  <button class="home-layout__load-button button" (click)="load()" i18n>Load more</button>
 </div>
 <router-outlet></router-outlet>

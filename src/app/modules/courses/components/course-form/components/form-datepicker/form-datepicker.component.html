@@ -2,7 +2,7 @@
   <input [formControl]="control" type="date" [value]="control.value | date:'yyyy-MM-dd'">
   <span class="placeholder">Date</span>
   <div *ngIf="control.invalid && (control.dirty || control.touched)" class="error">
-    <div *ngIf="control?.errors?.required">
+    <div *ngIf="control?.errors?.required" i18n>
       Date is required.
     </div>
   </div>

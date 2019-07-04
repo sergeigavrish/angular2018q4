@@ -1,9 +1,9 @@
 <label class="description">
   <textarea [formControl]="control" type="text">
   </textarea>
-  <span class="placeholder">Description</span>
+  <span class="placeholder" i18n>Description</span>
   <div *ngIf="!control.valid && (control.dirty || control.touched)" class="error">
-    <span *ngIf="control?.errors?.required">
+    <span *ngIf="control?.errors?.required" i18n>
       Description is required.
     </span>
   </div>

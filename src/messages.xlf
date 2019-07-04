@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="a817ef2e565053d06453d5b831a730da41223092" datatype="html">
+        <source>title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/header/header.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2872dd289aeeea2cb8287ee96e3fed627f73d1ba" datatype="html">
+        <source>Search course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/header/header.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1645d647e1e13ce78729a44e5997915a87e7204d" datatype="html">
+        <source>
+          sign-in
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/header/header.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6e7f75ae0395607f70cffcba1665be430cbd42ec" datatype="html">
+        <source>
+          sign-out
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/header/header.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d1052cd5d102b24946069ff4388de1610fbbe88d" datatype="html">
+        <source>
+    Footer is here
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/footer/footer.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="de2709ed2cb50de0317c45c3492e532eb1089ec9" datatype="html">
+        <source>
+  path-not-found works!
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/path-not-found/path-not-found.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="849bc3e9cd4e0915de9eb65561d5abfc8a0053bd" datatype="html">
+        <source>...Loading</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/core/components/loader/loader.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="601cd36d99d19fa6c1e35997f49f5e80310b3ee5" datatype="html">
+        <source>
+    Login:
+    <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/auth/components/sign-in/sign-in.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e76663645e5d100beb3a4fe0419b4799c8e95fbf" datatype="html">
+        <source>
+    Password:
+    <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/auth/components/sign-in/sign-in.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="287d3301a32a65a1b31116bda5d3a6463158c42a" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/auth/components/sign-in/sign-in.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ca2a92bc33e11a30e117b255ba8319ead05e89c9" datatype="html">
+        <source>Create new Course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/courses-home/courses-home.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="31666662b7bff1dd199884aad3f418197d8f0b3c" datatype="html">
+        <source>Load more</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/courses-home/courses-home.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8a2a482dbde2b362cced8b68377c23039429419e" datatype="html">
+        <source>Do you really want to delete course <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{title}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-delete/course-delete.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4f20f2d5a6882190892e58b85f6ccbedfa737952" datatype="html">
+        <source>Yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-delete/course-delete.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3d3ae7deebc5949b0c1c78b9847886a94321d9fd" datatype="html">
+        <source>No</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-delete/course-delete.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4cae20b6cb3e92cf25b3742d2a65819e2a05fed2" datatype="html">
+        <source>
+        No data. Feel free to add a new course.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/courses-list/courses-list.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aa8bd9dfcc6bd30c9a1d6f7d9ac6f8c6f354da99" datatype="html">
+        <source>
+      Date is required.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-datepicker/form-datepicker.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a02ea1d4e7424ca989929da5e598f379940fdbf2" datatype="html">
+        <source>Duration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-duration/form-duration.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bd00ffb46f3f97fc9b0420de57983d6892fae8eb" datatype="html">
+        <source>
+      Duration is required.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-duration/form-duration.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="eec715de352a6b114713b30b640d319fa78207a0" datatype="html">
+        <source>Description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-description/form-description.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="275b15f9396caa377c83cb7b03ef9e25b8121d52" datatype="html">
+        <source>
+      Description is required.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-description/form-description.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
+        <source>Title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-title/form-title.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a5b9bba8da79b6fa2e069b0b6db0e1c24e9f322f" datatype="html">
+        <source>
+      Title is required.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-title/form-title.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="32f29bf2ba1c03212dffa18044aa12ff5bded6cc" datatype="html">
+        <source>
+      Maxlength
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-title/form-title.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ea6769bb1e24d7521c3be65165076bd2c6a58142" datatype="html">
+        <source>
+    save
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-actions/form-actions.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="077cd1a53ec045e20831f3991e72fd5f6ebf20c0" datatype="html">
+        <source>
+    cancel
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-actions/form-actions.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="415f73cbdba5d09762df6c89878273c3aa6da51e" datatype="html">
+        <source>Authors</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-authors/form-authors.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="74958e118227a15a9ddacda56df6234d3def7897" datatype="html">
+        <source>
+        Authors is required.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-authors/form-authors.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d8ce2a1884e64c0bb09f805b682d13e866721b91" datatype="html">
+        <source>
+        maxlength.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/courses/components/course-form/components/form-authors/form-authors.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7199ea278cf88676187594b50c314dc7592ae9c0" datatype="html">
+        <source>
+  user-profile works!
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/user/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
