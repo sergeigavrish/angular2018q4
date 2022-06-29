@@ -1,11 +1,11 @@
 <label>
   <input type="text" [formControl]="control">
-  <span class="placeholder">Title</span>
+  <span class="placeholder" i18n>Title</span>
   <div *ngIf="!control.valid && (control.dirty || control.touched)" class="error">
-    <span *ngIf="control?.errors?.required">
+    <span *ngIf="control?.errors?.required" i18n>
       Title is required.
     </span>
-    <span *ngIf="control?.errors?.maxlength">
+    <span *ngIf="control?.errors?.maxlength" i18n>
       Maxlength
     </span>
   </div>

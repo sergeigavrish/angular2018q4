@@ -41,17 +41,19 @@ fieldset {
       }
 
       &[type="date"]:focus,
-      &[type="date"]:valid {
+      &[type="date"].ng-valid,
+      &[type="date"].ng-invalid.ng-touched,
+      &[type="date"].ng-invalid.ng-dirty {
         padding-left: 5px;
       }
       
       &:focus,
-      &:valid.ng-valid{
+      &.ng-valid{
         box-shadow: none;
         border-color: $main-color-4;
       }
 
-      &:valid.ng-valid+.placeholder{
+      &.ng-valid+.placeholder{
         @extend %placeholder;
       }
       
@@ -59,11 +61,9 @@ fieldset {
         @extend %placeholder;
       }
 
-      // &.ng-valid {
-        &.placeholder {
-          @extend %placeholder;
-        }
-      // }
+      &.placeholder {
+        @extend %placeholder;
+      }
 
       &.ng-invalid {
         &.ng-touched {

@@ -4,10 +4,10 @@
       class="logo__image"
       src="https://cdn.worldvectorlogo.com/logos/angular-icon.svg"
       alt="angular logo">
-    <h1 class="logo__title">title</h1>
+    <h1 class="logo__title" i18n>title</h1>
   </div>
   <nav class="header__menu menu">
-    <app-search-panel class="menu__search" placeholder="Search course" *ngIf="isAuthenticated">
+    <app-search-panel class="menu__search" placeholder="Search course" i18n-placeholder *ngIf="isAuthenticated">
     </app-search-panel>
     <ul class="menu__list">
       <li class="menu__list__item" *ngIf="isAuthenticated">
@@ -22,14 +22,14 @@
         <a
           class="menu__link"
           routerLink="/sign-in"
-          routerLinkActive="active">
+          routerLinkActive="active" i18n>
           sign-in
         </a>
       </li>
       <li class="menu__list__item" *ngIf="isAuthenticated">
         <a
           class="menu__link"
-          (click)="onLogOut($event)">
+          (click)="onLogOut($event)" i18n>
           sign-out
         </a>
       </li>

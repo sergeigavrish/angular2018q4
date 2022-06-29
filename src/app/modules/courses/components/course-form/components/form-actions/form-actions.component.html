@@ -1,15 +1,9 @@
 <div class="modal-actions">
-  <button
-    [ngClass]="{invalid: isDisabled}"
-    [disabled]="isDisabled"
-    class="modal-actions__button confirm"
-    type="submit"
-    >
+  <button [ngClass]="{invalid: isDisabled}" [disabled]="isDisabled" class="modal-actions__button confirm" type="submit"
+    i18n>
     save
   </button>
-  <button
-  class="modal-actions__button cancel"
-    (click)="onCancel()">
+  <button class="modal-actions__button cancel" (click)="onCancel()" i18n>
     cancel
   </button>
 </div>

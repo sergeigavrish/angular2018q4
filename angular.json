@@ -48,6 +48,24 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "en": {
+              "aot": true,
+              "outputPath": "dist/angular2018q4-en",
+              "i18nFile": "src/assets/i18n/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error",
+              "baseHref": "/en/"
+            },
+            "de": {
+              "aot": true,
+              "outputPath": "dist/angular2018q4-de",
+              "i18nFile": "src/assets/i18n/messages.de.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "de",
+              "i18nMissingTranslation": "error",
+              "baseHref": "/de/"
             }
           }
         },
@@ -60,6 +78,12 @@
           "configurations": {
             "production": {
               "browserTarget": "angular2018q4:build:production"
+            },
+            "en": {
+              "browserTarget": "angular2018q4:build:en"
+            },
+            "de": {
+              "browserTarget": "angular2018q4:build:de"
             }
           }
         },

@@ -1,9 +1,9 @@
 <label>
   <input type="number" [formControl]="control">
-  <span class="placeholder">Duration</span>
+  <span class="placeholder" i18n>Duration</span>
   <p *ngIf="control.value">{{control.value | duration}}</p>
   <div *ngIf="!control.valid && (control.dirty || control.touched)" class="error">
-    <span *ngIf="control?.errors?.required">
+    <span *ngIf="control?.errors?.required" i18n>
       Duration is required.
     </span>
   </div>
